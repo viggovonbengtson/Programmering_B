@@ -158,7 +158,6 @@ h1
     background-image: url(./assets/pomelo.jpg);
     background-size: cover;
 }
-
 h3
 {
     color: rgb(223, 223, 223); /* text-farve*/
@@ -183,13 +182,63 @@ h3
 {
  background-color: rgb(252,52,104);
 }
-
 #page4
 {
     grid-template-columns: repeat(4, 1fr);
 }
 
+#page5
+{
+    grid-template-columns: 1fr 1fr;
+}
+#page5 .right
+{
+    grid-template-rows: 1fr 1fr;
+}
+#page5 .left
+{
+    background-color: rgb(66, 69, 73);
+}
+#page5 .right .top
+{
+    background-color: rgb(53, 55, 57);
+}
+#page5 .right .bottom
+{
+    background-color: rgb(44, 47, 51);
+}
 
+#page6
+{
+    grid-template-columns: 2fr 1fr;
+}
+#page6 .right
+{
+    grid-template-rows: 1fr 1.5fr;
+}
+#page6 .left
+{
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-image: url(./assets/menuBackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#page6 .right .top
+{
+    background-image: url(./assets/blackguyeatingburger.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#page6 .right .bottom
+{
+ background-image: url(./assets/fatmaneatingburger.jpg);
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+#page6
+{
+
+}
 
 /* TABELLER OG ANDET SHII*/
 
