@@ -7,10 +7,16 @@ function setup()
 {
     console.log('P5 setup kaldt')
     //Sæt event listeners op på menu
-    select('#menu-side2').mousePressed(
-        function()
+    var allenuItems = selectAll('.sidebar a')
+    allenuItems.map(
+        function(item)
         {
-            shiftPage('#page3')
+            item.mousePressed(
+                function()
+                {
+                    shiftPage(item.attribute('action'))
+                }
+            )
         }
     )
 }
