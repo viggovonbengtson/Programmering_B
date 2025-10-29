@@ -1,6 +1,6 @@
 
 
-var currentPage = "#page6"
+var currentPage = "#page1"
 
 
 
