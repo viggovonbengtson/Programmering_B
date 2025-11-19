@@ -13,22 +13,21 @@ function setup()
     //skift til current page
     shiftPage(currentPage)
 
-    //videoen
+    //Videoen
     theVideo = select('#theVideo')
-
-    //video control button
+    //Video control button
     videoButton = select('#videoButton')
-    videoButton.mousePressed( ()=>{
-        console.log('button pressed')
+    videoButton.mousePressed(()=>{
+        //console.log('button pressed')
         if(videoPlaying){
             theVideo.pause()
             videoPlaying = false
-        }
-        else{
+        }else{
             theVideo.play()
             videoPlaying = true
         }
     })
+    
 
 
 
