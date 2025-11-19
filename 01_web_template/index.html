@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="./index.css">
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
 </head>
+<style>
+
+</style>
 <body>
 
     <div class="menu-wrapper">
         <div class="burger-icon">☰</div>
-        <div class="sidebar">
-        </div>
+        <div class="sidebar"></div>
     </div>
 
     <main>
@@ -55,19 +57,21 @@
 
         <div title="Grid With Video" class="page" id="page5">
             <div class="left">
-                <h1>left</h1>
+                <button id="videoButton">Pause</button>
+                <h1 id="overlay">bottom right</h1>
+                <video id="theVideo" src="./assets/trim.14CE179E-40B8-44EC-804A-4BD44815465F.mov" autoplay muted loop></video>
             </div>
             <div class="right">
                 <div class="top">
                     <h1>top right</h1>
                 </div>
                 <div class="bottom">
-                    <h1>bottom right</h1>
+                    <h1>bottom left</h1>
                 </div>
             </div>
         </div>
 
-        <div title="lowkey burger menu" class="page show" id="page6">
+        <div title="lowkey burger menu" class="page" id="page6">
             <div class="left">
                 <div class="top1">
                     <h1>Cheese burger</h1>
