@@ -37,7 +37,7 @@ function setup()
     //løb listen igennem en for en
     allPages.map(
         (page) => {
-            //æav et nyt <a> element
+            //lav et nyt <a> element
             var menuItem = createElement('a')
             //sæt 'a' tagget's html til sidens titel
             menuItem.html(page.attribute('title'))
