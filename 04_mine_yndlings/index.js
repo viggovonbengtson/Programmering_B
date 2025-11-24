@@ -1,6 +1,6 @@
 
 
-var currentPage = "#page1"
+var currentPage = "#page4"
 var videoPlaying = true
 var videoButton, theVideo
 
