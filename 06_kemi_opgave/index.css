@@ -1,0 +1,168 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap'); /* Comic Relief*/
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap'); /* navn: Bungee */
+@import url('https://fonts.googleapis.com/css2?family=Ribeye&display=swap'); /* navn: Ribeye*/
+@import url('https://fonts.googleapis.com/css2?family=Honk&display=swap'); /* navn: Honk*/
+
+
+@font-face {
+    font-family: AndyBold;
+    src: url(./fonts/AndyBold.OTF);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "AndyBold";
+}
+
+/*.menu-wrapper{
+    position: fixed;
+    width: fit-content;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+.burger-icon{
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    font-size: 2rem;
+    color: black;
+    z-index: 3;
+    transition: color 0.1s ease-in-out;
+}
+.menu-wrapper:has(.sidebar:hover) .burger-icon, .burger-icon:hover{
+    color: rgb(255,194,205);
+    transition: color 0.1s ease-in-out;
+}
+.sidebar{
+    position: relative;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 15rem;
+    background-color: rgb(255, 8, 74);
+    color: rgb(255,194,205);
+    padding: 4rem 1rem;
+    box-sizing: border-box;
+    transition: 0.2s ease-in-out all;
+}
+.burger-icon:hover + .sidebar, .sidebar:hover{
+    left: 0;
+    transition: 0.3s ease-in-out all;
+    box-shadow: 0 0 100px 0 rgb(44, 47, 51);
+}
+.sidebar a{
+    font-size: 2rem;
+    display: block;
+    text-decoration: none;
+    color: rgb(255,194,205);
+    margin: 1.2rem 0;
+    opacity: 0.6;
+    transition: opacity 0.1s ease-in-out;
+    transition: all 0.1s ease-out;
+}
+.sidebar a:hover{
+    opacity: 1;
+    transform: translateX(0.5rem);
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px 0 rgb(145, 145, 145));
+}*/
+
+
+.page{
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    /*border: 0.3rem solid black;*/
+    overflow: hidden;
+    display: grid; /* grid layout */
+    place-items: center;
+    position:fixed; /* position fixed - klassen "show" viser pages */
+    left:-100vw;
+    transition: 1s ease-in-out all;
+}
+
+.show{
+    left: 0;
+}
+
+.page div{ /* all div's inside pages are treated as full wide grids */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+#page1{
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#page1 .colum1{
+    background-color: rgb(94, 94, 94);
+}
+#page1 .colum2{
+    background-color: rgb(121, 121, 121);
+}
+#page1 .colum3{
+    background-color: rgb(164, 164, 164);
+}
+
+#page2{
+    grid-template-rows: 3fr 2fr;
+    font-size: 6vh;
+}
+#page2 .top{
+    grid-template-columns: 1fr 2fr;
+}
+#page2 .bottom{
+    background-color: rgb(130, 130, 130);
+}
+#page2 .top .left{
+    background-color: rgb(87, 87, 87);
+}
+#page2 .top .right{
+    background-color: rgb(107, 107, 107);
+}
+
+
+#page3{
+    grid-template-rows: 3fr 2fr;
+    font-size: 6vh;
+}
+#page3 .top{
+    grid-template-columns: 1fr 2fr;
+}
+#page3 .bottom{
+    background-color: rgb(119, 208, 119);
+}
+#page3 .top .left{
+    background-color: rgb(58, 153, 72);
+}
+#page3 .top .right{
+    background-color: rgb(71, 168, 92);
+}
+
+
+#page4{
+    grid-template-rows: 3fr 2fr;
+    font-size: 6vh;
+}
+#page4 .top{
+    grid-template-columns: 1fr 2fr;
+}
+#page4 .bottom{
+    background-color: rgb(143, 211, 217);
+}
+#page4 .top .left{
+    background-color: rgb(84, 138, 163);
+}
+#page4 .top .right{
+    background-color: rgb(100, 187, 211);
+}
+#alkoholButton
+
+
