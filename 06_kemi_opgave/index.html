@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
 </head>
 <style>
-
+    div {text-align: center;}
 </style>
 <body>
 
@@ -16,16 +16,17 @@
 
 
 
-        <div title="3 column grid" class="page" id="page1">
-            <div class="colum1">alkohol
-                <button id="alkoholForklaring"></button>
+        <div title="2 column grid" class="page" id="page1">
+            <div class="colum1">
+                <div class="top"></div>
+                <button class="button" id="alkoholForklaring"></button>
+                <div></div>
             </div>
-            <div class="colum2">aldehyd
-                <button id="aldehydForklaring"></button>
+            <div class="colum2">
+                <div class="top"></div>
+                <button class="button" id="aldehydForklaring"></button>
             </div>
-            <div class="colum3">carboxysyre
-                <button id="carboxysyreForklaring"></button>
-            </div>
+
         </div>
         
         
@@ -34,34 +35,43 @@
             <div class="top">
                 <div class="left">billede</div>
                 <div class="right">
-                    <button id="theButtonTilbage"></button>
+                    <button class="buttonBack" id="theButtonTilbage1"></button>
                 </div>
             </div>
             <div class="bottom">om alkohol</div>
         </div>
-        
-        
-        
-        <div title="alkohol2" class="page" id="page3">
-            <div class="top">
-                <div class="left">billede</div>
-                <div class="right">
-                    <button id="theButtonTilbage"></button>
-                </div>
+
+
+        <div title="dagens forsøg" class="page" id="page3">
+            <div class="forklaring1 parallax">
+                <div class="boxTitel">Kobber og Ethanol</div>
+                    <div class="scroll">
+                        <div.l class="box">
+                            <div class="top">Hvorfor CuO reduceres til Cu i ethanol-oxidationen</div>
+                            <div class="bottom"><br>Fordi ethanol-molekylet fungerer som et reduktionsmiddel da den kan afgive elektroner. CuO fungerer som et oxidationsmiddel da den optager elektroner hvilket gør at den tager et iltatom fra ethanol. Ethanol bliver til et aldehyd, mens kobber (CuO) reduceres til metallisk kobber.
+                                <br><br>I forsøget observerede vi hvordan det varme kobber skifter farve når man holder det over ethanol. Bagefter opdagede vi også at ethanolen lugtede meget sødere bagefter forsøget.
+                                <br><br>Reaktionen for ethanol og oxygen
+                                <br>2 C2H5OH + O2 → 2 CH3CHO + 2 H2O
+                                <br><br>Reaktionshastigheden var utrolig hurtig. Man kan se kobberet skifte farve inden for få sekunder.
+                                <br><br>Reaktionen for kobberoxid og ethanol:
+                                <br>CuO + C2H5OH → CH3CHO + Cu + H2O
+                                <br>
+                            </div>
+                        </div.l>
+                    </div>
             </div>
-            <div class="bottom">om aldehyd</div>
-        </div>
-        
-        
-        
-        <div title="alkohol3" class="page" id="page4">
-            <div class="top">
-                <div class="left">billede</div>
-                <div class="right">
-                    <button id="theButtonTilbage"></button>
-                </div>
+            <div class="forklaring1 parallax">
+                <div class="boxTitel">Kobber og Ethanol</div>
+                    <div class="scroll">
+                        <div.l class="box">
+                            <div class="top">Hvorfor Tollens reagens danner sølvspejl med aldehyder</div>
+                            <div class="bottom"><br>Tollens reagens indeholder sølv(I)-ioner, der er bundet til [Ag(NH_3 )_2 ]. Når en opløsning med et aldehyd tilsættes, sker der en redoxreaktion: aldehydet oxideres til en carboxylsyre og sølv(I)-ionen reducerer til metallisk sølv der sætter sig på glasset inderside som et sølvvspejl. Aldehyder oxideres nemt, men ketoner gør ikke derfor reagere ketoner ikke med Tollens reagens.
+                                <br><br>Her er reaktionen:
+                                <br>når  AgNO3 tilsættes NaOH, der danes et brun-sort bundfald af sølv(I)-oxid:
+                            </div>
+                        </div.l>
+                    </div>
             </div>
-            <div class="bottom">om carboxysyre</div>
         </div>
 
 

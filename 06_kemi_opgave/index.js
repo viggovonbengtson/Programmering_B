@@ -1,5 +1,5 @@
 
-var currentPage = "#page1"
+var currentPage = "#page3"
 var videoButton, theVideo
 var videoPlaying = true
 
@@ -12,25 +12,22 @@ function setup()
     //skift til current page
     shiftPage(currentPage)
 
-    var tilbageButton = createButton("tilbage")
-    select('#theButtonTilbage').child(tilbageButton)
-    tilbageButton.mousePressed( ()=>{
+    var tilbageButton1 = createButton("tilbage")
+    select('#theButtonTilbage1').child(tilbageButton1)
+    tilbageButton1.mousePressed( ()=>{
         shiftPage('#page1') })
 
-    var alkoholButton = createButton('forklaring alkohol')
+
+
+    var alkoholButton = createButton('forklaring af acetone')
     select('#alkoholForklaring').child(alkoholButton)
     alkoholButton.mousePressed( ()=>{
         shiftPage('#page2') })
 
-    var aldehydButton = createButton('forklaring aldehyd')
+    var aldehydButton = createButton('forklaring af dagens forsøg')
     select('#aldehydForklaring').child(aldehydButton)
     aldehydButton.mousePressed( ()=>{
         shiftPage('#page3') })
-        
-    var carboxyButton = createButton('forklaring carboxy syre')
-    select('#carboxysyreForklaring').child(carboxyButton)
-    carboxyButton.mousePressed( ()=>{
-        shiftPage('#page4') })
         
 }
 
