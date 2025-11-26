@@ -2,8 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap'); /* Comic Relief*/
 @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap'); /* navn: Bungee */
 @import url('https://fonts.googleapis.com/css2?family=Ribeye&display=swap'); /* navn: Ribeye*/
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');/* navn: Arimo*/
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap'); /* navn:*/
 @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap'); /* navn: Honk*/
-
 
 @font-face {
     font-family: AndyBold;
@@ -214,11 +215,13 @@
     padding: 1rem;
 }
 #page3 .box .top{
+    font-family: "Ubuntu";
     background-color: black;
     border-radius: 1vh;
     font-size: 2rem;
 }
 #page3 .box .bottom{
+    font-family: "Ubuntu";
     background-color: rgba(rgb(0, 0, 0, 1));
     border-radius: 1rem;
     font-size:1.9rem;

@@ -16,6 +16,10 @@ function setup()
     select('#theButtonTilbage1').child(tilbageButton1)
     tilbageButton1.mousePressed( ()=>{
         shiftPage('#page1') })
+    var tilbageButton2 = createButton("tilbage")
+    select('#theButtonTilbage2').child(tilbageButton2)
+    tilbageButton2.mousePressed( ()=>{
+        shiftPage('#page1') })
 
 
 
