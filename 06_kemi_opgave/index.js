@@ -1,5 +1,5 @@
 
-var currentPage = "#page2"
+var currentPage = "#page1"
 var videoButton, theVideo
 var videoPlaying = true
 
@@ -14,31 +14,24 @@ function setup()
 
     var tilbageButton = createButton("tilbage")
     select('#theButtonTilbage').child(tilbageButton)
-    myButton.mousePressed( ()=>{
+    tilbageButton.mousePressed( ()=>{
         shiftPage('#page1') })
 
     var alkoholButton = createButton('forklaring alkohol')
-    select('#alkoholbutton').child(alkoholButton)
-    myButton.mousePressed( ()=>{
+    select('#alkoholForklaring').child(alkoholButton)
+    alkoholButton.mousePressed( ()=>{
         shiftPage('#page2') })
 
-    var myButton3 = createButton('forklaring aldehyd')
-    select('#theButtonTilbage').child(myButton3)
-    myButton.mousePressed( ()=>{
+    var aldehydButton = createButton('forklaring aldehyd')
+    select('#aldehydForklaring').child(aldehydButton)
+    aldehydButton.mousePressed( ()=>{
         shiftPage('#page3') })
         
-    var myButton4 = createButton('forklaring carboxy syre')
-    select('#theButtonTilbage').child(myButton4)
-    myButton.mousePressed( ()=>{
+    var carboxyButton = createButton('forklaring carboxy syre')
+    select('#carboxysyreForklaring').child(carboxyButton)
+    carboxyButton.mousePressed( ()=>{
         shiftPage('#page4') })
-
-    var myButton = createButton("Få noget mere info!!!!!!!")
-   //Læg en ind i side 5
-   select("#theButton").child(myButton)
-   //Lav en event listener
-   myButton.mousePressed(()=>{
-    shiftPage("#page2")
-   })
+        
 }
 
 function shiftPage(newPage)
