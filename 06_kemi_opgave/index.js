@@ -1,5 +1,5 @@
 
-var currentPage = "#page3"
+var currentPage = "#page1"
 var videoButton, theVideo
 var videoPlaying = true
 
@@ -23,15 +23,24 @@ function setup()
 
 
 
-    var alkoholButton = createButton('forklaring af acetone')
+    var alkoholButton = createButton('forklaring af alkohol, keton og carboxysyre')
     select('#alkoholForklaring').child(alkoholButton)
     alkoholButton.mousePressed( ()=>{
         shiftPage('#page2') })
 
-    var aldehydButton = createButton('forklaring af dagens forsøg')
-    select('#aldehydForklaring').child(aldehydButton)
-    aldehydButton.mousePressed( ()=>{
+    var aldehydButton1 = createButton('forklaring af dagens forsøg')
+    select('#aldehydForklaring').child(aldehydButton1)
+    aldehydButton1.mousePressed( ()=>{
         shiftPage('#page3') })
+
+    var aldehydButton2 = createButton('næste forsøg')
+    select('#aldehydForklaring2').child(aldehydButton2)
+    aldehydButton2.mousePressed( ()=>{
+        shiftPage('#page3') })
+    var aldehydButton3 = createButton('forrige forsøg')
+    select('#aldehydForklaring3').child(aldehydButton3)
+    aldehydButton3.mousePressed( ()=>{
+        shiftPage('#page2') })
         
 }
 

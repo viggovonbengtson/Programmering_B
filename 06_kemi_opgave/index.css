@@ -85,7 +85,7 @@
     place-items: center;
     position:fixed; /* position fixed - klassen "show" viser pages */
     left:-100vw;
-    transition: 1s ease-in-out all;
+    transition: 1.5s ease-in-out all;
 }
 
 .show{
@@ -113,7 +113,7 @@
 #page1 .colum1 .top{
     background-image: url(./assets/acetoneO.jpg);
     margin-top: 15%;
-    background-size: contain;
+    background-size: 50vh;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -122,7 +122,8 @@
     background-color: rgb(121, 121, 121);
 }
 #page1 .colum2 .top{
-    background-image: url(./assets/acetone_aldehyd.jpg);
+    background-image: url(./assets/forsøg_reagensglas.jpg);
+    
     margin-top: 15%;
     background-size: contain;
     background-repeat: no-repeat;
@@ -141,6 +142,8 @@
 }
 
 #page2{
+    background-image: url(./assets/blue_background.jpg);
+    background-size: cover;
     grid-template-rows: 3fr 2fr;
     font-size: 6vh;
 }
@@ -222,9 +225,10 @@
 }
 #page3 .box .bottom{
     font-family: "Ubuntu";
+    font-size:1.9rem;
+    color: rgb(39, 39, 39);
     background-color: rgba(rgb(0, 0, 0, 1));
     border-radius: 1rem;
-    font-size:1.9rem;
 }
 
 .parallax{
@@ -235,30 +239,59 @@
     color: rgb(239, 239, 239);
 }
 
-#page4{
-    grid-template-rows: 3fr 2fr;
-    font-size: 6vh;
-}
-#page4 .top{
-    grid-template-columns: 1fr 2fr;
-}
-#page4 .bottom{
-    background-color: rgb(143, 211, 217);
-}
-#page4 .top .left{
-    background-color: rgb(84, 138, 163);
-}
-#page4 .top .right{
-    background-color: rgb(100, 187, 211);
-}
-
 
 #page2 .buttonBack{
     position: absolute;
     top: 5%;
     right: 5%;
 }
+#theButtonTilbage2{
+    background-color: rgb(0, 0, 0);
+}
+#aldehydForklaring2{
+    position: absolute;
+    top: 12%;
+    right: 5%; 
+}
+#aldehydForklaring3{
+    position: absolute;
+    top: 12%;
+    right: 5%; 
+}
 
+.tabelFrugt
+{
+    border-collapse: collapse;
+    max-width: 50vw;
+    background-color: rgb(255, 255, 255);
+
+    td{
+        font-family: "Ubuntu";
+    }
+    td, th{
+        border: 3px solid #000000;
+        padding: 8px;
+        text-align: center;
+    }
+    th{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-color: #70d269;
+        color: rgb(0, 0, 0);
+    }
+    .side1{
+        background-color: #cbff86;
+    }
+    .side2{
+        background-color: #d3ff99;
+    }
+    .felt1{
+        background-color: #cbff86;
+    }
+    .felt2{
+        background-color: #d3ff99;
+    }
+}
 
 
 /*
