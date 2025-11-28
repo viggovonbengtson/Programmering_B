@@ -2,8 +2,12 @@
 
 var currentPage = "#page1"
 var capture
+var eplosionSound
 
 
+function preload(){
+    eplosionSound = loadSound("./assets/roblox-eplosion.mp3")
+}
 
 //P5 setup bliver kaldt EN gang før siden vises
 function setup()
@@ -13,9 +17,15 @@ function setup()
     //skift til current page
     shiftPage(currentPage)
 
+    //VIDEO
     capture = createCapture(VIDEO)
     capture.size(720, 468)
     select('#page1').child(capture)
+
+    //SOUND
+    select("#eplosion").mousePressed(() =>{
+        eplosionSound.play
+    })
 
     //sæt menu op
     //hent alle sider som et array
