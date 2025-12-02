@@ -1,12 +1,16 @@
 
 
-var currentPage = "#page1"
+var currentPage = "#page3"
 var capture
-var eplosionSound
+var explosionSound
+var chirpSound
+var explosionGif
+var recBtn, recorder, audioFile
+var isRecording = false
 
 
 function preload(){
-    eplosionSound = loadSound("./assets/roblox-eplosion.mp3")
+    explosionSound = loadSound("./assets/roblox-explosion-sound.mp3")
 }
 
 //P5 setup bliver kaldt EN gang før siden vises
@@ -16,16 +20,61 @@ function setup()
 
     //skift til current page
     shiftPage(currentPage)
+    
+    
+    //SOUND
+    select("#explosion").mousePressed(()=>{
+        //Animated GIF
+        explosionGif = createImg("./assets/explosion.gif")
+        select("#page2").child(explosionGif)
+        
+        var pos = select("#explosion").position()
+        console.log(pos)
+        explosionGif.position(pos.x, pos.y)
+        //Skjul explosion så den... eksploderer?
+        select("#explosion").hide()
+        explosionSound.play()
+    })
+    //Opret en lyd med createSound og indsæt den som DOM Binding
+    //Chirp
+    chirpSound = createAudio("./assets/chirp.mp3")
+    chirpSound.showControls()
+    select("#page2").child(chirpSound)
+    chirpSound.play()
+
+    //Lydoptagelse
+    //Start browserens mikrofon
+    var mic = new p5.AudioIn()
+    mic.start()
+    //opret en ny fil til at gemme lyd i
+    audioFile = new p5.SoundFile()
+
+    recorder = new p5.SoundRecorder()
+    recorder.setInput(mic)
+
+    //DOM Binding til knappen
+    recBtn = select("#recBtn")
+    //Start/stop optagelse
+    recBtn.mousePressed(()=>{
+        if(!isRecording){
+            recorder.record(audioFile)
+            isRecording = true
+            recBtn.html("STOP recording")
+        }
+        else{
+            recorder.stop()
+            isRecording = false
+            setTimeout(()=>{
+                audioFile.play()
+            }, 20)
+        }
+    })
 
     //VIDEO
     capture = createCapture(VIDEO)
     capture.size(720, 468)
     select('#page1').child(capture)
 
-    //SOUND
-    select("#eplosion").mousePressed(() =>{
-        eplosionSound.play
-    })
 
     //sæt menu op
     //hent alle sider som et array
