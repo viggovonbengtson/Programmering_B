@@ -1,12 +1,13 @@
 
 
-var currentPage = "#page3"
+var currentPage = "#page4"
 var capture
 var explosionSound
 var chirpSound
 var explosionGif
 var recBtn, recorder, audioFile
 var isRecording = false
+var speakInput, speakBtn
 
 
 function preload(){
@@ -35,6 +36,8 @@ function setup()
         select("#explosion").hide()
         explosionSound.play()
     })
+
+    
     //Opret en lyd med createSound og indsæt den som DOM Binding
     //Chirp
     chirpSound = createAudio("./assets/chirp.mp3")
@@ -66,8 +69,22 @@ function setup()
             isRecording = false
             setTimeout(()=>{
                 audioFile.play()
-            }, 20)
+                save(audioFile, ("sybau alr twin"))
+            }, 500)
+
         }
+    })
+
+    //speech synth
+    speakInp = select("#speakInput")
+    speakBtn = select("#speakBtn")
+    //når man trykker på knappen, læses indholdet i input feltet op
+    speakBtn.mousePressed(()=>{
+        const utterance = new SpeechSynthesisUtterance(speakInp.value())
+        utterance.lang = "ur-PK"
+        utterance.rate = 1.4
+        utterance.pitch = 1.4
+        speechSynthesis.speak(utterance)
     })
 
     //VIDEO
