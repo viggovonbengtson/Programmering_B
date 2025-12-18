@@ -1,7 +1,8 @@
 
 
-var currentPage = "#page1"
-
+var currentPage = "#page3"
+var listeInput, listeHeader, listeButton, listeContainer
+var removeListe
 
 function preload(){
 
@@ -37,12 +38,29 @@ function setup()
     console.log(klassen2T, klassen2T.length)
 
     //sådan looper vi igennem et array:
-    klassen2T.map((hans)=>{
-        console.log("denne person i klassen hedder " + hans)
-        if(confirm("Hedder du ")){
-            
-        }
+    klassen2T.map((e)=>{ //'e' står for 'element'
+        console.log("denne person i klassen hedder " + e)
     })
+
+    
+    //page 2
+    //DOM BINDING
+    listeButton = select("#listeButton")
+    listeHeader = select("#listeHeader")
+    listeInput = select("#listeInput")
+    listeContainer = select("#listeContainer")
+
+    //der er inputfelt i input felt til at tilføje nye elementer
+    createList(klassen2T, listeContainer, 'elev')
+
+    //Page 3
+    //DOM binding
+    removeListe = select('#removeListe')
+    //make a list
+    var elements = ["horse", "hamster", "subway sandwich", "bird", "php", "kangaroo", "Mads"]
+    //call the generic function that makes new html elements
+    createList(elements, removeListe, 'raidVictim')
+
 
     //sæt menu op
     //hent alle sider som et array
@@ -65,12 +83,33 @@ function setup()
 }
 
 
-
-
-
 function shiftPage(newPage)
 {
     select(currentPage).removeClass('show')
     select(newPage).addClass('show')
     currentPage = newPage
 }
+
+//tager to argumenter - hvilken liste den skal gøre noget med og hvor den skal gøre af resultatet
+function createList(list, dest, className){
+    //først søger vi for at der er tomt i containeren
+    dest.html('')
+    list.map( e => {
+        var div = createDiv(e)
+        div.addClass(className)
+        //hvis der er en action i argumenterne - så gør noget
+        if(action){
+            div.mousePressed(()=>{
+                action(div)
+            })
+        }
+        dest.child(div)
+    })
+}
+
+
+function raid(){
+    console.log("village was raided, what village")
+    who.style('background-image', `url("./assets/crossbow.png")`)
+}
+
