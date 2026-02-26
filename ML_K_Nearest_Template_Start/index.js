@@ -134,12 +134,12 @@ function setup() {
         //datasets er de grupper vi byggede ovenfor (en pr. label + "Dit gæt")
         data: {datasets:datasets},
         options: {
+            //scales styrer akserne (navne, visning, min/max mm.)
             scales: {
                 //x-akse titel hentes dynamisk fra variablen colX
                 x:{title:{display:true,text:colX}},
                 //y-akse titel hentes dynamisk fra variablen colY
                 y:{title:{display:true,text:colY}},
-                
             }
         }
     });
