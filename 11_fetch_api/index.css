@@ -111,3 +111,9 @@ body,
 .cards img{
     position: absolute;
 }
+
+#result{
+    font-size: 4rem;
+    display: grid;
+    place-items: center;
+}

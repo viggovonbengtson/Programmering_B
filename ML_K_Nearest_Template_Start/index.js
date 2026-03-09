@@ -50,7 +50,8 @@ function setup() {
     // (Forklar: Vi konverterer tekst-rækker til rigtige Javascript-objekter)
     // -------------------------------------------------------------
     var rows = table.rows
-    rows = shuffle(rows).slice(0, 1000) // Vi begrænser til 1000 punkter for hastighedens skyld
+    rows = shuffle(rows).slice(0, 150) // Vi begrænser til 150 punkter for hastighedens skyld
+    // - at begrænse til 150 gør ikke noget i dette tilfælde, da jeg kun har 150 punkter
 
     data = rows.map(row => {
         // Hent værdier fra de kolonner vi valgte i toppen
@@ -74,21 +75,21 @@ function setup() {
 // -------------------------------------------------------------
 
     // Nu skal vi forberede data til at blive vist med chart.js
-    //Vi skal have fat i de unikke labels for hver gruppe i data
+    // Vi skal have fat i de unikke labels for hver gruppe i data
     var uniqueLabels = []
     data.map( point => {
         //vi kigger på punktets label. HVIS vi ikke har set det label før, så må det være et UNIKT nyt et
         if(!uniqueLabels.includes(point.label)){
             uniqueLabels.push(point.label)
         }
-    } )
+    })
     console.log("vi kiggede alle punkter igennem og fandt disse labels", uniqueLabels)
     //Man kunne sortere labels alfabetisk
     //uniqueLabels.sort()
 
     //omdan data til grupper ud fra de forskellige labels
     var datasets = uniqueLabels.map( (label, index) => {
-        //FILTER funktionen giver os en gruppe emd et bestemt LABEL
+        //FILTER funktionen giver os en gruppe med et bestemt LABEL
         var groupData = data.filter( point => {
             return point.label == label
         })
@@ -211,8 +212,8 @@ function classifyUnknown(){ //klassificer ukendt data
     var inputY = Number(select("#input-y").value())
 
     //2. opdater grafen med det nye punkt
-    //Det sidste dataset er "Dit Gæt"
-    // indæt punktet fra sliderne i grafen
+    // Det sidste dataset er "Dit Gæt"
+    // indsæt punktet fra sliderne i grafen
     var guessDataset = myChart.data.datasets[myChart.data.datasets.length -1]
     guessDataset.data = [{x:inputX, y: inputY}]
 
@@ -236,14 +237,14 @@ function classifyUnknown(){ //klassificer ukendt data
     data.sort((a, b) => a.distance - b.distance)
 
     //5. find de K nærmeste naboer
-    //spørg [k] nærmeste  hvilken gruppe de hører til
+    //spørg [k] nærmeste hvilken gruppe de hører til
     var k = Number(select("#k-slider").value())
     //hvis k=11(vi vælger tætteste 11 naboer), tager den alle punkterne fra 0 -> 11
     //neighbours er nu de første k elementer i data arrayet
     var neighbors = data.slice(0, k)
 
     //6. Tæl stemmer (voting)
-    //de stemmer om resultatet of vinderen er fundet
+    //de stemmer om resultatet og vinderen er fundet
     //votes er et tomt objekt
     var votes = {}
     neighbors.map(n => {

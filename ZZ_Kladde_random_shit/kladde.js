@@ -40,12 +40,9 @@
 
         //3. beregn afstande fra input-punktet til ALLE punkter i data
         // løb data igennem - altså ALLE datapunkterne - og find hver og ens afstand til vores gæt
-        //vi bruger map til at skabe en NY liste hvor hvert punkt har en .distance
         //parameteret "p" står for point
         data = data.map(p => {
             //pythagoras på 2D: dist(x1, y1, x1, y1)
-            //dist ligger i p5.js og den laver pythagoras for os
-            //inputX og inputY er det nye punkt, og p.x og p.y er de allerede punkter
             p.distance = dist(inputX, inputY, p.x, p.y)
             return p
         })

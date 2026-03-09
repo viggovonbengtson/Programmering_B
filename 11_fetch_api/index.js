@@ -1,12 +1,13 @@
 var currentPage = '#page1'
 var deck
+
 var player = {
     cards:[],
     total:0
 }
 
 var dealer = {
-    cards:[],
+    cards: [],
     total:0
 }
 
@@ -19,12 +20,10 @@ function setup(){
     //skift til current page 
     shiftPage(currentPage)
 
-
-
     getDeck()
 
-
-
+    select("#playerDrawBtn").mousePressed(drawCard)
+    select("#playerStandBtn").mousePressed(drawCard)
     
     //Sæt menu op
     //Hent alle sider som et array
@@ -46,88 +45,143 @@ function setup(){
     )
 
 }
-
-// async står for asynconous - vi ved ikke hvor længe et det tager at kære funktionen
-async function getDeck() {
-    try{
-        //fetch kan hente data fra en server ude i "byen"
-        const response = await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
-        //response objektet kommer tilbage fra serveren - og HVIs response.ok er true,
-        console.log("response objektet:", response)
+//Async står for asyncronous - vi ved ikke præcis hvor længe det tager at køre funktionen  
+async function getDeck(){
+    try {
+        //fetch kan hente data fra en server ude i byen 
+        const response = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+        //Repsonse objektet kommer tilbage fr serveren - og HVIS response.ok er true, kan vi hente data
+        console.log("Response objektet:", response)
         if(response.ok){
             const data = await response.json()
-            console.log("data vi får tilbage:", data)
+            console.log("Data vi får tilbage: ", data)
             deck = data
             drawCard()
         }
-    } catch(error){
-
+    } catch (error){
+        console.log(error)
     }
 }
 
+
+
+
+
+
 async function drawCard(){
+    
+    if(state == "dealer"){
+        
+    }
+    if(state == "player"){
+        console.log("showtime - implementer denne funktion til næste gang vi har programmering")
+    }
+    
     if(state == "begin"){
         var cardOne = await getOneCard()
+        //Førtst lægger vi kortetenes værdi oven i spiller variablen (uden hensyn til Es)
         player.cards.push(cardOne)
         var cardTwo = await getOneCard()
         player.cards.push(cardTwo)
-        //dealerens FØRsTE kort skal være skjultd
+
+        //Nu er vi i en situation hvor spillere faktisk kunne havde vundet, kunne have 22 (to es'er), eller bare har fået et eller andet tal under 21
+        if(player.total == 22){
+            player.total = 12
+        }
+        
+        //Dealeres FØRSTE kort skal være skjult
         var dealerCardOne = await getOneCard()
         dealerCardOne.hidden = true
         dealer.cards.push(dealerCardOne)
         var dealerCardTwo = await getOneCard()
         dealer.cards.push(dealerCardTwo)
+        
+        //regn dealerens kort ud for at se om de har BlackJack)
+        player.total += returnCardValue(cardOne)
+        player.total += returnCardValue(cardTwo)
+
+        //scenarie 1: begge har 21
+        if(dealer.total == 21 && player.total == 21){
+            select("#result").html("It's a draw")
+            setTimeout(restart, 3000)
+        }
+        //scenarie 2: dealer har 21, spiller har ikke
+        if(dealer.total == 21 && player.total !=21){
+            select("#result").html("Dealer Won nanana boo boo fucking loser!!")
+            setTimeout(restart, 3000)
+        }
+        /*
+                //scenarie 3: spiller har 21, dealer har ikke
+        if(dealer.total != 21 && player.total ==21){
+            select("#result").html("Player won!!")
+            setTimeout(restart, 3000)
+        }
+        */
+        state = "player"
         showCards()
     }
-    if(state == "dealer"){
-        
-    }
-    if(state == "player"){
-        
-    }
+
+    
+}
+
+
+
+
+function restart(){
+    select("#result").html("")
+    player.cards = []
+    player.total = 0
+    dealer.cards = []
+    dealer.total = 0
+    state = "begin"
+    drawCard()
 }
 
 function showCards(){
-    console.log("showCards er klar med nyt kort", player.cards, dealer.cards)
-    select("#player .cards").html("")
+    console.log("ShowCards er klar med: ", "player", player.cards, "dealer", dealer.cards)
+    select('#player .cards').html('')
     player.cards.map( (c, i) => {
         var img = createImg(c.image)
-        img.style("transform", `translate(${i*40}px, ${i*40}px)`)
-        select("#player .cards").child(img)
-    })
-    select("#dealer .cards").html("")
-    dealer.cards.map( (c, i) => {
-        if(c.hidden){
-            img = createImg("https://deckofcardsapi.com/static/img/back.png")
-        } else{
-            var img = createImg(c.image)
-        }
         img.style('transform', `translate(${i*40}px, ${i*40}px)`)
-        select("#dealer .cards").child(img)
+        select('#player .cards').child(img)
+    })
+    select('#dealer .cards').html('')
+    dealer.cards.map( (c, i) => {
+        var img
+        if(c.hidden){
+            img = createImg('https://deckofcardsapi.com/static/img/back.png')
+        }else{
+            img = createImg(c.image)
+        }
+        
+        img.style('transform', `translate(${i*40}px, ${i*40}px)`)
+        select('#dealer .cards').child(img)
     })
 }
 
 function returnCardValue(card){
     if(isNaN(card.value)){
-        if(card.value=="ACE"){
-            return 10
-        } else{
-            return card.value
+        if(card.value == "ACE"){
+            return 11
+        }else{
+        return 10
         }
+    }else{
+        return card.value
     }
 }
 
 async function getOneCard(){
-    //hent et kort
-    var card
+   //Hent et kort 
     try{
         const response = await fetch(`https://deckofcardsapi.com/api/deck/${deck.deck_id}/draw/?count=1`)
         const data = await response.json()
-        console.log("drawCard", data)
+        console.log("DrawCard kommer tilbage med et nyt kort:", data)
         return data.cards[0]
     } catch(error){
         console.log("Error catched", error)
     }
+
 }
 
 function shiftPage(newPage){
@@ -135,4 +189,3 @@ function shiftPage(newPage){
     select(newPage).addClass('show')
     currentPage = newPage
 }
-
