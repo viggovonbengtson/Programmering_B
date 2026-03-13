@@ -102,6 +102,8 @@ body,
     position:relative;
     display:grid;
     justify-items:center;
+    gap: 12rem;
+    background: lightgrey;
 }
 .cards{
     width: 80%;
@@ -116,4 +118,8 @@ body,
     font-size: 4rem;
     display: grid;
     place-items: center;
+}
+
+button{
+    background: white;
 }

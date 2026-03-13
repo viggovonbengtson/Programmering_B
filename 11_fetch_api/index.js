@@ -11,6 +11,8 @@ var dealer = {
     total:0
 }
 
+
+
 var state = "begin"
 
 //P5 setup() bliver kaldt EN gang før siden vises 
@@ -22,28 +24,35 @@ function setup(){
 
     getDeck()
 
-    select("#playerDrawBtn").mousePressed(drawCard)
-    select("#playerStandBtn").mousePressed(drawCard)
+    select('#playerDrawBtn').mousePressed(() => {
+        if (state !== "player") return;
+        drawCard("player");
+    })
+    select('#playerStandBtn').mousePressed(() => {
+        state == "dealer"
+        drawCard("dealer")
+    })
+    
     
     //Sæt menu op
     //Hent alle sider som et array
     var allPages = selectAll('.page')
     //Løb listen igennem en for en 
     allPages.map(
-       page => {
-        //Lav et nyt <a> element 
-        var menuItem = createElement('a')
-        //Sæt a taggets html til sidens titel
-        menuItem.html(page.attribute('title'))
-        //sæt eventlistener på a tagget
-        menuItem.mousePressed(
-            () => shiftPage('#' + page.attribute('id'))
-        )
-        //sæt a tagget ind i sidebaren
-        select('.sidebar').child(menuItem)
-       }
+        page => {
+            //Lav et nyt <a> element 
+            var menuItem = createElement('a')
+            //Sæt a taggets html til sidens titel
+            menuItem.html(page.attribute('title'))
+            //sæt eventlistener på a tagget
+            menuItem.mousePressed(
+                () => shiftPage('#' + page.attribute('id'))
+            )
+            //sæt a tagget ind i sidebaren
+            select('.sidebar').child(menuItem)
+        }
     )
-
+    console.log(player.total)
 }
 //Async står for asyncronous - vi ved ikke præcis hvor længe det tager at køre funktionen  
 async function getDeck(){
@@ -57,78 +66,139 @@ async function getDeck(){
             console.log("Data vi får tilbage: ", data)
             deck = data
             drawCard()
+            
         }
     } catch (error){
         console.log(error)
     }
 }
 
-
-
-
-
-
-async function drawCard(){
+async function drawCard(newState){
+    
+    if(newState){
+        state = newState
+    }
     
     if(state == "dealer"){
-        
-    }
-    if(state == "player"){
-        console.log("showtime - implementer denne funktion til næste gang vi har programmering")
+        dealer.cards[0].hidden = false
+        showCards()
     }
     
+    if(state == "playerLose"){
+        //gå til game end page siftPage('#page2*), hvor det skal være tydeligt at spilleren har tabt, hvor det er tydeligt at spilleren har tabt
+        //vis en restart knap
+        //ved tryk på den knap
+        //Nulstil player og dealer objekterne
+        //sæt state = begin
+        //kald(getDeck)
+        shiftPage("#page2")
+        select('#restartBtn').mousePressed(() => {
+            player = {
+                cards:[],
+                total:0
+            }
+            dealer = {
+                cards:[],
+                total:0
+            }
+            shiftPage("#page1")
+            getDeck()
+            state = "begin"
+        })
+    }
+
+    if(state == "player"){
+        console.log('Showtime - implementer denne funktion til næste gang vi har programmering')
+        var newCard = await getOneCard()
+        player.cards.push(newCard)
+        showCards()
+        player.total += Number(returnCardValue(newCard))
+        if(player.total < 21){
+            return
+        }
+        if(player.total == 21){
+            state = "dealer"
+            drawCard()
+        }
+        if(player.total > 21){
+            player.cards.map( c => {
+                if(c.value == "ACE"){
+                    c.value = 'ACE-used'
+                    player.total -= 10
+                    if(player.total < 21){
+                        return
+                    }
+                    if(player.total == 21){
+                        state = "dealer"
+                        drawCard()
+                    }
+                }
+            })
+            if(player.total > 21){
+                state = "playerLose"
+                drawCard()
+            }
+            console.log("Player total: ", player.total)
+        }
+        //Træk et kort med funktionen getOneCard()
+        //Plus kortet til total
+        //push det nye kort i player.cards
+        //hvis spilleren har under 21, return
+        //hvis spilleren har 21, skift state til dealer og kald drawCard()
+        //tjek om total er over 21
+        //tjek for es'er ved at mappe player.cards og -10 for hvert es indtil total er under 21
+        //Hvis resultatet er under 21, return
+        //Hvis resultatet stadig er over 21, sæt state = "playerLose" og kald drawCard()
+    }
     if(state == "begin"){
         var cardOne = await getOneCard()
-        //Førtst lægger vi kortetenes værdi oven i spiller variablen (uden hensyn til Es)
+        //først ligger vi kortetenes værdi oven i spiller variablen (uden hensyn til es)
         player.cards.push(cardOne)
         var cardTwo = await getOneCard()
         player.cards.push(cardTwo)
 
-        //Nu er vi i en situation hvor spillere faktisk kunne havde vundet, kunne have 22 (to es'er), eller bare har fået et eller andet tal under 21
+        player.total += Number(returnCardValue(cardOne))
+        player.total += Number(returnCardValue(cardTwo))
+
+        //nu er vi en situation hvor spillere faktisk kunne have vundet, kunne have 22(to es'er), eller bare kunne have fået et eller andet tal under 21. 
         if(player.total == 22){
             player.total = 12
         }
-        
+
         //Dealeres FØRSTE kort skal være skjult
         var dealerCardOne = await getOneCard()
         dealerCardOne.hidden = true
         dealer.cards.push(dealerCardOne)
         var dealerCardTwo = await getOneCard()
         dealer.cards.push(dealerCardTwo)
-        
-        //regn dealerens kort ud for at se om de har BlackJack)
-        player.total += returnCardValue(cardOne)
-        player.total += returnCardValue(cardTwo)
 
-        //scenarie 1: begge har 21
+        //Regn dealerens kort ud for at se om de har blackjack
+        dealer.total += returnCardValue(dealerCardOne)
+        dealer.total += returnCardValue(dealerCardTwo)
+
+         if(dealer.total == 22){
+            dealer.total = 12
+        }
+
+
+
         if(dealer.total == 21 && player.total == 21){
-            select("#result").html("It's a draw")
+            select('#result').html("It's a draw")
             setTimeout(restart, 3000)
         }
-        //scenarie 2: dealer har 21, spiller har ikke
-        if(dealer.total == 21 && player.total !=21){
-            select("#result").html("Dealer Won nanana boo boo fucking loser!!")
+        if(dealer.total == 21 && player.total != 21){
+            select('#result').html("Dealer Won")
             setTimeout(restart, 3000)
         }
-        /*
-                //scenarie 3: spiller har 21, dealer har ikke
-        if(dealer.total != 21 && player.total ==21){
-            select("#result").html("Player won!!")
-            setTimeout(restart, 3000)
-        }
-        */
-        state = "player"
+
         showCards()
+        state = "player"
     }
 
-    
 }
 
-
-
-
 function restart(){
-    select("#result").html("")
+    select('#result').html('')
     player.cards = []
     player.total = 0
     dealer.cards = []
@@ -138,7 +208,7 @@ function restart(){
 }
 
 function showCards(){
-    console.log("ShowCards er klar med: ", "player", player.cards, "dealer", dealer.cards)
+    console.log("ShowCards er klar med: ", player.cards, dealer.cards)
     select('#player .cards').html('')
     player.cards.map( (c, i) => {
         var img = createImg(c.image)
@@ -163,8 +233,8 @@ function returnCardValue(card){
     if(isNaN(card.value)){
         if(card.value == "ACE"){
             return 11
-        }else{
-        return 10
+        }else{   
+            return 10
         }
     }else{
         return card.value
