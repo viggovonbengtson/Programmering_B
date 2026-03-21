@@ -152,11 +152,19 @@ input[type='checkbox'] ,label{
     grid-template-rows: 1fr 2fr;
 }
 #page1 .top{
-    background-image: url(./assets/Terraria-Logo-2011.png);
-    background-size: 100vh;
+    background-size: 80vh;
     background-repeat: no-repeat;   
     background-position: center;
+    animation: titleFade 7s infinite;
 }
+@keyframes titleFade{
+    0% {background-image: url(./assets/Terraria-Logo-forest.png);}
+    25% {background-image: url(./assets/Terraria-Logo-corruption.png);}
+    50% {background-image: url(./assets/Terraria-Logo-corruption.png);}
+    75% {background-image: url(./assets/Terraria-Logo-forest.png);}
+    100% {background-image: url(./assets/Terraria-Logo-forest.png);}
+}
+
 #page1 .bottom{
     grid-template-columns: 3fr 5fr;
 }
