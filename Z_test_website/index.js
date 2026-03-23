@@ -14,7 +14,16 @@ function setup()
     shiftPage(currentPage)
     
     
-    select('#nekstPageButton').mousePressed(() => {
+    select('#nextPageButton1').mousePressed(() => {
+        shiftPage("#page2")
+    })
+    select('#backPageButton2').mousePressed(() => {
+        shiftPage("#page1")
+    })
+    select('#nextPageButton2').mousePressed(() => {
+        shiftPage("#page3")
+    })
+    select('#backPageButton3').mousePressed(() => {
         shiftPage("#page2")
     })
     

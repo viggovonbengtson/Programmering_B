@@ -135,13 +135,19 @@ h1{
         background-image: url(./assets/Boss_Rush_Tier_1.gif);
         background-position: 98% 95%;
         background-repeat: no-repeat;
-        background-size: 5rem;
+        background-size: 6rem;
 }
 #page2{
         background-image: url(./assets/Boss_Rush_Tier_2.gif);
         background-position: 98% 95%;
         background-repeat: no-repeat;
-        background-size: 5rem;
+        background-size: 6rem;
+}
+#page3{
+        background-image: url(./assets/Boss_Rush_Tier_3.gif);
+        background-position: 98% 95%;
+        background-repeat: no-repeat;
+        background-size: 6rem;
 }
 
 /*
