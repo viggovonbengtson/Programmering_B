@@ -98,14 +98,12 @@ body,
 
 #player, #dealer{
     width:80%;
-    height: auto;
-    padding: 2rem 0rem 2rem 0rem;
+    height:80%;
     position:relative;
     display:grid;
     justify-items:center;
     gap: 12rem;
     background: lightgrey;
-    border-radius: 2rem;
 }
 .cards{
     width: 80%;

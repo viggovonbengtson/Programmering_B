@@ -13,7 +13,6 @@ function setup()
     //skift til current page
     shiftPage(currentPage)
     
-    
     select('#nextPageButton1').mousePressed(() => {
         shiftPage("#page2")
     })
@@ -27,6 +26,8 @@ function setup()
         shiftPage("#page2")
     })
     
+    if(currentPage = "#page1"){
+    }
     
     //sæt menu op
     //hent alle sider som et array
