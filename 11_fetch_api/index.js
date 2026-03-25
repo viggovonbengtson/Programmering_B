@@ -85,17 +85,18 @@ async function drawCard(newState){
         dealer.cards[0].hidden = false
         showCards()
 
-        if(dealer.total < 17){
-            //dealer har under 17
+        if(dealer.total < 17){ //dealer har under 17
             var newCard = await getOneCard()
             dealer.cards.push(newCard)
             showCards()
             dealer.total += Number(returnCardValue(newCard))
+
             if(dealer.total < 17){
                 //hvis dealer har under 17
                 drawCard()
             }else{
                 //hvis dealer har over 17
+
                 if(player.total == dealer.total){
                     //player loses
                     state = "playerLose"
@@ -104,28 +105,27 @@ async function drawCard(newState){
                 if(player.total > dealer.total){
                     //player wins
                     //console.log("dealer har mindre")
-                    if(dealer.total < 21){
+                    state = "playerWin"
+                    if(player.total > 21){
                         state = "playerLose"
                         return
                     }
-                    state = "playerWin"
                 }
-                if(player.total < dealer.total){
+                if(dealer.total > player.total){
                     //hvis player har under dealer og dealer er under 21
                     //hvis dealer har fx. 26 taber player stadig
                     //player loses
-                    if(dealer.total < 21){
+                    state = "playerLose"
+                    if(dealer.total > 21){
                         state = "playerWin"
                     }
-                    state = "playerLose"
                     //console.log("dealer har flere");
                 }
             }
-        }else{
-            return
-        }
-        if(dealer.total > 21){
-            state = " playerWin"
+        }else{ //hvis dealer har over 17 i stedet
+            if(dealer.total > 21){
+                state = " playerWin"
+            }
         }
         showCards()
         showTotalValue()
@@ -143,13 +143,13 @@ async function drawCard(newState){
         setTimeout(() => {
             shiftPage("#page2")
             gameRestarts()
-        }, 2000)
+        }, 1000)
     }
     if(state == "playerWin"){
         setTimeout(() => {
             shiftPage("#page3")
             gameRestarts()
-        }, 2000);
+        }, 1000);
     }
     
     if(state == "player"){
@@ -227,13 +227,29 @@ async function drawCard(newState){
             dealer.total = 12
         }
 
+
         showCards()
         showTotalValue()
+
         state = "player"
+
     }
 
     function gameRestarts(){
-        select('#restartBtn').mousePressed(() => {
+        select('#restartBtnWin').mousePressed(() => {
+            player = {
+                cards:[],
+                total:0
+            }
+            dealer = {
+                cards:[],
+                total:0
+            }
+    
+        state = "begin"
+        drawCard()
+        })
+        select('#restartBtnLose').mousePressed(() => {
             player = {
                 cards:[],
                 total:0

@@ -94,6 +94,13 @@ body,
 
 #page1{
     grid-template-columns: 1fr 1fr;
+    background-image: url(./assets/poker-green-table-background-realistic-playing-field-for-card-game-casino-concept-vector.jpg);
+}
+#page2{
+    background-image: url(./assets/poker-green-table-background-realistic-playing-field-for-card-game-casino-concept-vector.jpg);
+}
+#page3{
+    background-image: url(./assets/poker-green-table-background-realistic-playing-field-for-card-game-casino-concept-vector.jpg);
 }
 
 #player, #dealer{
@@ -104,18 +111,33 @@ body,
     display:grid;
     justify-items:center;
     gap: 12rem;
-    background: lightgrey;
+    /*background: rgb(44, 100, 50);*/
+    background-image: url(./assets/greenverticalsml.jpg);
+    background-size: cover;
     border-radius: 2rem;
+    border-width: 0.7rem;
+    border-style: solid;
+    border-color: rgb(19, 52, 19);
+}
+.total{
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgb(199, 244, 198);
 }
 .cards{
+    background-image: url(./assets/Screenshot\ 2026-03-25\ 222357.png);
+    background-size: cover;
     width: 80%;
     height: 40vh;
-    background-color: rgb(149, 163, 168);
+    background-color: rgb(59, 135, 67);
+    border-radius: 2rem;
+    border-width: 0.7rem;
+    border-style: solid;
+    border-color: rgb(157, 216, 156);
 }
 .cards img{
     position: absolute;
 }
-
 #result{
     font-size: 4rem;
     display: grid;
@@ -123,5 +145,16 @@ body,
 }
 
 button{
-    background: white;
+    background: rgb(24, 84, 16);
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgb(199, 244, 198);
+    border-width: 0.3rem;
+    border-style: solid;
+    border-color: rgb(157, 216, 156);
+}
+h1{
+    font-size: 20rem;
+    font-weight: 700;
+    color: rgb(199, 244, 198);
 }
