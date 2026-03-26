@@ -235,36 +235,36 @@ async function drawCard(newState){
 
     }
 
-    function gameRestarts(){
-        select('#restartBtnWin').mousePressed(() => {
-            player = {
-                cards:[],
-                total:0
-            }
-            dealer = {
-                cards:[],
-                total:0
-            }
-    
-        state = "begin"
-        drawCard()
-        })
-        select('#restartBtnLose').mousePressed(() => {
-            player = {
-                cards:[],
-                total:0
-            }
-            dealer = {
-                cards:[],
-                total:0
-            }
-    
-        state = "begin"
-        drawCard()
-        })
-    }
 }
 
+function gameRestarts(){
+    select('#restartBtnWin').mousePressed(() => {
+        player = {
+            cards:[],
+            total:0
+        }
+        dealer = {
+            cards:[],
+            total:0
+        }
+
+    state = "begin"
+    drawCard()
+    })
+    select('#restartBtnLose').mousePressed(() => {
+        player = {
+            cards:[],
+            total:0
+        }
+        dealer = {
+            cards:[],
+            total:0
+        }
+
+    state = "begin"
+    drawCard()
+    })
+}
 function showTotalValue(){
     document.getElementById("playerTotal").innerHTML = player.total
     document.getElementById("dealerTotal").innerHTML = dealer.total
