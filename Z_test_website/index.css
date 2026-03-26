@@ -125,31 +125,38 @@ h1{
 #page1 .bottom .left .lBottom{
     grid-template-columns: 1fr 2fr;
 }
-/*
-#page1 .bottom .left .lBottom .lLeft{
-    background-image: url(./assets/Boss_Rush_Tier_1.gif);
-    background-position: 2rem 7rem;
-    background-repeat: no-repeat;
-    background-size: 6rem;
-    }
-    */
 #page1{
     background-image: url(./assets/Boss_Rush_Tier_1.gif);
     background-position: 98% 95%;
     background-repeat: no-repeat;
     background-size: 6rem;
 }
+
 #page2{
+    grid-template-rows: 3fr 1fr 1fr 5fr;
     background-image: url(./assets/Boss_Rush_Tier_2.gif);
     background-position: 98% 95%;
     background-repeat: no-repeat;
     background-size: 6rem;
 }
+#page2 .top{
+    background-image: url("./assets/Calamity_Logo_1.png");
+    background-size:contain;
+    background-repeat: no-repeat;   
+    background-position: center;
+}
+
 #page3{
     background-image: url(./assets/Boss_Rush_Tier_3.gif);
     background-position: 98% 95%;
     background-repeat: no-repeat;
     background-size: 6rem;
+}
+#page3 .top{
+    background-image: url("./assets/Fargos_logo_1.png");
+    background-size:contain;
+    background-repeat: no-repeat;   
+    background-position: center;
 }
 
 /*

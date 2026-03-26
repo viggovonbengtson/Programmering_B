@@ -12,7 +12,7 @@ function setup()
 
     //skift til current page
     shiftPage(currentPage)
-    
+
     select('#nextPageButton1').mousePressed(() => {
         shiftPage("#page2")
     })
