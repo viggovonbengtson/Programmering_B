@@ -100,13 +100,14 @@ h1{
 }
 
 #page1{
-    grid-template-rows: 3fr 1fr 5fr;
+    grid-template-rows: 4fr 1fr 5fr;
 }
 #page1 .top{
     background-size: 80vh;
     background-repeat: no-repeat;   
     background-position: center;
     animation: titleFade 7s infinite;
+    margin: 2rem;
 }
 @keyframes titleFade{
     0% {background-image: url(./assets/Terraria-Logo-forest.png);}
@@ -157,6 +158,17 @@ h1{
     background-size:contain;
     background-repeat: no-repeat;   
     background-position: center;
+}
+
+.box{
+    grid-template-rows: 1fr 7fr;
+    max-width: 30vw;
+    background-color: rgb(191, 191, 191);
+    border
+}
+.box .top{
+}
+.box .bottom{
 }
 
 /*

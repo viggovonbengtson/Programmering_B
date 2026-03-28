@@ -6,6 +6,7 @@
     <title>Web template with p5.js</title>
     <link rel="stylesheet" href="./index.css">
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+    <script src="p5.js"></script>
 </head>
 <style>
 </style>
@@ -19,13 +20,15 @@
     <main>
         <div class="page" id="page1" title="page 1">
             <div class="top"></div>
-            <div class="box">
-                        <div class="boxTop">Indholdsliste</div>
-                        <h2 class="boxBottom">
-                            <button id="nextPageButton1">Calamity</button>
-                            <button id="nextPageButton2">Fargos</button>
-                        <h2>
+            <div>
+                <div class="box">
+                    <div class="boxTop"> <br>Indholdsliste</div>
+                    <div class="boxBottom">
+                        <button id="nextPageBtnC">Calamity</button>
+                        <button id="nextPageBtnF">Fargos</button>
                     </div>
+                </div>
+            </div>
             <div class="bottom">
                 <div class="left"></div>
                 <div class="right"></div>
@@ -33,10 +36,9 @@
         </div>
         
         
-        <div class="page" id="page2" title="page 2">
+        <div class="page" id="page2" title="calamity">
             <div class="top"></div>
-            <button id="nextPageButton2">next page</button>
-            <button id="backPageButton2">previous page</button>
+            <button id="menuBtnC">Back to menu</button>
             <div class="bottom">
                 <div class="left"></div>
                 <div class="right"></div>
@@ -44,9 +46,9 @@
         </div>
         
         
-        <div class="page" id="page3" title="page 3">
+        <div class="page" id="page3" title="fargos">
             <div class="top"></div>
-            <button id="backPageButton3">previous page</button>
+            <button id="menuBtnF">Back to menu</button>
             <div class="bottom">
                 <div class="left"></div>
                 <div class="right"></div>

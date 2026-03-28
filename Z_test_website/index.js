@@ -13,21 +13,20 @@ function setup()
     //skift til current page
     shiftPage(currentPage)
 
-    select('#nextPageButton1').mousePressed(() => {
-        shiftPage("#page2")
-    })
-    select('#backPageButton2').mousePressed(() => {
+    select('#menuBtnC').mousePressed(() => {
         shiftPage("#page1")
     })
-    select('#nextPageButton2').mousePressed(() => {
-        shiftPage("#page3")
+    select('#menuBtnF').mousePressed(() => {
+        shiftPage("#page1")
     })
-    select('#backPageButton3').mousePressed(() => {
+    select('#nextPageBtnC').mousePressed(() => {
         shiftPage("#page2")
     })
+    select('#nextPageBtnF').mousePressed(() => {
+        shiftPage("#page3")
+    })
     
-    if(currentPage = "#page1"){
-    }
+    console.log(select('#nextPageBtnC'))
     
     //sæt menu op
     //hent alle sider som et array
