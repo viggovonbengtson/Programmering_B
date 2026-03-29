@@ -9,6 +9,15 @@
     <script src="p5.js"></script>
 </head>
 <style>
+    #page1{
+        background-image: url(./assets/Boss_Rush_Tier_1.gif); background-position: 98% 95%; background-repeat: no-repeat; background-size: 6rem;
+    }
+    #page2{
+        background-image: url(./assets/Boss_Rush_Tier_2.gif); background-position: 98% 95%; background-repeat: no-repeat; background-size: 6rem;
+    }
+    #page3{
+        background-image: url(./assets/Boss_Rush_Tier_3.gif); background-position: 98% 95%; background-repeat: no-repeat; background-size: 6rem;
+    }
 </style>
 <body>
 
@@ -20,36 +29,77 @@
     <main>
         <div class="page" id="page1" title="page 1">
             <div class="top"></div>
-            <div>
                 <div class="box">
-                    <div class="boxTop"> <br>Indholdsliste</div>
-                    <div class="boxBottom">
-                        <button id="nextPageBtnC">Calamity</button>
-                        <button id="nextPageBtnF">Fargos</button>
-                    </div>
+                    <div class="boxTop"> <br>Indhold</div>
+                    <ul>
+                        <li>guh</li>
+                        <li><button id="nextPageBtnC">Calamity</button></li>
+                        <li><button id="nextPageBtnF">Fargos</button></li>
+                    </ul>
+                </div>
+                <div class="bottom">
+                    <div class="left"></div>
+                    <div class="right"></div>
                 </div>
             </div>
-            <div class="bottom">
-                <div class="left"></div>
-                <div class="right"></div>
+            
+            
+
+
+
+
+
+            <div class="page" id="page2" title="calamity">
+                <div class="top"></div>
+                <button id="menuBtnC">Back to menu</button>
+                <div class="box">
+                    <div class="boxTop"> <br>Indhold</div>
+                    <ul>
+                        <li>Lore</li>
+                        <li>Bosses</li>
+                        <li>Difficulties</li>
+                    </ul>
+                </div>
+                
+                <div class="bottom">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                </div>
             </div>
-        </div>
-        
-        
-        <div class="page" id="page2" title="calamity">
-            <div class="top"></div>
-            <button id="menuBtnC">Back to menu</button>
-            <div class="bottom">
-                <div class="left"></div>
-                <div class="right"></div>
+
+            <div class="page" id="page2Lore">
+                <h1>guh</h1>
+                <nav>
+                    <a href="#loreItem1">Lore item 1</a>
+                </nav>
+                <section id="loreItem1">
+                    <div.l class="box">
+                        <div class="top">Lore Item <br>"The "</div>
+                        <div class="bottom">
+                        </div>
+                    </div.l>
+                </section>
             </div>
-        </div>
-        
-        
-        <div class="page" id="page3" title="fargos">
-            <div class="top"></div>
-            <button id="menuBtnF">Back to menu</button>
-            <div class="bottom">
+            
+
+
+
+
+            
+            <div class="page" id="page3" title="fargos">
+                <div class="top"></div>
+                <button id="menuBtnF">Back to menu</button>
+                <div class="box">
+                    <div class="boxTop"> <br>Indhold</div>
+                    <div class="content">
+                        <ul>
+                            <li>Lore</li>
+                            <li>Bosses</li>
+                            <li>Difficulties</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bottom">
                 <div class="left"></div>
                 <div class="right"></div>
             </div>

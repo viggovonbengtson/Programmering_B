@@ -20,12 +20,11 @@ function setup()
         shiftPage("#page1")
     })
     select('#nextPageBtnC').mousePressed(() => {
-        shiftPage("#page2")
+        shiftPage("#page2Lore")
     })
     select('#nextPageBtnF').mousePressed(() => {
         shiftPage("#page3")
     })
-    
     console.log(select('#nextPageBtnC'))
     
     //sæt menu op
