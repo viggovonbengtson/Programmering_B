@@ -140,6 +140,9 @@ h1{
     grid-template-columns: 1fr 2fr;
 }
 
+#page2Lore{
+    overflow-y: scroll;
+}
 #page2 .top{
     background-image: url("./assets/Calamity_Logo_2.png");
     background-size:contain;
@@ -184,6 +187,28 @@ h1{
     border-width: 0.2rem;
     border-style: solid
 }
+
+#page2Lore .loreTable{
+    border: 0.2rem solid rgb(92, 92, 92);
+    td, th{
+        font-size: 15px;
+        padding: 8px;
+        text-align: left;
+        border: 1px solid grey;
+    }
+    th{
+        font-size: 20px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: rgb(0, 0, 0);
+    }
+}
+#page2Lore thead{
+    border-width: 0.2rem;
+    border-color: blue;
+    border-style: solid;
+}
+
 
 /*
 

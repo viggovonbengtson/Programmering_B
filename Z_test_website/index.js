@@ -1,6 +1,6 @@
 
 
-var currentPage = "#page1"
+var currentPage = "#page2Lore"
 var videoButton, theVideo
 var videoPlaying = true
 
