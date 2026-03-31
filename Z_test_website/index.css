@@ -139,6 +139,15 @@ h1{
 #page1 .bottom .left .lBottom{
     grid-template-columns: 1fr 2fr;
 }
+#page1 .box{
+    grid-template-rows: 1fr 3fr;
+    max-width: 30vw;
+    background-color: rgb(222, 222, 222);
+    border-radius: 1rem;
+    border-color: black;
+    border-width: 0.2rem;
+    border-style: solid
+}
 
 #page2Lore{
     overflow-y: scroll;
@@ -149,23 +158,6 @@ h1{
     background-repeat: no-repeat;   
     background-position: center;
 }
-
-#page3 .top{
-    background-image: url("./assets/Fargos_logo_1.png");
-    background-size:contain;
-    background-repeat: no-repeat;   
-    background-position: center;
-}
-
-#page1 .box{
-    grid-template-rows: 1fr 3fr;
-    max-width: 30vw;
-    background-color: rgb(222, 222, 222);
-    border-radius: 1rem;
-    border-color: black;
-    border-width: 0.2rem;
-    border-style: solid
-}
 #page2 .box{
     grid-template-rows: 1fr 3fr;
     max-width: 20vw;
@@ -175,6 +167,13 @@ h1{
     border-color: black;
     border-width: 0.2rem;
     border-style: solid
+}
+
+#page3 .top{
+    background-image: url("./assets/Fargos_logo_1.png");
+    background-size:contain;
+    background-repeat: no-repeat;   
+    background-position: center;
 }
 #page3 .box{
     justify-content: left;
@@ -201,6 +200,10 @@ h1{
         padding-top: 15px;
         padding-bottom: 15px;
         color: rgb(0, 0, 0);
+    }
+    .sourceStyling{
+        text-align: center;
+        min-width: auto;
     }
 }
 #page2Lore thead{
