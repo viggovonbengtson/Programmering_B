@@ -1,5 +1,3 @@
-
-
 var currentPage = "#page2Lore"
 var videoButton, theVideo
 var videoPlaying = true
@@ -26,7 +24,7 @@ function setup()
         shiftPage("#page3")
     })
     console.log(select('#nextPageBtnC'))
-    
+
     //sæt menu op
     //hent alle sider som et array
     var allPages = selectAll('.page')
