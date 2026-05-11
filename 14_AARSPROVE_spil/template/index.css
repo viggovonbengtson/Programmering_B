@@ -46,7 +46,6 @@ body {
 }
 .hotspot:hover { transform: scale(1.1); }
 
-button { background: white; }
 
 /* Code-input — skjult, vises med .show */
 .code-input {
@@ -90,35 +89,48 @@ button { background: white; }
 #room1    { background-image: url('./assets/kælder.jpeg'); }
 #room1Door    { background-image: url('./assets/kælder_væg.jpg'); }
 #room2    { background-image: url('./assets/kitchen.jpeg');}
+#room3    { background-image: url('./assets/stue.jpeg');}
+#room4    { background-image: url('./assets/skur.jpg');}
 #complete { background-image: url('./assets/skies.jpg'); }
 
+
+/* ---- INVENTORY OG ITEMS PLACERING ---- */
 #inventory{
     position: fixed;
     bottom: 20px;
     right: 20px;
-
     display: flex;
     gap: 10px;
-
     z-index: 999;
 }
-
 .box{
     width: 70px;
     height: 70px;
-
     background: rgba(255,255,255,0.2);
     border: 2px solid white;
     border-radius: 10px;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .item{
     width: 50px;
 }
+
+/* ---- BUTTONS ---- */
+button { background: white; }
+
+.leftBtn{
+    position: absolute;
+    top: 7rem;
+    left: 2rem;
+}
+.rightBtn{
+    position: absolute;
+    top: 7rem;
+    right: 2rem;
+}
+
 
 /*____________________________
 
@@ -148,21 +160,7 @@ ____________________________*/
     position:absolute;
     left: 40%;
 }
-/* ---- ITEMS PLACERING ---- */
-/*#room1 #inventory{
-    display: grid;
-    border: 0.5rem solid rgb(177, 177, 177);
-    border-radius: 10px;
-    position:absolute;
-    place-items: center;
-    right: 5%;
-    bottom: 3%;
-    min-width: 10rem;
-    min-height: 10rem;    
-}
-#room1 .item{
-    width: 7rem;
-}
+
 /* ---- LÅS POSITIONER ----*/
 #room1Door #lås1 { top: 24%; left: 60.5%; font-size: 2.5rem; } 
 #room1Door #lås2 { top: 76%; left: 60.5%; font-size: 4rem; }
@@ -172,7 +170,7 @@ ____________________________*/
 
 /* ---- ROOM 2 ---- */
 
-/* ---- KLIKBAR OVN ---- */
+/*KLIKBAR OVN*/
 #room2 #ovnBtn{
     opacity: 0;
     display: grid;
@@ -184,4 +182,38 @@ ____________________________*/
     bottom: 0%;
     min-width: 24rem;
     min-height: 25rem;    
+}
+
+/* ---- ROOM 3 ---- */
+#room3 #køleskab{
+    background-image: url(./assets/køleskab.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 25%;
+    height: 100%;
+    position:absolute;
+    top: 20%;
+    left: 35%;
+}
+#room3 #monster{
+    background-image: url(./assets/monster_drink.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 25%;
+    height: 40%;
+    position:absolute;
+    top: 28%;
+    left: 20%;
+}
+
+/* ---- ROOM 4 ---- */
+#room4 #slibesten{
+    background-image: url(./assets/slibesten.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 100%;
+    position:absolute;
+    top: 35%;
+    left: 30%;
 }

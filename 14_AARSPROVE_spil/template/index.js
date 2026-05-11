@@ -7,14 +7,10 @@ var timerInterval = null
 var seconds = 0
 
 // inventory og items
-const inv1 = document.getElementById("invSlot1")
-const inv2 = document.getElementById("invSlot2")
+var invCrowbar = document.getElementById("invCrowbar")
+var invKnife = document.getElementById("invKnife")
 
-const invCrowbar = document.getElementById("invCrowbar")
-const invKnife = document.getElementById("invKnife")
-
-
-// Tools
+//laver to "events". Hvis man får crowbar, bliver crowbar = true. Heraf kan der ske specifikke funktioner hvis crowbar = true
 var crowbar = false
 var kniv = false
 
@@ -22,10 +18,12 @@ var kniv = false
 var symbolsFound = 0
 
 // Rum 1.2: rigtig rækkefølge og tæller
+//rækkdefølgen af låse in order
 var låsAnswer = ['lås1', 'lås3', 'lås2']
 var låsStep = 0
 
 // Rum 2: Ovn
+// det button som har imput felt hvor man finder kniv
 const ovn = document.getElementById("ovn")
 
 
@@ -37,9 +35,10 @@ var scoresRef = db.collection('highscores')
 // ============================================
 function setup() {
     noCanvas()
-    shiftPage('#room1')
+    shiftPage('#room2')
     loadHighScores()
     
+    //vi skjuler crowbar og knife ikonerne
     invCrowbar.hidden = true
     invKnife.hidden = true
 
@@ -70,6 +69,8 @@ function setup() {
     select('#room1Door #lås2').mousePressed(() => clickLås('lås2'))
     select('#room1Door #lås3').mousePressed(() => clickLås('lås3'))
     
+    // -------- BUTTONS --------
+
     // ---- RUM 2: Ovn ----
     select('#room2 #ovnBtn').mousePressed(() => {
         select('#room2 #room2-code').addClass('show')
@@ -78,7 +79,24 @@ function setup() {
         checkRoom2Answer()
     })
     
-
+    // til stuen
+    select('#stueBtn2').mousePressed(() => {
+        shiftPage("#room3")
+    })
+    
+    // ---- RUM 3: Stuen ----
+    select('#køkkenBtn3').mousePressed(() => {
+        shiftPage("#room2")
+    })
+    select('#skurBtn3').mousePressed(() => {
+        shiftPage("#room4")
+    })
+    
+    // ---- RUM 4: Skuret ----
+    select('#stueBtn4').mousePressed(() => {
+        shiftPage("#room3")
+    })
+    
 
 
     // ---- SLUTSIDE ----
