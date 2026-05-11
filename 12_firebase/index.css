@@ -29,8 +29,32 @@ body,
 
 #quotes{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(3px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: 2rem 10vw;
-    max-height: 50vh;
+    height: 50vh;
     overflow: scroll;
+}
+
+.card{
+    min-height:300px;
+    padding:3rem;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.date{
+    color: lightblue;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.delete{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 6rem;
+    fill: red;
+}
+.delete:hover{
+
 }

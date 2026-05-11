@@ -1,0 +1,187 @@
+body {
+    overflow: hidden;
+    background: #111;
+    color: white;
+}
+
+/* Sider — skjult til venstre, vist med .show */
+.page {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    transition: left 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+}
+.page.show { left: 0; }
+
+/* Overlay — centreret indhold oven på baggrund */
+.overlay {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+/* Hint — centreret tekst i toppen af et rum */
+.hint {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    z-index: 10;
+}
+
+/* Hotspot — klikbart element placeret i et rum */
+.hotspot {
+    position: absolute;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 5;
+}
+.hotspot:hover { transform: scale(1.1); }
+
+button { background: white; }
+
+/* Code-input — skjult, vises med .show */
+.code-input {
+    position: absolute;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 20;
+}
+.code-input.show { display: grid; }
+
+.found-counter{
+    font-size: 1.9rem;
+}
+
+/* Timer */
+#timer {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    z-index: 100;
+}
+
+/* High score liste */
+#score-list { list-style: none; }
+#score-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ---- Rum-baggrunde ---- */
+#start    { background-image: url('./assets/kælder.jpeg');}
+#room1    { background-image: url('./assets/kælder.jpeg'); }
+#room1Door    { background-image: url('./assets/kælder_væg.jpg'); }
+#room2    { background-image: url('./assets/kitchen.jpeg');}
+#complete { background-image: url('./assets/skies.jpg'); }
+
+#inventory{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    display: flex;
+    gap: 10px;
+
+    z-index: 999;
+}
+
+.box{
+    width: 70px;
+    height: 70px;
+
+    background: rgba(255,255,255,0.2);
+    border: 2px solid white;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item{
+    width: 50px;
+}
+
+/*____________________________
+
+-----------SPILLET------------
+____________________________*/
+
+
+/* ---- KASSER ---- */
+#room1 #woodenBox {
+    background-image: url("./assets/woodenBox.png"); 
+    background-size: cover;
+    width: 10vw;
+    height: 20vh;
+    position:absolute;
+    top: 55%; 
+    left: 20%;
+}
+/* ---- DØR OG KASSERS PLACERINGER ---- */
+#room1 #symbolDoor { top: -7%; left: 45%; font-size: 20rem;}
+/* ---- ÅBEN DØR ---- */
+#room1Door #kælderdør{
+    background-image: url(./assets/door_closed.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 100%;
+    position:absolute;
+    left: 40%;
+}
+/* ---- ITEMS PLACERING ---- */
+/*#room1 #inventory{
+    display: grid;
+    border: 0.5rem solid rgb(177, 177, 177);
+    border-radius: 10px;
+    position:absolute;
+    place-items: center;
+    right: 5%;
+    bottom: 3%;
+    min-width: 10rem;
+    min-height: 10rem;    
+}
+#room1 .item{
+    width: 7rem;
+}
+/* ---- LÅS POSITIONER ----*/
+#room1Door #lås1 { top: 24%; left: 60.5%; font-size: 2.5rem; } 
+#room1Door #lås2 { top: 76%; left: 60.5%; font-size: 4rem; }
+#room1Door #lås3 { top: 55%; left: 41%; font-size: 3rem; }
+
+
+
+/* ---- ROOM 2 ---- */
+
+/* ---- KLIKBAR OVN ---- */
+#room2 #ovnBtn{
+    opacity: 0;
+    display: grid;
+    border: 0.5rem solid rgb(177, 177, 177);
+    border-radius: 10px;
+    position:absolute;
+    place-items: center;
+    left: 41%;
+    bottom: 0%;
+    min-width: 24rem;
+    min-height: 25rem;    
+}
