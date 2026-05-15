@@ -6,6 +6,17 @@ var gameState = 0
 var timerInterval = null
 var seconds = 0
 
+const køkkenBtn1 = document.querySelector("#køkkenBtn1")
+//room hints
+const room2hint1 = document.querySelector("#room2-hint1")
+const room2hint2 = document.querySelector("#room2-hint2")
+const room2hint3 = document.querySelector("#room2-hint3")
+
+const room4hint1 = document.querySelector("#room4-hint1")
+const room4hint2 = document.querySelector("#room4-hint2")
+const room4hint3 = document.querySelector("#room4-hint3")
+
+
 // inventory og items
 var invCrowbar = document.getElementById("invCrowbar")
 var invKnife = document.getElementById("invKnife")
@@ -13,9 +24,13 @@ var invKnife = document.getElementById("invKnife")
 //laver to "events". Hvis man får crowbar, bliver crowbar = true. Heraf kan der ske specifikke funktioner hvis crowbar = true
 var crowbar = false
 var kniv = false
+var knivSlibet = false
 
 // Rum 1: antal fundne symboler
 var symbolsFound = 0
+// Buttons
+// så vi kan hide/show button efter room1
+
 
 // Rum 1.2: rigtig rækkefølge og tæller
 //rækkdefølgen af låse in order
@@ -35,12 +50,10 @@ var scoresRef = db.collection('highscores')
 // ============================================
 function setup() {
 
-    
-
     noCanvas()
-    shiftPage('#room1')
+    shiftPage('#room2')
     loadHighScores()
-    
+
     //vi skjuler crowbar og knife ikonerne
     invCrowbar.hidden = true
     invKnife.hidden = true
@@ -71,37 +84,69 @@ function setup() {
     select('#room1Door #lås1').mousePressed(() => clickLås('lås1'))
     select('#room1Door #lås2').mousePressed(() => clickLås('lås2'))
     select('#room1Door #lås3').mousePressed(() => clickLås('lås3'))
-    
-    // -------- BUTTONS --------
 
-    // ---- RUM 2: Kælder ----
+    // ---- RUM 1: Kælder til stue ----
     select('#køkkenBtn1').mousePressed(() => {
         shiftPage("#room2")
     })
-    // ---- RUM 2: Ovn ----
-    select('#room2 #ovnBtn').mousePressed(() => {
+    // ---- RUM 2: Ovn gåde ----
+    select('#room2 #ovnBtn').mousePressed(() => { //tryk på ovn
         select('#room2 #room2-code').addClass('show')
     })
-    select('#room2 #room2-submit').mousePressed(() => {
+    select('#room2 #room2-submit').mousePressed(() => { //ovn gåden, submit answer
         checkRoom2Answer()
     })
     
-    // til stuen
-    select('#stueBtn2').mousePressed(() => {
+    select('#kælderBtn2').mousePressed(() => { //går fra køkken til stuen
+        shiftPage("#room1")
+        køkkenBtn1.classList.remove("hidden")
+        køkkenBtn1.classList.add("visible")
+    })
+    select('#stueBtn2').mousePressed(() => { //går fra køkken til stuen
         shiftPage("#room3")
+        if (kniv == true) {
+            select('#room3-hint1').removeClass("visible")
+            select('#room3-hint1').addClass("hidden")
+            select('#room3-hint2').removeClass("hidden")
+            select('#room3-hint2').addClass("visible")
+        }
     })
     
+
     // ---- RUM 3: Stuen ----
-    select('#køkkenBtn3').mousePressed(() => {
+    select('#køkkenBtn3').mousePressed(() => { //går fra stue til køkken
         shiftPage("#room2")
+        if (kniv == true) {
+            // kniven er fundet — behold hint3
+            return
+        }
+        room2hint1.classList.remove("visible")
+        room2hint1.classList.add("hidden")
+        room2hint2.classList.remove("hidden")
+        room2hint2.classList.add("visible")
     })
-    select('#skurBtn3').mousePressed(() => {
+    select('#skurBtn3').mousePressed(() => { //går fra stue til skur
         shiftPage("#room4")
     })
     
     // ---- RUM 4: Skuret ----
     select('#stueBtn4').mousePressed(() => {
         shiftPage("#room3")
+        if (knivSlibet == true) {
+            // kniven er fundet — behold hint3
+            return
+        }
+        room4hint2.classList.remove("visible")
+        room4hint2.classList.add("hidden")
+        room4hint3.classList.remove("hidden")
+        room4hint3.classList.add("visible")
+    })
+    select('#room4 #slibestenBtn').mousePressed(() => { //tryk på ovn
+
+        room4hint1.classList.remove("visible")
+        room4hint1.classList.add("hidden")
+        room4hint2.classList.remove("hidden")
+        room4hint2.classList.add("visible")
     })
     
 
@@ -194,14 +239,20 @@ function clickLås(id) {
 }
 
 // ============================================
-// RUM 1 OVN: FÅ ITEM VIA GÅDE
+// RUM 1 OVN OG KNIV: FÅ ITEM VIA GÅDE
 // ============================================
 function checkRoom2Answer() {
     var answer = select('#room2 #room2-answer').value().toLowerCase()
     if (answer.includes('kniv')) {
-        kniv = true
         invKnife.hidden = false
         gameState = 2
+        kniv = true
+
+        
+        room2hint2.classList.remove("visible")
+        room2hint2.classList.add("hidden")
+        room2hint3.classList.remove("hidden")
+        room2hint3.classList.add("visible")
 
         select('#room2 #room2-code').removeClass('show')
         return
@@ -209,6 +260,9 @@ function checkRoom2Answer() {
         select('#room2 #room2-error').html('Ikke helt - prøv igen!')
     }
 }
+
+
+console.log("kniv = ", kniv)
 
 
 // ============================================

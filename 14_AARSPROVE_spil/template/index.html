@@ -51,8 +51,8 @@
             <!-- RUM 1: KÆLDEREN -->
         <div class="page" id="room1" title="Kælderen">
 
-            <button id="køkkenBtn1" class="rightBtn">Til køkkenet</button>
-
+            <button id="køkkenBtn1" class="rightBtn hidden">Til køkkenet</button>
+<
             <div id="room1-hint" class="hint">Åben papkassen og få crowbar til at bryde døren op...</div>
 
             <div id="crowbar-found" class="found-counter">Fundet: 0 / 1 🦯</div>
@@ -79,53 +79,60 @@
         <!-- KØKKENET-->
         <div class="page" id="room2" title="Køkkenet">
 
+            <button id="kælderBtn2" class="leftBtn">Tilbage til kælderen</button>
             <button id="stueBtn2" class="rightBtn">Til stuen</button>
             
-            <div id="room2-hint" class="hint">Køleskabet er væk!!! Du må finde det så du kan få slukket tørsten...
-            <br>Led efter items i køkkenet... Prøv ovnen...</div>
+            <div id="room2-hint1" class="hint visible">Køleskabet er væk!!! Du må finde det så du kan få slukket tørsten...
+            <br>Prøv at kig i stuen...</div>
+            <div id="room2-hint2" class="hint hidden">Hvor mon et våben kan befinde sig..?<br>Prøv ovnen...</div>
+            <div id="room2-hint3" class="hint hidden">Hurra, Du fandt våbenet..!<br>Nu kan du bekæmpe monsteret..?</div>
 
             <button id="ovnBtn">ovn btn</button>
             
             <!-- ROOM 2 INPUT CODE FIND KNIV -->
             <div id="room2-code" class="code-input">
                 <p>Jeg er kold og jeg er skarp
-                <br>jeg ligger stille, uden larm og harp
-                <br>Jeg hjælper dig når mad skal skæres
-                <br>men kan også gøre, at du mærkes
-                <br>Hvad er jeg?</p>
-
-                <input type="text" id="room2-answer" placeholder="Skriv svaret her...">
-                <button id="room2-submit">Tjek svar</button>
-
-                <div id="room2-error" class="error"></div>
+                    <br>jeg ligger stille, uden larm og harp
+                    <br>Jeg hjælper dig når mad skal skæres
+                    <br>men kan også gøre, at du mærkes
+                    <br>Hvad er jeg?</p>
+                    
+                    <input type="text" id="room2-answer" placeholder="Skriv svaret her...">
+                    <button id="room2-submit">Tjek svar</button>
+                    
+                    <div id="room2-error" class="error"></div>
             </div>
         </div>
-
-
-
-
+        
+        
+        
+        
         <!-- ROOM 3 STUEN-->
         <div class="page" id="room3">
-            <div id="room4-hint" class="hint">Du fandt køleskabet!.. Men det er bevogtet af et monster...
-            <br>Find et våben og bekæmp monsteret...</div>
-
+            <div id="room3-hint1" class="hint visible">Du fandt køleskabet!.. Men det er bevogtet af et monster...<br>Gå tilbage i køkkenet og prøv at led efter et våben...</div>
+            <div id="room3-hint2" class="hint hidden">Du skal til at angribe monsteret da...<br>Det går op for dig at våbenet ikke er skarpt nok...<br>Gå til skuret og slib kniven...</div>
+            
             <button id="køkkenBtn3" class="leftBtn">Til køkkenet</button>
             <button id="skurBtn3" class="rightBtn">Til skuret</button>
-
+            
             <div id="monster"></div>
             <div id="køleskab"></div>
         </div>
         
         
         <div class="page" id="room4">
-            <div id="room4-hint" class="hint"></div>
-
+            <div id="room4-hint1" class="hint visible">Tryk på slibestenen for at slibe din kniv...</div>
+            <div id="room4-hint2" class="hint hidden">Pyha..! Nu kan du endelig bekæmpe monsteret og få dit køleskab tilbage...</div>
+            <div id="room4-hint3" class="hint hidden">Nu er det slibet... Where my pocket puhh at..?</div>
+            
             <button id="stueBtn4" class="leftBtn">Til stuen</button>
-
+            
             <div id="slibesten"></div>
+            <button id="slibestenBtn">slibesten btn</button>
+
         </div>
-
-
+        
+        
         <!-- SLUTSIDE -->
         <div class="page" id="complete" title="Færdig">
             <div class="overlay">

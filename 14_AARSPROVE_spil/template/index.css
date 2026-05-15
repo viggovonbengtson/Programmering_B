@@ -119,6 +119,8 @@ body {
 
 /* ---- BUTTONS ---- */
 button { background: white; }
+.hidden { opacity: 0; pointer-events: none; }
+.visible { opacity: 1; pointer-events: auto; }
 
 .leftBtn{
     position: absolute;
@@ -184,6 +186,7 @@ ____________________________*/
     min-height: 25rem;    
 }
 
+
 /* ---- ROOM 3 ---- */
 #room3 #køleskab{
     background-image: url(./assets/køleskab.png);
@@ -211,9 +214,22 @@ ____________________________*/
     background-image: url(./assets/slibesten.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 40%;
+    width: 40vw;
     height: 100%;
     position:absolute;
     top: 35%;
     left: 30%;
+}
+/* ---- KLIKBAR SLIBESTEN ---- */
+#room4 #slibestenBtn{
+    opacity: 0;
+    display: grid;
+    border: 0.5rem solid rgb(177, 177, 177);
+    border-radius: 10px;
+    position:absolute;
+    place-items: center;
+    left: 38%;
+    bottom: 0%;
+    min-width: 23vw;
+    min-height: 52vh;
 }
