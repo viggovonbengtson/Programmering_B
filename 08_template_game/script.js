@@ -35,7 +35,9 @@ function spawnAsta() {
     game_container.appendChild(new_asta)
     //when we click the new img element, we call the KillAsta function which removess it
     new_asta.addEventListener('click', () => {KillAsta(new_asta) })
-    setTimeout(() => { TimeoutAsta(new_asta) }, timeout)
+    setTimeout(() => {
+        TimeoutAsta(new_asta)
+    }, timeout)
 }
 
 setInterval(() => {

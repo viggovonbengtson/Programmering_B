@@ -34,8 +34,11 @@ var scoresRef = db.collection('highscores')
 // SETUP — kaldes én gang af p5.js
 // ============================================
 function setup() {
+
+    
+
     noCanvas()
-    shiftPage('#room2')
+    shiftPage('#room1')
     loadHighScores()
     
     //vi skjuler crowbar og knife ikonerne
@@ -71,6 +74,10 @@ function setup() {
     
     // -------- BUTTONS --------
 
+    // ---- RUM 2: Kælder ----
+    select('#køkkenBtn1').mousePressed(() => {
+        shiftPage("#room2")
+    })
     // ---- RUM 2: Ovn ----
     select('#room2 #ovnBtn').mousePressed(() => {
         select('#room2 #room2-code').addClass('show')
