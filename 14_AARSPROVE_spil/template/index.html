@@ -55,8 +55,7 @@
 <
             <div id="room1-hint" class="hint">Åben papkassen og få crowbar til at bryde døren op...</div>
 
-            <div id="crowbar-found" class="found-counter">Fundet: 0 / 1 🦯</div>
-            <div id="axe-found" class="found-counter">Fundet: 0 / 1 🪓</div>
+
             
             <div id="symbolDoor" class="hotspot">🚪</div>
             <div id="woodenBox"></div>
@@ -64,7 +63,7 @@
         </div>
         <!-- RUM 1 V.2: KÆLDERDØREN -->
         <div class="page" id="room1Door" title="Kælderdøren">
-            <div id="room1-hint" class="hint">Klik på låsene i den korrekte rækkefølge og derefter på håndtaget...</div>
+            <div id="room1-hint" class="hint">Klik på låsene i den korrekte rækkefølge og derefter på håndtaget...<br>Tip: kig på størrelserne af låsene</div>
             <div id="kælderdør"></div>
             
             <!-- Klikbare låse -->
@@ -111,11 +110,15 @@
         <div class="page" id="room3">
             <div id="room3-hint1" class="hint visible">Du fandt køleskabet!.. Men det er bevogtet af et monster...<br>Gå tilbage i køkkenet og prøv at led efter et våben...</div>
             <div id="room3-hint2" class="hint hidden">Du skal til at angribe monsteret da...<br>Det går op for dig at våbenet ikke er skarpt nok...<br>Gå til skuret og slib kniven...</div>
+            <div id="room3-hint2" class="hint hidden">Din kniv er nu <i>knivskarp</i>, og du kan angribe monsteret...<br>Klik på monsteret for at angribe...</div>
             
             <button id="køkkenBtn3" class="leftBtn">Til køkkenet</button>
             <button id="skurBtn3" class="rightBtn">Til skuret</button>
             
-            <div id="monster"></div>
+            <div id="monster">
+                <div id="monster_drink_sort" class="visible"></div>
+                <div id="monster_drink_hvid" class="hidden"></div>
+            </div>
             <div id="køleskab"></div>
         </div>
         
@@ -123,7 +126,6 @@
         <div class="page" id="room4">
             <div id="room4-hint1" class="hint visible">Tryk på slibestenen for at slibe din kniv...</div>
             <div id="room4-hint2" class="hint hidden">Pyha..! Nu er din kniv slibet, og du kan endelig bekæmpe monsteret og få dit køleskab tilbage...</div>
-            <div id="room4-hint3" class="hint hidden">Nu er det slibet... Where my pocket puhh at..?</div>
             
             <button id="stueBtn4" class="leftBtn">Til stuen</button>
             

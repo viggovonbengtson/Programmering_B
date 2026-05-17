@@ -6,12 +6,17 @@ var gameState = 0
 var timerInterval = null
 var seconds = 0
 
+// ---- REFERENCER MELLEM HTML & JS
+//room1
 const køkkenBtn1 = document.querySelector("#køkkenBtn1")
-//room hints
 //room2
 const room2hint1 = document.querySelector("#room2-hint1")
 const room2hint2 = document.querySelector("#room2-hint2")
 const room2hint3 = document.querySelector("#room2-hint3")
+//room3
+const monster = document.querySelector("#monster")
+const monsterSort = document.querySelector("#monster_drink_sort")
+const monsterHvid = document.querySelector("#monster_drink_hvid")
 //room4
 const room4hint1 = document.querySelector("#room4-hint1")
 const room4hint2 = document.querySelector("#room4-hint2")
@@ -34,7 +39,8 @@ var kniv = false
 var knivSlibet = false
 
 // Rum 1: antal fundne symboler
-var symbolsFound = 0
+var doorsFound = 0
+var crowbarsFound = 0
 
 
 // Rum 1.2: rigtig rækkefølge og tæller
@@ -46,6 +52,8 @@ var låsStep = 0
 // det button som har imput felt hvor man finder kniv
 const ovn = document.getElementById("ovn")
 
+// Rum 4: skuret
+var symbolsFound = 0
 
 // Firestore reference
 var scoresRef = db.collection('highscores')
@@ -63,6 +71,12 @@ function setup() {
     invCrowbar.hidden = true
     invKnife.hidden = true
 
+
+
+    // ============================================
+    // BUTTONS — de forskellige knapper til shiftpage, gåder og andre funktioner
+    // ============================================
+
     // ---- STARTSIDE ----
     select('#btn-start').mousePressed(() => {
         startGame()
@@ -71,45 +85,50 @@ function setup() {
     // ---- RUM 1: Kælder med boxes ----
     //3 låse på døren, tryk i rigtig rækkefølge
     select('#room1 #woodenBox').mousePressed(() => {
-        findItem('#room1 #woodenBox')
+        findCrowbar('#room1 #woodenBox')
         crowbar = true
         invCrowbar.hidden = false
     })
 
     select('#room1 #symbolDoor').mousePressed(() => {
         if(crowbar == true){
-            findSymbol('#room1 #symbolDoor')
+            findDoor('#room1 #symbolDoor')
             setTimeout(() => {
                 shiftPage("#room1Door")
             }, 500);
         }
     })
 
-    // ---- RUM 1: Dørs låse ----
+    // RUM 1 - kælderen
+    //dørs låse
     select('#room1Door #lås1').mousePressed(() => clickLås('lås1'))
     select('#room1Door #lås2').mousePressed(() => clickLås('lås2'))
     select('#room1Door #lås3').mousePressed(() => clickLås('lås3'))
-
-    // ---- RUM 1: Kælder til stue ----
+    //buttons - shiftpage
     select('#køkkenBtn1').mousePressed(() => {
         shiftPage("#room2")
     })
-    // ---- RUM 2: Ovn gåde ----
+
+
+    // RUM 2 - køkkenet
+    //Ovn gåde
     select('#room2 #ovnBtn').mousePressed(() => { //tryk på ovn
         select('#room2 #room2-code').addClass('show')
     })
     select('#room2 #room2-submit').mousePressed(() => { //ovn gåden, submit answer
         checkRoom2Answer()
     })
-    
+    //buttons - shiftpage
     select('#kælderBtn2').mousePressed(() => { //går fra køkken til stuen
         shiftPage("#room1")
+        //når vi går fra køkken tilbage til kælder, vises et nyt button.
+        //dette button kan gå fra kælder ti køkken, da døren teknsik sert er åben.
         køkkenBtn1.classList.remove("hidden")
         køkkenBtn1.classList.add("visible")
     })
     select('#stueBtn2').mousePressed(() => { //går fra køkken til stuen
         shiftPage("#room3")
-        if (kniv == true) {
+        if (kniv == true) {//hvis kniv er fundet
             select('#room3-hint1').removeClass("visible")
             select('#room3-hint1').addClass("hidden")
             select('#room3-hint2').removeClass("hidden")
@@ -118,48 +137,54 @@ function setup() {
     })
     
 
-    // ---- RUM 3: Stuen ----
-    select('#køkkenBtn3').mousePressed(() => { //går fra stue til køkken
+    // RUM 3 - Stuen
+    //buttons - shiftpage
+    select('#køkkenBtn3').mousePressed(() => { //går fra stue til køkken.
         shiftPage("#room2")
-        if (kniv == true) {
-            // kniven er fundet — behold hint3
-            return
+        
+        if (kniv == true) {// kniven er fundet — behold hint3.
+            return 
+            //denne funktion gør at resten af koden i "select('#...') ikke køres igennem"
+            //altså forbliver hint3 uændret hvis vi skifter frem og tilbage igen.
         }
         room2hint1.classList.remove("visible")
         room2hint1.classList.add("hidden")
         room2hint2.classList.remove("hidden")
         room2hint2.classList.add("visible")
     })
-    select('#skurBtn3').mousePressed(() => { //går fra stue til skur
+    select('#skurBtn3').mousePressed(() => { //går fra stue til skur.
         shiftPage("#room4")
     })
+    select('#stueBtn4').mousePressed(() => {
+        shiftPage("#room3")
+    })
+
     
-    // ---- RUM 4: Skuret ----
+    // RUM 4 - Skuret
+    //buttons
     select('#stueBtn4').mousePressed(() => {
         shiftPage("#room3")
         if (knivSlibet == true) {
-            // kniven er fundet — behold hint3
+            // kniven er fundet — behold hint3.
             return
         }
-        room4hint2.classList.remove("visible")
-        room4hint2.classList.add("hidden")
-        room4hint3.classList.remove("hidden")
-        room4hint3.classList.add("visible")
     })
     select('#room4 #slibestenBtn').mousePressed(() => { //tryk på slibesten
-               //gør symbolerne + kniv synlige efter at have trykket på slibestenen.
-        //Dette gøres ved at alle elementerne hører til unbder en div, og den dig har hidden/visible
-        if(gameState < 4){
+        if(gameState < 4 && knivSlibet != true){
+            //gør symbolerne + kniv synlige efter at have trykket på slibestenen.
+            //Dette gøres ved at alle elementerne hører til unbder en div, og den dig har hidden/visible
             slibestenGåde.classList.remove("hidden")
             slibestenGåde.classList.add("visible")
         }
     })
     // ---- RUM 4: Slib Kniven ---- 
+    //når man trykker på symbolerne bliver findSymbol funtkionen kaldt.
     select('#room4 #symbol1').mousePressed(() => findSymbol('#room4 #symbol1'))
     select('#room4 #symbol2').mousePressed(() => findSymbol('#room4 #symbol2'))
     select('#room4 #symbol3').mousePressed(() => findSymbol('#room4 #symbol3'))
     select('#room4 #symbol4').mousePressed(() => findSymbol('#room4 #symbol4'))
     
+
 
 
     // ---- SLUTSIDE ----
@@ -213,17 +238,14 @@ function startGame() {
 // ============================================
 // RUM 1: FIND SYMBOLER I KÆLDEREN, FIND CROWBAR
 // ============================================
-function findSymbol(id) {
+function findDoor(id) {
     select(id).hide()
-    symbolsFound++
+    doorsFound++
 }
 
-function findItem(id){
+function findCrowbar(id){
     select(id).hide()
-    symbolsFound++
-    
-    //lav if-funktion hvis crowbar er fundet
-    select('#crowbar-found').html('Fundet: ' + symbolsFound + ' / 1 🦯')
+    crowbarsFound++
 }
 
 

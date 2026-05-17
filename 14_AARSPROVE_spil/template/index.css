@@ -195,8 +195,19 @@ ____________________________*/
     top: 20%;
     left: 35%;
 }
-#room3 #monster{
+/* ---- ROOM 3 - MONSTER ---- */
+#room3 #monster_drink_sort{
     background-image: url(./assets/monster_drink_sort.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 25%;
+    height: 40%;
+    position:absolute;
+    top: 28%;
+    left: 20%;
+}
+#room3 #monster_drink_hvid{
+    background-image: url(./assets/monster_drink_hvid.png);
     background-size: contain;
     background-repeat: no-repeat;
     width: 25%;
