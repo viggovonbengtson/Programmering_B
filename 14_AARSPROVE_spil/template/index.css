@@ -278,3 +278,19 @@ ____________________________*/
 #room4 #symbol2 { top: 15%; left: 50%; }
 #room4 #symbol3 { top: 18%; left: 64%; }
 #room4 #symbol4 { top: 28%; left: 76%; }
+
+#room5 #game-container{
+    width: 80%;
+    height: 80%;
+    position: center;
+}
+.øl{
+    position: absolute;
+    width: 70px;
+    top: 50px;
+    left: 50px;
+}
+.stats{
+    position: absolute;
+    left: 0;
+}

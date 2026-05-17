@@ -1,6 +1,6 @@
 
 
-var currentPage = "#page3"
+var currentPage = "#page1"
 
 
 
@@ -18,10 +18,10 @@ function setup()
     //sæt en event lisstener op på knappen
     theButton.mousePressed( ()=>{
         if(confirm('ok super duper')){
-            theButton.html('ok super duper')
+            theButton.html('"ok" super duper')
         }
         else{
-            theButton.html('ok super duper')
+            theButton.html('"annuller" super duper')
         }
     })
 

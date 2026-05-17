@@ -57,10 +57,21 @@ var låsStep = 0
 // det button som har imput felt hvor man finder kniv
 const ovn = document.getElementById("ovn")
 
-//rum3: stue
+// Rum 3: stue
 var crushed = false
+
 // Rum 4: skuret
 var symbolsFound = 0
+
+// Rum 5: køleskabet
+//we select the id='game-container' from html - and save it in a var called game_container
+var game_container = null
+var points_display = null
+var time_display = null
+var timeout = 2000
+var points = 0
+var time_left = 10
+
 
 // Firestore reference
 var scoresRef = db.collection('highscores')
@@ -71,7 +82,7 @@ var scoresRef = db.collection('highscores')
 function setup() {
 
     noCanvas()
-    shiftPage('#room5')
+    shiftPage('#start')
     loadHighScores()
 
     //vi skjuler crowbar og knife ikonerne
@@ -184,8 +195,7 @@ function setup() {
         room2hint2.classList.remove("hidden")
         room2hint2.classList.add("visible")
     })//går fra stue til skur.
-    
-    select('#monsterÅben').mousePressed(() => { shiftPage("#room3") })
+
     
     select('#stueBtn4').mousePressed(() => { shiftPage("#room3") })
     select('#skurBtn3').mousePressed(() => { shiftPage("#room4") })
@@ -216,6 +226,12 @@ function setup() {
     select('#room4 #symbol4').mousePressed(() => findSymbol('#room4 #symbol4'))
     
 
+    // ---- RUM 5: Køleskab minigame? ----
+    select('#køleskabÅben').mousePressed(() => { 
+        shiftPage("#room5") 
+        startBeerGame() 
+    })
+    
 
 
     // ---- SLUTSIDE ----
@@ -333,14 +349,14 @@ function checkRoom2Answer() {
 function findSymbol(id) {
     select(id).hide()
     symbolsFound++
-
+    
     if (symbolsFound === 4) {
-
+        
         gameState = 4
-
+        
         slibestenGåde.classList.remove("visible")
         slibestenGåde.classList.add("hidden")
-
+        
         room4hint1.classList.remove("visible")
         room4hint1.classList.add("hidden")
         room4hint2.classList.remove("hidden")
@@ -353,6 +369,59 @@ function findSymbol(id) {
     }
 }
 
+// ============================================
+// RUM 5: KLIK PÅ ØL SOM SPAWNER TILFÆLDIGT
+// ============================================
+
+function startBeerGame() {
+    game_container = document.querySelector('#game-container')
+    points_display = document.querySelector('#points-display')
+    time_display = document.querySelector('#time-display')
+
+    time_left = 3
+    points = 0
+    points_display.textContent = points
+    time_display.textContent = time_left
+    spawnBeer()
+
+    var beerInterval = setInterval(() => {
+        time_left -= 0.1
+        time_display.textContent = Math.round(time_left * 10) / 10
+        if (time_left <= 0) {
+            clearInterval(beerInterval)  // STOP intervallet først!
+            confirm(`Du fik ${points} point!`)
+            shiftPage('#complete')
+        }
+    }, 100)
+}
+//setinterval runs a function every x interval
+//ÆNDR LILLE s TIL sTORT
+function spawnBeer() {
+    var new_beer = document.createElement('img')
+    var top = Math.random() * 91
+    var left = Math.random() * 91
+    new_beer.style = `left: ${left}%; top: ${top}%;`
+    new_beer.src = 'assets/øl.png'
+    new_beer.className = 'øl'
+    game_container.appendChild(new_beer)
+    new_beer.addEventListener('click', () => { KillBeer(new_beer) })
+    setTimeout(() => { TimeoutBeer(new_beer) }, timeout)
+}
+
+function KillBeer(beer) {
+    game_container.removeChild(beer)
+    points += 5
+    points_display.textContent = points
+    spawnBeer()
+}
+function TimeoutBeer(beer) {
+    if (game_container.contains(beer)) {
+        game_container.removeChild(beer)
+        points -= 2
+        points_display.textContent = points
+        spawnBeer()
+    }
+}
 
 // ============================================
 // HIGH SCORE (Firestore)
@@ -376,14 +445,14 @@ function saveHighScore() {
         select('#player-name').attribute('placeholder', 'Skriv dit navn først!')
         return
     }
-    console.log('Du trykkede Gem! Navn:', name, '— Tid:', seconds, 'sek')
+    console.log('Du trykkede Gem! Navn:', name, '— Tid:', seconds - points, 'sek')
     console.log('TODO: Åbn firebase.js og indsæt jeres Firebase-config. Derefter virker scoresRef.add() og gemmer data i Firestore.')
 
     // Udkommenter linjen herunder når firebase.js er sat op:
-    // scoresRef.add({ name: name, seconds: seconds }).then(() => {
-    //     select('#btn-save').attribute('disabled', true)
-    //     select('#btn-save').html('Gemt!')
-    // })
+    scoresRef.add({ name: name, seconds: seconds }).then(() => {
+        select('#btn-save').attribute('disabled', true)
+        select('#btn-save').html('Gemt!')
+    })
 }
 
 // ============================================
@@ -393,16 +462,12 @@ function resetGame() {
     select('#timer').html('0 sek')
 
     // Nulstil rum 1
-    select('#room1-found').html('Fundet: 0 / 3')
     select('#room1-hint').html('Find de 3 skjulte symboler i junglen...')
-    select('#room1 #symbol1').show()
-    select('#room1 #symbol2').show()
-    select('#room1 #symbol3').show()
+
 
     // Nulstil rum 2
     select('#room2 #room2-code').removeClass('show')
-    select('#room2 #room2-answer').value('')
-    select('#room2 #room2-error').html('')
+
 
     // Nulstil slutside
     select('#btn-save').removeAttribute('disabled')
