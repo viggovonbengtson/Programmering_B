@@ -28,6 +28,7 @@ body {
 
 /* Hint — centreret tekst i toppen af et rum */
 .hint {
+    font-size: 2rem;
     position: absolute;
     bottom: 1.5rem;
     left: 1.5rem;
@@ -91,6 +92,7 @@ body {
 #room2    { background-image: url('./assets/kitchen.jpeg');}
 #room3    { background-image: url('./assets/stue.jpeg');}
 #room4    { background-image: url('./assets/skur.jpg');}
+#room5    { background-image: url('./assets/fridge_background.jpeg'); background-position: top center; background-size: 80%;}
 #complete { background-image: url('./assets/skies.jpg'); }
 
 
@@ -195,12 +197,23 @@ ____________________________*/
     top: 20%;
     left: 35%;
 }
+#room3 #køleskabÅben{
+    background-image: url(./assets/køleskab_open.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 27%;
+    height: 100%;
+    position:absolute;
+    top: 15%;
+    left: 34%;
+    cursor: pointer;
+}
 /* ---- ROOM 3 - MONSTER ---- */
 #room3 #monster_drink_sort{
     background-image: url(./assets/monster_drink_sort.png);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 25%;
+    width: 17%;
     height: 40%;
     position:absolute;
     top: 28%;
@@ -215,6 +228,16 @@ ____________________________*/
     position:absolute;
     top: 28%;
     left: 20%;
+}
+#room3 #monster_drink_crushed{
+    background-image: url(./assets/monster_drink_crushed.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 40%;
+    position:absolute;
+    top: 28%;
+    left: 19%;
 }
 
 /* ---- ROOM 4 ---- */

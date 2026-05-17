@@ -14,9 +14,15 @@ const room2hint1 = document.querySelector("#room2-hint1")
 const room2hint2 = document.querySelector("#room2-hint2")
 const room2hint3 = document.querySelector("#room2-hint3")
 //room3
+const room3hint2 = document.querySelector("#room3-hint2")
+const room3hint3 = document.querySelector("#room3-hint3")
+const room3hint4 = document.querySelector("#room3-hint4")
 const monster = document.querySelector("#monster")
 const monsterSort = document.querySelector("#monster_drink_sort")
 const monsterHvid = document.querySelector("#monster_drink_hvid")
+const monsterCrushed = document.querySelector("#monster_drink_crushed")
+const køleskab = document.querySelector("#køleskab")
+const køleskabÅben = document.querySelector("#køleskabÅben")
 //room4
 const room4hint1 = document.querySelector("#room4-hint1")
 const room4hint2 = document.querySelector("#room4-hint2")
@@ -42,7 +48,6 @@ var knivSlibet = false
 var doorsFound = 0
 var crowbarsFound = 0
 
-
 // Rum 1.2: rigtig rækkefølge og tæller
 //rækkdefølgen af låse in order
 var låsAnswer = ['lås1', 'lås3', 'lås2']
@@ -52,6 +57,8 @@ var låsStep = 0
 // det button som har imput felt hvor man finder kniv
 const ovn = document.getElementById("ovn")
 
+//rum3: stue
+var crushed = false
 // Rum 4: skuret
 var symbolsFound = 0
 
@@ -64,7 +71,7 @@ var scoresRef = db.collection('highscores')
 function setup() {
 
     noCanvas()
-    shiftPage('#room4')
+    shiftPage('#room5')
     loadHighScores()
 
     //vi skjuler crowbar og knife ikonerne
@@ -78,9 +85,7 @@ function setup() {
     // ============================================
 
     // ---- STARTSIDE ----
-    select('#btn-start').mousePressed(() => {
-        startGame()
-    })
+    select('#btn-start').mousePressed(() => {startGame()})
 
     // ---- RUM 1: Kælder med boxes ----
     //3 låse på døren, tryk i rigtig rækkefølge
@@ -105,19 +110,18 @@ function setup() {
     select('#room1Door #lås2').mousePressed(() => clickLås('lås2'))
     select('#room1Door #lås3').mousePressed(() => clickLås('lås3'))
     //buttons - shiftpage
-    select('#køkkenBtn1').mousePressed(() => {
-        shiftPage("#room2")
-    })
+    select('#køkkenBtn1').mousePressed(() => { shiftPage("#room2") })
 
-
+    
     // RUM 2 - køkkenet
     //Ovn gåde
-    select('#room2 #ovnBtn').mousePressed(() => { //tryk på ovn
+    // //tryk på ovn
+    select('#room2 #ovnBtn').mousePressed(() => { 
         select('#room2 #room2-code').addClass('show')
     })
-    select('#room2 #room2-submit').mousePressed(() => { //ovn gåden, submit answer
-        checkRoom2Answer()
-    })
+    //ovn gåden, submit answer
+    select('#room2 #room2-submit').mousePressed(() => { checkRoom2Answer() })
+
     //buttons - shiftpage
     select('#kælderBtn2').mousePressed(() => { //går fra køkken til stuen
         shiftPage("#room1")
@@ -138,6 +142,33 @@ function setup() {
     
 
     // RUM 3 - Stuen
+
+    select('#monster').mousePressed(() => { 
+        //her kan selve id="#monster" div'en trykkes på uden brug af button
+        //da en div kan have "hitbox" på samme måde som et button.
+        room3hint3.classList.remove("visible")
+        room3hint3.classList.add("hidden")
+        room3hint4.classList.remove("hidden")
+        room3hint4.classList.add("visible")
+        
+        monsterSort.classList.remove("visible")
+        monsterSort.classList.add("hidden")
+        monsterHvid.classList.remove("hidden")
+        monsterHvid.classList.add("visible")
+
+        setTimeout(()=>{
+            monsterHvid.classList.remove("visible")
+            monsterHvid.classList.add("hidden")
+            monsterCrushed.classList.remove("hidden")
+            monsterCrushed.classList.add("visible")
+
+            køleskab.classList.remove("visible")
+            køleskab.classList.add("hidden")
+            køleskabÅben.classList.remove("hidden")
+            køleskabÅben.classList.add("visible")
+        }, 2000)
+    })
+
     //buttons - shiftpage
     select('#køkkenBtn3').mousePressed(() => { //går fra stue til køkken.
         shiftPage("#room2")
@@ -147,19 +178,19 @@ function setup() {
             //denne funktion gør at resten af koden i "select('#...') ikke køres igennem"
             //altså forbliver hint3 uændret hvis vi skifter frem og tilbage igen.
         }
+        //hints ændres fra hint1 til hint2 via. ændring af class=""
         room2hint1.classList.remove("visible")
         room2hint1.classList.add("hidden")
         room2hint2.classList.remove("hidden")
         room2hint2.classList.add("visible")
-    })
-    select('#skurBtn3').mousePressed(() => { //går fra stue til skur.
-        shiftPage("#room4")
-    })
-    select('#stueBtn4').mousePressed(() => {
-        shiftPage("#room3")
-    })
-
+    })//går fra stue til skur.
     
+    select('#monsterÅben').mousePressed(() => { shiftPage("#room3") })
+    
+    select('#stueBtn4').mousePressed(() => { shiftPage("#room3") })
+    select('#skurBtn3').mousePressed(() => { shiftPage("#room4") })
+    
+
     // RUM 4 - Skuret
     //buttons
     select('#stueBtn4').mousePressed(() => {
@@ -314,6 +345,11 @@ function findSymbol(id) {
         room4hint1.classList.add("hidden")
         room4hint2.classList.remove("hidden")
         room4hint2.classList.add("visible")
+        
+        room3hint2.classList.remove("visible")
+        room3hint2.classList.add("hidden")
+        room3hint3.classList.remove("hidden")
+        room3hint3.classList.add("visible")
     }
 }
 
