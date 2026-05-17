@@ -40,7 +40,7 @@ body {
 /* Hotspot — klikbart element placeret i et rum */
 .hotspot {
     position: absolute;
-    font-size: 2rem;
+    font-size: 4rem;
     cursor: pointer;
     z-index: 5;
 }
@@ -162,16 +162,13 @@ ____________________________*/
     position:absolute;
     left: 40%;
 }
-
 /* ---- LÅS POSITIONER ----*/
 #room1Door #lås1 { top: 24%; left: 60.5%; font-size: 2.5rem; } 
 #room1Door #lås2 { top: 76%; left: 60.5%; font-size: 4rem; }
 #room1Door #lås3 { top: 55%; left: 41%; font-size: 3rem; }
 
 
-
 /* ---- ROOM 2 ---- */
-
 /*KLIKBAR OVN*/
 #room2 #ovnBtn{
     opacity: 0;
@@ -199,7 +196,7 @@ ____________________________*/
     left: 35%;
 }
 #room3 #monster{
-    background-image: url(./assets/monster_drink.png);
+    background-image: url(./assets/monster_drink_sort.png);
     background-size: contain;
     background-repeat: no-repeat;
     width: 25%;
@@ -233,3 +230,17 @@ ____________________________*/
     min-width: 23vw;
     min-height: 52vh;
 }
+/* ---- Knivs-Placering ----*/
+#room4 #slibKniv { 
+    position: absolute; 
+    top: -20%; 
+    left: 24%; 
+    width: 50vw; 
+    rotate: 137deg; 
+    transform: scaleX(-1);
+}
+/* ---- Hotspot-placeringer ---- */
+#room4 #symbol1 { top: 28%; left: 34%; }
+#room4 #symbol2 { top: 15%; left: 50%; }
+#room4 #symbol3 { top: 18%; left: 64%; }
+#room4 #symbol4 { top: 28%; left: 76%; }

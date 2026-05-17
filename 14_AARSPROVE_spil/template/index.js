@@ -8,13 +8,20 @@ var seconds = 0
 
 const køkkenBtn1 = document.querySelector("#køkkenBtn1")
 //room hints
+//room2
 const room2hint1 = document.querySelector("#room2-hint1")
 const room2hint2 = document.querySelector("#room2-hint2")
 const room2hint3 = document.querySelector("#room2-hint3")
-
+//room4
 const room4hint1 = document.querySelector("#room4-hint1")
 const room4hint2 = document.querySelector("#room4-hint2")
 const room4hint3 = document.querySelector("#room4-hint3")
+const symbol1 = document.querySelector("#symbol1")
+const symbol2 = document.querySelector("#symbol2")
+const symbol3 = document.querySelector("#symbol3")
+const slibKniv = document.querySelector("#slibKniv")
+const slibestenGåde = document.querySelector("#slibestenGåde")
+
 
 
 // inventory og items
@@ -28,8 +35,6 @@ var knivSlibet = false
 
 // Rum 1: antal fundne symboler
 var symbolsFound = 0
-// Buttons
-// så vi kan hide/show button efter room1
 
 
 // Rum 1.2: rigtig rækkefølge og tæller
@@ -51,7 +56,7 @@ var scoresRef = db.collection('highscores')
 function setup() {
 
     noCanvas()
-    shiftPage('#room2')
+    shiftPage('#room4')
     loadHighScores()
 
     //vi skjuler crowbar og knife ikonerne
@@ -141,13 +146,19 @@ function setup() {
         room4hint3.classList.remove("hidden")
         room4hint3.classList.add("visible")
     })
-    select('#room4 #slibestenBtn').mousePressed(() => { //tryk på ovn
-
-        room4hint1.classList.remove("visible")
-        room4hint1.classList.add("hidden")
-        room4hint2.classList.remove("hidden")
-        room4hint2.classList.add("visible")
+    select('#room4 #slibestenBtn').mousePressed(() => { //tryk på slibesten
+               //gør symbolerne + kniv synlige efter at have trykket på slibestenen.
+        //Dette gøres ved at alle elementerne hører til unbder en div, og den dig har hidden/visible
+        if(gameState < 4){
+            slibestenGåde.classList.remove("hidden")
+            slibestenGåde.classList.add("visible")
+        }
     })
+    // ---- RUM 4: Slib Kniven ---- 
+    select('#room4 #symbol1').mousePressed(() => findSymbol('#room4 #symbol1'))
+    select('#room4 #symbol2').mousePressed(() => findSymbol('#room4 #symbol2'))
+    select('#room4 #symbol3').mousePressed(() => findSymbol('#room4 #symbol3'))
+    select('#room4 #symbol4').mousePressed(() => findSymbol('#room4 #symbol4'))
     
 
 
@@ -200,12 +211,11 @@ function startGame() {
 }
 
 // ============================================
-// RUM 1: FIND SYMBOLER I KÆLDEREN
+// RUM 1: FIND SYMBOLER I KÆLDEREN, FIND CROWBAR
 // ============================================
 function findSymbol(id) {
     select(id).hide()
     symbolsFound++
-    
 }
 
 function findItem(id){
@@ -239,16 +249,16 @@ function clickLås(id) {
 }
 
 // ============================================
-// RUM 1 OVN OG KNIV: FÅ ITEM VIA GÅDE
+// RUM 2 OVN OG KNIV: FÅ ITEM VIA GÅDE
 // ============================================
 function checkRoom2Answer() {
     var answer = select('#room2 #room2-answer').value().toLowerCase()
     if (answer.includes('kniv')) {
-        invKnife.hidden = false
+        invKnife.hidden = false //kniv vises i inventory
         gameState = 2
         kniv = true
 
-        
+        //her skiftes hints fra hint2 til hint3
         room2hint2.classList.remove("visible")
         room2hint2.classList.add("hidden")
         room2hint3.classList.remove("hidden")
@@ -261,8 +271,29 @@ function checkRoom2Answer() {
     }
 }
 
+// ============================================
+// RUM 4: FIND SYMBOLER I SKURET, SLIB KNIVEN
+// ============================================
 
-console.log("kniv = ", kniv)
+//gør så div'en med kniv og symboler i får class="hidden" efter symboler er fundet
+
+function findSymbol(id) {
+    select(id).hide()
+    symbolsFound++
+
+    if (symbolsFound === 4) {
+
+        gameState = 4
+
+        slibestenGåde.classList.remove("visible")
+        slibestenGåde.classList.add("hidden")
+
+        room4hint1.classList.remove("visible")
+        room4hint1.classList.add("hidden")
+        room4hint2.classList.remove("hidden")
+        room4hint2.classList.add("visible")
+    }
+}
 
 
 // ============================================
