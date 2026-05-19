@@ -28,7 +28,7 @@ body {
 
 /* Hint — centreret tekst i toppen af et rum */
 .hint {
-    font-size: 2rem;
+    font-size: 3rem;
     position: absolute;
     bottom: 1.5rem;
     left: 1.5rem;

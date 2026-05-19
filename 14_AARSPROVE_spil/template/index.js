@@ -7,31 +7,7 @@ var timerInterval = null
 var seconds = 0
 
 // ---- REFERENCER MELLEM HTML & JS
-//room1
-const køkkenBtn1 = document.querySelector("#køkkenBtn1")
-//room2
-const room2hint1 = document.querySelector("#room2-hint1")
-const room2hint2 = document.querySelector("#room2-hint2")
-const room2hint3 = document.querySelector("#room2-hint3")
-//room3
-const room3hint2 = document.querySelector("#room3-hint2")
-const room3hint3 = document.querySelector("#room3-hint3")
-const room3hint4 = document.querySelector("#room3-hint4")
-const monster = document.querySelector("#monster")
-const monsterSort = document.querySelector("#monster_drink_sort")
-const monsterHvid = document.querySelector("#monster_drink_hvid")
-const monsterCrushed = document.querySelector("#monster_drink_crushed")
-const køleskab = document.querySelector("#køleskab")
-const køleskabÅben = document.querySelector("#køleskabÅben")
-//room4
-const room4hint1 = document.querySelector("#room4-hint1")
-const room4hint2 = document.querySelector("#room4-hint2")
-const room4hint3 = document.querySelector("#room4-hint3")
-const symbol1 = document.querySelector("#symbol1")
-const symbol2 = document.querySelector("#symbol2")
-const symbol3 = document.querySelector("#symbol3")
-const slibKniv = document.querySelector("#slibKniv")
-const slibestenGåde = document.querySelector("#slibestenGåde")
+
 
 
 
@@ -138,16 +114,18 @@ function setup() {
         shiftPage("#room1")
         //når vi går fra køkken tilbage til kælder, vises et nyt button.
         //dette button kan gå fra kælder ti køkken, da døren teknsik sert er åben.
-        køkkenBtn1.classList.remove("hidden")
-        køkkenBtn1.classList.add("visible")
+
+        select('#køkkenBtn1').removeClass("visible")
+        select('#køkkenBtn1').addClass("hidden")
+        
     })
     select('#stueBtn2').mousePressed(() => { //går fra køkken til stuen
         shiftPage("#room3")
         if (kniv == true) {//hvis kniv er fundet
-            select('#room3-hint1').removeClass("visible")
-            select('#room3-hint1').addClass("hidden")
-            select('#room3-hint2').removeClass("hidden")
-            select('#room3-hint2').addClass("visible")
+            select('#room3 #room3-hint1').removeClass("visible")
+            select('#room3 #room3-hint1').addClass("hidden")
+            select('#room3 #room3-hint2').removeClass("hidden")
+            select('#room3 #room3-hint2').addClass("visible")
         }
     })
     
@@ -157,26 +135,27 @@ function setup() {
     select('#monster').mousePressed(() => { 
         //her kan selve id="#monster" div'en trykkes på uden brug af button
         //da en div kan have "hitbox" på samme måde som et button.
-        room3hint3.classList.remove("visible")
-        room3hint3.classList.add("hidden")
-        room3hint4.classList.remove("hidden")
-        room3hint4.classList.add("visible")
+
+        select('#room3 #room3-hint3').removeClass("visible")
+        select('#room3 #room3-hint3').addClass("hidden")
+        select('#room3 #room3-hint4').removeClass("hidden")
+        select('#room3 #room3-hint4').addClass("visible")
         
-        monsterSort.classList.remove("visible")
-        monsterSort.classList.add("hidden")
-        monsterHvid.classList.remove("hidden")
-        monsterHvid.classList.add("visible")
+        select('#room3 #monsterSort').removeClass("visible")
+        select('#room3 #monsterSort').addClass("hidden")
+        select('#room3 #monsterHvid').removeClass("hidden")
+        select('#room3 #monsterHvid').addClass("visible")
 
         setTimeout(()=>{
-            monsterHvid.classList.remove("visible")
-            monsterHvid.classList.add("hidden")
-            monsterCrushed.classList.remove("hidden")
-            monsterCrushed.classList.add("visible")
+            select('#room3 #monsterHvid').addClass("visible")
+            select('#room3 #monsterHvid').removeClass("hidden")
+            select('#room3 #monsterCrushed').addClass("hidden")
+            select('#room3 #monsterCrushed').removeClass("visible")
 
-            køleskab.classList.remove("visible")
-            køleskab.classList.add("hidden")
-            køleskabÅben.classList.remove("hidden")
-            køleskabÅben.classList.add("visible")
+            select('#room3 #køleskab').removeClass("visible")
+            select('#room3 #køleskab').addClass("hidden")
+            select('#room3 #køleskabÅben').removeClass("hidden")
+            select('#room3 #køleskabÅben').addClass("visible")
         }, 2000)
     })
 
@@ -190,10 +169,11 @@ function setup() {
             //altså forbliver hint3 uændret hvis vi skifter frem og tilbage igen.
         }
         //hints ændres fra hint1 til hint2 via. ændring af class=""
-        room2hint1.classList.remove("visible")
-        room2hint1.classList.add("hidden")
-        room2hint2.classList.remove("hidden")
-        room2hint2.classList.add("visible")
+
+        select('#room2 #room2-hint1').removeClass('hidden')
+        select('#room2 #room2-hint1').addClass('visible')
+        select('#room2 #room2-hint2').removeClass('visible')
+        select('#room2 #room2-hint2').addClass('hidden')
     })//går fra stue til skur.
 
     
@@ -214,8 +194,10 @@ function setup() {
         if(gameState < 4 && knivSlibet != true){
             //gør symbolerne + kniv synlige efter at have trykket på slibestenen.
             //Dette gøres ved at alle elementerne hører til unbder en div, og den dig har hidden/visible
-            slibestenGåde.classList.remove("hidden")
-            slibestenGåde.classList.add("visible")
+
+            select('#room4 #slibestenGåde').removeClass('hidden')
+            select('#room4 #slibestenGåde').addClass('visible')
+
         }
     })
     // ---- RUM 4: Slib Kniven ---- 
@@ -328,10 +310,11 @@ function checkRoom2Answer() {
         kniv = true
 
         //her skiftes hints fra hint2 til hint3
-        room2hint2.classList.remove("visible")
-        room2hint2.classList.add("hidden")
-        room2hint3.classList.remove("hidden")
-        room2hint3.classList.add("visible")
+        select('#room2 #room2-hint2').removeClass('visible')
+        select('#room2 #room2-hint2').addClass('hidden')
+        select('#room2 #room2-hint3').removeClass('hidden')
+        select('#room2 #room2-hint3').addClass('visible')
+        
 
         select('#room2 #room2-code').removeClass('show')
         return
@@ -353,19 +336,19 @@ function findSymbol(id) {
     if (symbolsFound === 4) {
         
         gameState = 4
+
+        select('#room4 #slibestenGåde').removeClass('visible')
+        select('#room4 #slibestenGåde').addClass('hidden')
         
-        slibestenGåde.classList.remove("visible")
-        slibestenGåde.classList.add("hidden")
+        select('#room4 #room4-hint1').removeClass("visible")
+        select('#room4 #room4-hint1').addClass("hidden")
+        select('#room4 #room4-hint2').removeClass("hidden")
+        select('#room4 #room4-hint2').addClass("visible")
         
-        room4hint1.classList.remove("visible")
-        room4hint1.classList.add("hidden")
-        room4hint2.classList.remove("hidden")
-        room4hint2.classList.add("visible")
-        
-        room3hint2.classList.remove("visible")
-        room3hint2.classList.add("hidden")
-        room3hint3.classList.remove("hidden")
-        room3hint3.classList.add("visible")
+        select('#room3 #room3-hint2').removeClass("visible")
+        select('#room3 #room3-hint2').addClass("hidden")
+        select('#room3 #room3-hint3').removeClass("hidden")
+        select('#room3 #room3-hint3').addClass("visible")
     }
 }
 
