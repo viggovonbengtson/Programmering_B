@@ -5,10 +5,7 @@ var currentPage = '#room2'
 var gameState = 0
 var timerInterval = null
 var seconds = 0
-
-// ---- REFERENCER MELLEM HTML & JS
-
-
+var buttonState = 0
 
 
 // inventory og items
@@ -39,7 +36,7 @@ var crushed = false
 // Rum 4: skuret
 var symbolsFound = 0
 
-// Rum 5: køleskabet
+// Rum 5: køleskabet - mingame
 //we select the id='game-container' from html - and save it in a var called game_container
 var game_container = null
 var points_display = null
@@ -104,6 +101,9 @@ function setup() {
     //Ovn gåde
     // //tryk på ovn
     select('#room2 #ovnBtn').mousePressed(() => { 
+        if(buttonState < 1){
+            return
+        }
         select('#room2 #room2-code').addClass('show')
     })
     //ovn gåden, submit answer
@@ -126,6 +126,7 @@ function setup() {
             select('#room3 #room3-hint1').addClass("hidden")
             select('#room3 #room3-hint2').removeClass("hidden")
             select('#room3 #room3-hint2').addClass("visible")
+
         }
     })
     
@@ -136,22 +137,27 @@ function setup() {
         //her kan selve id="#monster" div'en trykkes på uden brug af button
         //da en div kan have "hitbox" på samme måde som et button.
 
+        
+        if(knivSlibet != true){ // hvis buttonState ikke er 1, eller er under, vil resten af funktionen ikke køre.
+            return
+        }
         select('#room3 #room3-hint3').removeClass("visible")
         select('#room3 #room3-hint3').addClass("hidden")
         select('#room3 #room3-hint4').removeClass("hidden")
         select('#room3 #room3-hint4').addClass("visible")
-        
-        select('#room3 #monsterSort').removeClass("visible")
-        select('#room3 #monsterSort').addClass("hidden")
-        select('#room3 #monsterHvid').removeClass("hidden")
-        select('#room3 #monsterHvid').addClass("visible")
+        //monster skifter farve fra sort til hvid
+        select('#room3 #monsterDrinkSort').removeClass("visible")
+        select('#room3 #monsterDrinkSort').addClass("hidden")
+        select('#room3 #monsterDrinkHvid').removeClass("hidden")
+        select('#room3 #monsterDrinkHvid').addClass("visible")
 
         setTimeout(()=>{
-            select('#room3 #monsterHvid').addClass("visible")
-            select('#room3 #monsterHvid').removeClass("hidden")
-            select('#room3 #monsterCrushed').addClass("hidden")
-            select('#room3 #monsterCrushed').removeClass("visible")
-
+            //monster skifter sprite fra hvid til crushed
+            select('#room3 #monsterDrinkHvid').removeClass("visible")
+            select('#room3 #monsterDrinkHvid').addClass("hidden")
+            select('#room3 #monsterDrinkCrushed').removeClass("hidden")
+            select('#room3 #monsterDrinkCrushed').addClass("visible")
+            //køleskabet åbner sig
             select('#room3 #køleskab').removeClass("visible")
             select('#room3 #køleskab').addClass("hidden")
             select('#room3 #køleskabÅben').removeClass("hidden")
@@ -162,6 +168,7 @@ function setup() {
     //buttons - shiftpage
     select('#køkkenBtn3').mousePressed(() => { //går fra stue til køkken.
         shiftPage("#room2")
+        buttonState = 1 //buttonstate bliver 1. Dette gør, at visse funktioner kun kan virker EFTER knap er trykket.
         
         if (kniv == true) {// kniven er fundet — behold hint3.
             return 
@@ -170,10 +177,10 @@ function setup() {
         }
         //hints ændres fra hint1 til hint2 via. ændring af class=""
 
-        select('#room2 #room2-hint1').removeClass('hidden')
-        select('#room2 #room2-hint1').addClass('visible')
-        select('#room2 #room2-hint2').removeClass('visible')
-        select('#room2 #room2-hint2').addClass('hidden')
+        select('#room2 #room2-hint1').removeClass('visible')
+        select('#room2 #room2-hint1').addClass('hidden')
+        select('#room2 #room2-hint2').removeClass('hidden')
+        select('#room2 #room2-hint2').addClass('visible')
     })//går fra stue til skur.
 
     
@@ -191,13 +198,13 @@ function setup() {
         }
     })
     select('#room4 #slibestenBtn').mousePressed(() => { //tryk på slibesten
-        if(gameState < 4 && knivSlibet != true){
+        if(kniv == true && knivSlibet != true){
             //gør symbolerne + kniv synlige efter at have trykket på slibestenen.
             //Dette gøres ved at alle elementerne hører til unbder en div, og den dig har hidden/visible
 
             select('#room4 #slibestenGåde').removeClass('hidden')
             select('#room4 #slibestenGåde').addClass('visible')
-
+            knivSlibet = true
         }
     })
     // ---- RUM 4: Slib Kniven ---- 
@@ -308,6 +315,7 @@ function checkRoom2Answer() {
         invKnife.hidden = false //kniv vises i inventory
         gameState = 2
         kniv = true
+
 
         //her skiftes hints fra hint2 til hint3
         select('#room2 #room2-hint2').removeClass('visible')

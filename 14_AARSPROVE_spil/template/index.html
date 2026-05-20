@@ -35,24 +35,32 @@
         <!-- STARTSIDE -->
         <div class="page" id="start" title="Start">
             <div class="overlay">
+                <button id="" class="leftBtn">Til forrige rum</button>
+                <button id="" class="rightBtn">Til næste rum</button>
+                
                 <h1>Hent en bajer</h1>
-                <p>Find vej ud af kælderen og gennem huset ved at løse gåder i hvert rum.<br>
-                    Din tid tæller — jo hurtigere, jo bedre!</p>
-                    <button id="btn-start">Start spil</button>
-                    <div id="highscores">
-                        <h2>High Scores</h2>
-                        <ol id="score-list"></ol>
-                    </div>
+                <p>Find vej ud af kælderen og gennem huset ved at løse gåder i hvert rum.
+                    <br>Din tid tæller — jo hurtigere, jo bedre!
+                </p>
+                <button id="btn-start">Start spil</button>
+                <div id="highscores">
+                    <h2>High Scores</h2>
+                    <ol id="score-list"></ol>
                 </div>
             </div>
-            
+            <div id="room1-hint" class="startHint">Hint ses hernede i venstre hjørne!</div>
+            <div id="tutorialInv">  <img src="./assets/tut_invPreview.png"> </div>
+            <div id="tutorialHint">  <img src="./assets/tut_hintPreview.png"> </div>
+            <div id="tutorialBtn1">  <img src="./assets/tut_btn1Preview.png"> </div>
+            <div id="tutorialBtn2">  <img src="./assets/tut_btn2Preview.png"> </div>
+        </div>
+        
 
 
             <!-- RUM 1: KÆLDEREN -->
         <div class="page" id="room1" title="Kælderen">
 
             <button id="køkkenBtn1" class="rightBtn hidden">Til køkkenet</button>
-<
             <div id="room1-hint" class="hint">Åben papkassen og få crowbar til at bryde døren op...</div>
 
 
@@ -157,7 +165,7 @@
         <!-- SLUTSIDE -->
         <div class="page" id="complete" title="Færdig">
             <div class="overlay">
-                <h1>Du slap fri!</h1>
+                <h1>Du fik slukket tørsten!</h1>
                 <p id="final-time"></p>
                 <div id="save-score">
                     <input type="text" id="player-name" placeholder="Dit navn">

@@ -11,7 +11,7 @@ body {
     position: fixed;
     top: 0;
     left: -100vw;
-    transition: left 0.5s ease-in-out;
+    transition: left 0.3s ease-in-out;
     background-size: cover;
     background-position: center;
 }
@@ -29,6 +29,16 @@ body {
 /* Hint — centreret tekst i toppen af et rum */
 .hint {
     font-size: 3rem;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    z-index: 10;
+}
+.startHint {
+    font-size: 2.5rem;
     position: absolute;
     bottom: 1.5rem;
     left: 1.5rem;
@@ -103,6 +113,34 @@ body {
     right: 20px;
     display: flex;
     gap: 10px;
+    z-index: 999;
+}
+#tutorialInv{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    z-index: 999;
+}
+#tutorialHint{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    z-index: 999;
+}
+#tutorialBtn1{
+    position: fixed;
+    top: 48px;
+    left: 0px;
+    display: flex;
+    z-index: 999;
+}
+#tutorialBtn2{
+    position: fixed;
+    top: 48px;
+    right: 0px;
+    display: flex;
     z-index: 999;
 }
 .box{
@@ -209,7 +247,7 @@ ____________________________*/
     cursor: pointer;
 }
 /* ---- ROOM 3 - MONSTER ---- */
-#room3 #monster_drink_sort{
+#room3 #monsterDrinkSort{
     background-image: url(./assets/monster_drink_sort.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -219,7 +257,7 @@ ____________________________*/
     top: 28%;
     left: 20%;
 }
-#room3 #monster_drink_hvid{
+#room3 #monsterDrinkHvid{
     background-image: url(./assets/monster_drink_hvid.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -229,7 +267,7 @@ ____________________________*/
     top: 28%;
     left: 20%;
 }
-#room3 #monster_drink_crushed{
+#room3 #monsterDrinkCrushed{
     background-image: url(./assets/monster_drink_crushed.png);
     background-size: contain;
     background-repeat: no-repeat;
