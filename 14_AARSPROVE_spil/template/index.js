@@ -1,7 +1,7 @@
 // ============================================
 // STATE
 // ============================================
-var currentPage = '#room2'
+var currentPage = '#start'
 var gameState = 0
 var timerInterval = null
 var seconds = 0
@@ -94,7 +94,9 @@ function setup() {
     select('#room1Door #lås2').mousePressed(() => clickLås('lås2'))
     select('#room1Door #lås3').mousePressed(() => clickLås('lås3'))
     //buttons - shiftpage
-    select('#køkkenBtn1').mousePressed(() => { shiftPage("#room2") })
+
+    select('#room1 #køkkenBtn1').mousePressed(() => { shiftPage("#room2") })
+    select('#room1 #symbolDoorOpen').mousePressed(() => { shiftPage("#room2") })
 
     
     // RUM 2 - køkkenet
@@ -115,8 +117,12 @@ function setup() {
         //når vi går fra køkken tilbage til kælder, vises et nyt button.
         //dette button kan gå fra kælder ti køkken, da døren teknsik sert er åben.
 
-        select('#køkkenBtn1').removeClass("visible")
-        select('#køkkenBtn1').addClass("hidden")
+        select('#room1 #køkkenBtn1').addClass("visible")
+        select('#room1 #køkkenBtn1').removeClass("hidden")
+        select('#room1 #symbolDoorOpen').addClass("visible")
+        select('#room1 #symbolDoorOpen').removeClass("hidden")
+        select('#room1 #symbolDoorOpenBg').addClass("visible")
+        select('#room1 #symbolDoorOpenBg').removeClass("hidden")
         
     })
     select('#stueBtn2').mousePressed(() => { //går fra køkken til stuen
@@ -369,7 +375,7 @@ function startBeerGame() {
     points_display = document.querySelector('#points-display')
     time_display = document.querySelector('#time-display')
 
-    time_left = 3
+    time_left = 10
     points = 0
     points_display.textContent = points
     time_display.textContent = time_left
@@ -401,14 +407,14 @@ function spawnBeer() {
 
 function KillBeer(beer) {
     game_container.removeChild(beer)
-    points += 5
+    points += 0.5
     points_display.textContent = points
     spawnBeer()
 }
 function TimeoutBeer(beer) {
     if (game_container.contains(beer)) {
         game_container.removeChild(beer)
-        points -= 2
+        points -= -0.5
         points_display.textContent = points
         spawnBeer()
     }
@@ -449,7 +455,7 @@ function saveHighScore() {
 // ============================================
 // RESET
 // ============================================
-function resetGame() {
+/*function resetGame() {
     select('#timer').html('0 sek')
 
     // Nulstil rum 1
@@ -459,6 +465,83 @@ function resetGame() {
     // Nulstil rum 2
     select('#room2 #room2-code').removeClass('show')
 
+
+    // Nulstil slutside
+    select('#btn-save').removeAttribute('disabled')
+    select('#btn-save').html('Gem high score')
+    select('#player-name').value('')
+
+    shiftPage('#start')
+}*/
+function resetGame() {
+    // Nulstil timer og states
+    stopTimer()
+    seconds = 0
+    select('#timer').html('0 sek')
+    buttonState = 0
+    crowbar = false
+    kniv = false
+    knivSlibet = false
+    symbolsFound = 0
+    låsStep = 0
+    points = 0
+
+    // Nulstil inventory
+    invCrowbar.hidden = true
+    invKnife.hidden = true
+
+    // Nulstil rum 1
+    select('#room1 #woodenBox').show()
+    select('#room1 #symbolDoor').show()
+    select('#room1 #køkkenBtn1').removeClass('visible')
+    select('#room1 #køkkenBtn1').addClass('hidden')
+    select('#room1 #symbolDoorOpen').removeClass('visible')
+    select('#room1 #symbolDoorOpen').addClass('hidden')
+    select('#room1 #symbolDoorOpenBg').removeClass('visible')
+    select('#room1 #symbolDoorOpenBg').addClass('hidden')
+
+    // Nulstil rum 2
+    select('#room2 #room2-code').removeClass('show')
+    select('#room2 #room2-answer').value('')
+    select('#room2 #room2-error').html('')
+    select('#room2 #room2-hint1').removeClass('hidden')
+    select('#room2 #room2-hint1').addClass('visible')
+    select('#room2 #room2-hint2').removeClass('visible')
+    select('#room2 #room2-hint2').addClass('hidden')
+    select('#room2 #room2-hint3').removeClass('visible')
+    select('#room2 #room2-hint3').addClass('hidden')
+
+    // Nulstil rum 3
+    select('#room3 #room3-hint1').removeClass('hidden')
+    select('#room3 #room3-hint1').addClass('visible')
+    select('#room3 #room3-hint2').removeClass('visible')
+    select('#room3 #room3-hint2').addClass('hidden')
+    select('#room3 #room3-hint3').removeClass('visible')
+    select('#room3 #room3-hint3').addClass('hidden')
+    select('#room3 #room3-hint4').removeClass('visible')
+    select('#room3 #room3-hint4').addClass('hidden')
+    select('#room3 #monsterDrinkSort').removeClass('hidden')
+    select('#room3 #monsterDrinkSort').addClass('visible')
+    select('#room3 #monsterDrinkHvid').removeClass('visible')
+    select('#room3 #monsterDrinkHvid').addClass('hidden')
+    select('#room3 #monsterDrinkCrushed').removeClass('visible')
+    select('#room3 #monsterDrinkCrushed').addClass('hidden')
+    select('#room3 #køleskab').removeClass('hidden')
+    select('#room3 #køleskab').addClass('visible')
+    select('#room3 #køleskabÅben').removeClass('visible')
+    select('#room3 #køleskabÅben').addClass('hidden')
+
+    // Nulstil rum 4
+    select('#room4 #room4-hint1').removeClass('hidden')
+    select('#room4 #room4-hint1').addClass('visible')
+    select('#room4 #room4-hint2').removeClass('visible')
+    select('#room4 #room4-hint2').addClass('hidden')
+    select('#room4 #slibestenGåde').removeClass('visible')
+    select('#room4 #slibestenGåde').addClass('hidden')
+    select('#room4 #symbol1').show()
+    select('#room4 #symbol2').show()
+    select('#room4 #symbol3').show()
+    select('#room4 #symbol4').show()
 
     // Nulstil slutside
     select('#btn-save').removeAttribute('disabled')
