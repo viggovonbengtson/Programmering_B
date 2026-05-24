@@ -229,7 +229,7 @@ function setup() {
     })
 }
 
-    console.log(crowbar)
+console.log(crowbar)
 
 // ============================================
 // SHIFTPAGE — skifter mellem rum/sider
@@ -367,7 +367,7 @@ function startBeerGame() {
         beerInterval = null
     }
 
-    game_container = document.querySelector('#game-container')//vi laver et variabel "game_container" og binder det til "game-container" id'et og laver game-container til game_container så game-container nu kan bruges som en game container-... GAME CONTAINERRRR?!? RAAHHH!!!!!!
+    game_container = document.querySelector('#game-container')//vi laver et variabel "game_container" og binder det til vores HTML game-container                      //vi laver et variabel "game_container" og binder det til "game-container" id'et og laver game-container til game_container så game-container nu kan bruges som en game container-... GAME CONTAINERRRR?!? RAAHHH!!!!!!
     game_container.innerHTML = '' //vi rydder game container fra gamle øl
 
     points_display = document.querySelector('#points-display') //vi vælger element via. id så vi kan ændre det's tekstindhold
@@ -377,7 +377,7 @@ function startBeerGame() {
     points = 0 //point starter ved 0 (ingen tyvestart!!!)
     points_display.textContent = points //her ændrer vi elementets tekstindhold til at være antal points
     time_display.textContent = time_left //samme her, men med andet id
-    spawnBeer() //vi kører spawnBeer funktionen, og der spawnes... beer :O  yummy
+    spawnBeer() //vi kører spawnBeer funktionen
 
     beerInterval = setInterval(() => {
         time_left -= 0.1
