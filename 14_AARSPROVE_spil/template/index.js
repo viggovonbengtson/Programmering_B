@@ -1,5 +1,5 @@
 // ============================================
-// STATE
+// STATES
 // ============================================
 var currentPage = '#start'
 var gameState = 0
@@ -28,6 +28,7 @@ var låsStep = 0
 
 // Rum 2: Ovn
 // det button som har imput felt hvor man finder kniv
+// ja, ovnen var en del af baggrundsbilleded.
 const ovn = document.getElementById("ovn")
 
 // Rum 3: stue
@@ -37,11 +38,9 @@ var crushed = false
 var symbolsFound = 0
 
 // Rum 5: køleskabet - mingame
-//we select the id='game-container' from html - and save it in a var called game_container
 var game_container = null
 var points_display = null
 var time_display = null
-var timeout = 2000
 var points = 0
 var time_left = 10
 
@@ -69,19 +68,25 @@ function setup() {
     // ============================================
 
     // ---- STARTSIDE ----
-    select('#btn-start').mousePressed(() => {startGame()})
+    select('#btn-start').mousePressed(() => {
+        if(confirm("HAR DU LÆST FORKLARINGERNE MED RØD SKRIFT?")){
+            startGame()
+        }else{
+            return
+        }
+    })
 
     // ---- RUM 1: Kælder med boxes ----
     //3 låse på døren, tryk i rigtig rækkefølge
     select('#room1 #woodenBox').mousePressed(() => {
         findCrowbar('#room1 #woodenBox')
-        crowbar = true
-        invCrowbar.hidden = false
+        crowbar = true//crowbar er fundet, nye funktioner kan nu bruges
+        invCrowbar.hidden = false //crowbar vises i invetaret
     })
 
     select('#room1 #symbolDoor').mousePressed(() => {
-        if(crowbar == true){
-            findDoor('#room1 #symbolDoor')
+        if(crowbar == true){//hvis man har fundet crowbar
+            findDoor('#room1 #symbolDoor')//tryk på dør
             setTimeout(() => {
                 shiftPage("#room1Door")
             }, 500);
@@ -93,7 +98,7 @@ function setup() {
     select('#room1Door #lås1').mousePressed(() => clickLås('lås1'))
     select('#room1Door #lås2').mousePressed(() => clickLås('lås2'))
     select('#room1Door #lås3').mousePressed(() => clickLås('lås3'))
-    //buttons - shiftpage
+    // ---- buttons - shiftpage ---- 
 
     select('#room1 #køkkenBtn1').mousePressed(() => { shiftPage("#room2") })
     select('#room1 #symbolDoorOpen').mousePressed(() => { shiftPage("#room2") })
@@ -101,9 +106,8 @@ function setup() {
     
     // RUM 2 - køkkenet
     //Ovn gåde
-    // //tryk på ovn
-    select('#room2 #ovnBtn').mousePressed(() => { 
-        if(buttonState < 1){
+    select('#room2 #ovnBtn').mousePressed(() => { //tryk på ovn
+        if(buttonState < 1){ //hvis buttonState er under 1, return. Hvis buttonState > 1, kør kode
             return
         }
         select('#room2 #room2-code').addClass('show')
@@ -111,7 +115,7 @@ function setup() {
     //ovn gåden, submit answer
     select('#room2 #room2-submit').mousePressed(() => { checkRoom2Answer() })
 
-    //buttons - shiftpage
+    // ---- buttons - shiftpage ----
     select('#kælderBtn2').mousePressed(() => { //går fra køkken til stuen
         shiftPage("#room1")
         //når vi går fra køkken tilbage til kælder, vises et nyt button.
@@ -155,7 +159,7 @@ function setup() {
         select('#room3 #monsterDrinkHvid').removeClass("hidden")
         select('#room3 #monsterDrinkHvid').addClass("visible")
 
-        setTimeout(()=>{
+        setTimeout(()=>{ //crazyy transition hvor monster dør
             //monster skifter sprite fra hvid til crushed
             select('#room3 #monsterDrinkHvid').removeClass("visible")
             select('#room3 #monsterDrinkHvid').addClass("hidden")
@@ -168,16 +172,12 @@ function setup() {
             select('#room3 #køleskabÅben').addClass("visible")
         }, 2000)
     })
-
-    //buttons - shiftpage
+    // ---- buttons - shiftpage ---- 
     select('#køkkenBtn3').mousePressed(() => { //går fra stue til køkken.
         shiftPage("#room2")
         buttonState = 1 //buttonstate bliver 1. Dette gør, at visse funktioner kun kan virker EFTER knap er trykket.
-        
         if (kniv == true) {// kniven er fundet — behold hint3.
-            return 
-            //denne funktion gør at resten af koden i "select('#...') ikke køres igennem"
-            //altså forbliver hint3 uændret hvis vi skifter frem og tilbage igen.
+            return //altså forbliver hint3 uanset om hvis vi skifter frem og tilbage igen.
         }
         //hints ændres fra hint1 til hint2 via. ændring af class=""
         select('#room2 #room2-hint1').removeClass('visible')
@@ -201,12 +201,9 @@ function setup() {
     })
     select('#room4 #slibestenBtn').mousePressed(() => { //tryk på slibesten
         if(kniv == true && knivSlibet != true){
-            //gør symbolerne + kniv synlige efter at have trykket på slibestenen.
-            //Dette gøres ved at alle elementerne hører til unbder en div, og den dig har hidden/visible
-
-            select('#room4 #slibestenGåde').removeClass('hidden')
+            select('#room4 #slibestenGåde').removeClass('hidden')//gåden om slibestenen vises på skærmen (kniven og symbolerne vises)
             select('#room4 #slibestenGåde').addClass('visible')
-            knivSlibet = true
+            knivSlibet = true //kniven er slibet
         }
     })
     // ---- RUM 4: Slib Kniven ---- 
@@ -227,7 +224,6 @@ function setup() {
     select('#btn-save').mousePressed(() => {
         saveHighScore()
     })
-
     select('#btn-restart').mousePressed(() => {
         resetGame()
     })
@@ -238,6 +234,8 @@ function setup() {
 // ============================================
 // SHIFTPAGE — skifter mellem rum/sider
 // ============================================
+
+//shiftpage er en funktion som bruges til at sdkifter mellem sider ved at bruge klassenavne
 function shiftPage(newPage) {
     select(currentPage).removeClass('show')
     select(newPage).addClass('show')
@@ -251,18 +249,18 @@ function startTimer() {
     seconds = 0
     timerInterval = setInterval(() => {
         seconds++
-        select('#timer').html(seconds + ' sek')
+        select('#timer').html(seconds + ' sek') //gør så timer-elementet tæller sekunder op, ved at indsætte et variabel som hele tiden skifter værdier, ind i tekstindholdet
     }, 1000)
 }
 
 function stopTimer() {
-    clearInterval(timerInterval)
+    clearInterval(timerInterval)//stop timeren
 }
 
 // ============================================
 // START SPIL
 // ============================================
-function startGame() {
+function startGame() { //i denne funktion sætter vi gåderne til nul, så de er kalr til nlæste spil.
     gameState = 0
     symbolsFound = 0
     låsStep = 0
@@ -274,11 +272,11 @@ function startGame() {
 // RUM 1: FIND SYMBOLER I KÆLDEREN, FIND CROWBAR
 // ============================================
 function findDoor(id) {
-    select(id).hide()
+    select(id).hide() //når vi trykker på døren, bliver elementet med det angiven id usynligt. Døren forsvinder
     doorsFound++
 }
 function findCrowbar(id){
-    select(id).hide()
+    select(id).hide() //det samme sker her, men med crowbar istedet
     crowbarsFound++
 }
 
@@ -286,9 +284,9 @@ function findCrowbar(id){
 // RUM 1 DØR: KLIK LÅSE I RÆKKEFØLGE
 // ============================================
 function clickLås(id) {
-    if (id === låsAnswer[låsStep]) {
+    if (id === låsAnswer[låsStep]) { //hvis låse trykkes på i den rigtige rækkefølge som angivet i [låsStep] array
         låsStep++
-    } else {
+    } else { // hvis der fejl-tykkes, skal man starte forfra igen
         låsStep = 0
     }
 
@@ -308,10 +306,10 @@ function clickLås(id) {
 // ============================================
 function checkRoom2Answer() {
     var answer = select('#room2 #room2-answer').value().toLowerCase()
-    if (answer.includes('kniv')) {
-        invKnife.hidden = false //kniv vises i inventory
-        gameState = 2
-        kniv = true
+    if (answer.includes('kniv')) { //hvis man skriver "kniv" i inputfeltet
+        invKnife.hidden = false //kniv billede vises i inventory
+        gameState = 2 //gamestate opdateres
+        kniv = true //kniven er blevet fundet!!
 
 
         //her skiftes hints fra hint2 til hint3
@@ -323,7 +321,7 @@ function checkRoom2Answer() {
 
         select('#room2 #room2-code').removeClass('show')
         return
-    } else {
+    } else { //hvis ma ikke skriver "kniv" i inputfeltet
         select('#room2 #room2-error').html('Ikke helt - prøv igen!')
     }
 }
@@ -339,17 +337,16 @@ function findSymbol(id) {
     symbolsFound++
     
     if (symbolsFound === 4) {
-        
         gameState = 4
-
+        //gåden om slibestenen forsvinder igen
         select('#room4 #slibestenGåde').removeClass('visible')
         select('#room4 #slibestenGåde').addClass('hidden')
-        
+        //hints skiftes
         select('#room4 #room4-hint1').removeClass("visible")
         select('#room4 #room4-hint1').addClass("hidden")
         select('#room4 #room4-hint2').removeClass("hidden")
         select('#room4 #room4-hint2').addClass("visible")
-        
+        //hints skiftes
         select('#room3 #room3-hint2').removeClass("visible")
         select('#room3 #room3-hint2').addClass("hidden")
         select('#room3 #room3-hint3').removeClass("hidden")
@@ -361,48 +358,60 @@ function findSymbol(id) {
 // RUM 5: KLIK PÅ ØL SOM SPAWNER TILFÆLDIGT
 // ============================================
 
+var beerInterval = null  // tilføj øverst i STATE sektionen
+
 function startBeerGame() {
-    game_container = document.querySelector('#game-container')
-    points_display = document.querySelector('#points-display')
-    time_display = document.querySelector('#time-display')
+    // Stop evt. gammelt interval før nyt startes
+    if (beerInterval) {
+        clearInterval(beerInterval)
+        beerInterval = null
+    }
 
-    time_left = 10
-    points = 0
-    points_display.textContent = points
-    time_display.textContent = time_left
-    spawnBeer()
+    game_container = document.querySelector('#game-container')//vi laver et variabel "game_container" og binder det til "game-container" id'et og laver game-container til game_container så game-container nu kan bruges som en game container-... GAME CONTAINERRRR?!? RAAHHH!!!!!!
+    game_container.innerHTML = '' //vi rydder game container fra gamle øl
 
-    var beerInterval = setInterval(() => {
+    points_display = document.querySelector('#points-display') //vi vælger element via. id så vi kan ændre det's tekstindhold
+    time_display = document.querySelector('#time-display') //samme her, men med andet id
+
+    time_left = 10 //tid tæller ned fra 10 sekunder
+    points = 0 //point starter ved 0 (ingen tyvestart!!!)
+    points_display.textContent = points //her ændrer vi elementets tekstindhold til at være antal points
+    time_display.textContent = time_left //samme her, men med andet id
+    spawnBeer() //vi kører spawnBeer funktionen, og der spawnes... beer :O  yummy
+
+    beerInterval = setInterval(() => {
         time_left -= 0.1
         time_display.textContent = Math.round(time_left * 10) / 10
         if (time_left <= 0) {
-            clearInterval(beerInterval)  // STOP intervallet først!
-            confirm(`Du fik ${points} point!`)
-            shiftPage('#complete')
-            stopTimer()
-            select('#timer').html(seconds + ' sekunder  - ' + points + ' points =\n' + (seconds-points) + ' score')
+            clearInterval(beerInterval)
+            beerInterval = null
+            confirm(`Du fik ${points} point!`) //confirm-boks i toppen af skærmen
+            shiftPage('#complete') //efter at have trykket ok/annuler på boksen, skiftes til slutside
+            stopTimer() //timer stoppen
+            select('#timer').html(seconds + ' sekunder  - ' + points + ' points =\n' + (seconds-points) + ' score') //hvordan tekst skal se ud på timer i slutning
+            //-da der skal vises 1. tid minus point, 2. final score efter udregning
         }
     }, 100)
 }
 //setinterval runs a function every x interval
 //ÆNDR LILLE s TIL sTORT
 function spawnBeer() {
-    var new_beer = document.createElement('img')
+    var new_beer = document.createElement('img') //vi opretter et img-element, kaldet new_beer
     var top = Math.random() * 91
     var left = Math.random() * 91
     new_beer.style = `left: ${left}%; top: ${top}%;`
-    new_beer.src = 'assets/øl.png'
-    new_beer.className = 'øl'
-    game_container.appendChild(new_beer)
-    new_beer.addEventListener('click', () => { KillBeer(new_beer) })
-    setTimeout(() => { TimeoutBeer(new_beer) }, timeout)
+    new_beer.src = 'assets/øl.png' //vi angiver den et billede af en øl
+    new_beer.className = 'øl' //vi giver den en klasse kaldet "øl"
+    game_container.appendChild(new_beer) //opretter new_beer som child-element under game_container objektet
+    new_beer.addEventListener('click', () => { KillBeer(new_beer) }) //vi laver eventlistener så den forsvinder når bvitrykker på den
+    setTimeout(() => { TimeoutBeer(new_beer) }, 2000) //kort tidsinterval mellem spawn af øl
 }
 
 function KillBeer(beer) {
-    game_container.removeChild(beer)
-    points += 1.5
-    points_display.textContent = points
-    spawnBeer()
+    game_container.removeChild(beer) //efter vi har oprettet en øl som child-element, skal der FJERNES efter tid hvis ikke trykket på. "let's remove the child!"
+    points += 1.5 //man får point for at klikke på øl
+    points_display.textContent = points //points fra øl plusses sammen med point
+    spawnBeer() //flere øl!!
 }
 function TimeoutBeer(beer) {
     if (game_container.contains(beer)) {
@@ -524,3 +533,5 @@ function resetGame() {
 
     shiftPage('#start')
 }
+
+//hvis jeg havde mere tid, ville jeg gerne have opimized min kode. TRUST ME jeg ville BETALE for at kunne gøre det
