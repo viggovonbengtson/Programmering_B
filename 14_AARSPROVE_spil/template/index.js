@@ -140,10 +140,8 @@ function setup() {
     // RUM 3 - Stuen
 
     select('#monster').mousePressed(() => { 
-        //her kan selve id="#monster" div'en trykkes på uden brug af button
+        //her kan selve id="#monster" div'en trykkes på uden brug af button(i modsætning til ovnen i room2)
         //da en div kan have "hitbox" på samme måde som et button.
-
-        
         if(knivSlibet != true){ // hvis buttonState ikke er 1, eller er under, vil resten af funktionen ikke køre.
             return
         }
@@ -182,14 +180,12 @@ function setup() {
             //altså forbliver hint3 uændret hvis vi skifter frem og tilbage igen.
         }
         //hints ændres fra hint1 til hint2 via. ændring af class=""
-
         select('#room2 #room2-hint1').removeClass('visible')
         select('#room2 #room2-hint1').addClass('hidden')
         select('#room2 #room2-hint2').removeClass('hidden')
         select('#room2 #room2-hint2').addClass('visible')
     })//går fra stue til skur.
 
-    
     select('#stueBtn4').mousePressed(() => { shiftPage("#room3") })
     select('#skurBtn3').mousePressed(() => { shiftPage("#room4") })
     
@@ -219,7 +215,7 @@ function setup() {
     select('#room4 #symbol2').mousePressed(() => findSymbol('#room4 #symbol2'))
     select('#room4 #symbol3').mousePressed(() => findSymbol('#room4 #symbol3'))
     select('#room4 #symbol4').mousePressed(() => findSymbol('#room4 #symbol4'))
-    
+
 
     // ---- RUM 5: Køleskab minigame? ----
     select('#køleskabÅben').mousePressed(() => { 
@@ -227,8 +223,6 @@ function setup() {
         startBeerGame() 
     })
     
-
-
     // ---- SLUTSIDE ----
     select('#btn-save').mousePressed(() => {
         saveHighScore()
@@ -249,7 +243,6 @@ function shiftPage(newPage) {
     select(newPage).addClass('show')
     currentPage = newPage
 }
-
 
 // ============================================
 // TIMER — tæller 1 op hvert sekund
@@ -284,12 +277,10 @@ function findDoor(id) {
     select(id).hide()
     doorsFound++
 }
-
 function findCrowbar(id){
     select(id).hide()
     crowbarsFound++
 }
-
 
 // ============================================
 // RUM 1 DØR: KLIK LÅSE I RÆKKEFØLGE
@@ -388,6 +379,8 @@ function startBeerGame() {
             clearInterval(beerInterval)  // STOP intervallet først!
             confirm(`Du fik ${points} point!`)
             shiftPage('#complete')
+            stopTimer()
+            select('#timer').html(seconds + ' sekunder  - ' + points + ' points =\n' + (seconds-points) + ' score')
         }
     }, 100)
 }
@@ -407,14 +400,13 @@ function spawnBeer() {
 
 function KillBeer(beer) {
     game_container.removeChild(beer)
-    points += 0.5
+    points += 1.5
     points_display.textContent = points
     spawnBeer()
 }
 function TimeoutBeer(beer) {
     if (game_container.contains(beer)) {
         game_container.removeChild(beer)
-        points -= -0.5
         points_display.textContent = points
         spawnBeer()
     }
@@ -446,7 +438,7 @@ function saveHighScore() {
     console.log('TODO: Åbn firebase.js og indsæt jeres Firebase-config. Derefter virker scoresRef.add() og gemmer data i Firestore.')
 
     // Udkommenter linjen herunder når firebase.js er sat op:
-    scoresRef.add({ name: name, seconds: seconds }).then(() => {
+    scoresRef.add({ name: name, seconds: seconds-points }).then(() => {
         select('#btn-save').attribute('disabled', true)
         select('#btn-save').html('Gemt!')
     })
@@ -455,27 +447,9 @@ function saveHighScore() {
 // ============================================
 // RESET
 // ============================================
-/*function resetGame() {
-    select('#timer').html('0 sek')
 
-    // Nulstil rum 1
-    select('#room1-hint').html('Find de 3 skjulte symboler i junglen...')
-
-
-    // Nulstil rum 2
-    select('#room2 #room2-code').removeClass('show')
-
-
-    // Nulstil slutside
-    select('#btn-save').removeAttribute('disabled')
-    select('#btn-save').html('Gem high score')
-    select('#player-name').value('')
-
-    shiftPage('#start')
-}*/
 function resetGame() {
     // Nulstil timer og states
-    stopTimer()
     seconds = 0
     select('#timer').html('0 sek')
     buttonState = 0
