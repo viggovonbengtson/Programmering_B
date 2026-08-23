@@ -19,13 +19,13 @@ function setup(){
 
     //"publish" sender
     select('#btn1').mousePressed( () => {
-        client.publish('viggo/page', '1')
+        client.publish('viggoserver/page', '1')
     })
     select('#btn2').mousePressed( () => {
-        client.publish('viggo', 'open')
+        client.publish('viggoserver', 'open')
     })
     select('#btn3').mousePressed( () => {
-        client.publish('viggo/page', '2')
+        client.publish('viggoserver/page', '2')
     })
     
 

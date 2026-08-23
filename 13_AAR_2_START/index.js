@@ -17,14 +17,14 @@ function setup(){
         },2000)
     })
 
-    client.subscribe('viggo')
-    client.subscribe('viggo/page')
+    client.subscribe('viggoserver')
+    client.subscribe('viggoserver/page')
 
     //her får vi beskeder fra forskellige topics vi abbonerer på
     client.on('message', (topic, msg) => {
         console.log(topic, msg.toString)
         msg = msg.toString()
-        if(topic == 'viggo/page'){
+        if(topic == 'viggoserver/page'){
             console.log('nu skal der skiftes side')
             //ER DET ET TAL?
             msg = '#page' + msg
@@ -34,7 +34,7 @@ function setup(){
         select('#msg').elt.textContent = 'Besked på topic ' + topic + ' med teksten ' + msg
     })
     //"publish" sender
-    client.publish('viggo', '1')
+    client.publish('viggoserver', '1')
     
 }
 
