@@ -22,7 +22,7 @@ function setup(){
         client.publish('viggoserver/page', '1')
     })
     select('#btn2').mousePressed( () => {
-        client.publish('viggoserver', 'open')
+        client.publish('viggoserver', 'fødder 👅')
     })
     select('#btn3').mousePressed( () => {
         client.publish('viggoserver/page', '2')

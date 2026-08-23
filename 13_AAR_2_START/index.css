@@ -23,12 +23,26 @@ body,
     transition: all .6s ease-in-out;
 }
 
+#cards{
+
+}
+
 #page1{
-    background-color: rgb(234, 238, 237);
+    background-image: url(./assets/page1.png);
+    background-size: 20vw;
+    background-position: bottom 2rem left 2rem;
+    background-repeat: no-repeat;
 }
 
 #page2{
-    background-color: blue;
+    background-image: url(./assets/page2.png);
+    background-size: 20vw;
+    background-position: bottom 2rem left 2rem;
+    background-repeat: no-repeat;
+}
+
+#page5{
+    background-color: rgb(219, 221, 229);
 }
 
 .show {
@@ -54,4 +68,27 @@ body,
     top: 2rem;
 }
 
+.container{
+    display: grid;
+    position: fixed;
+    align-items: center;
+    grid-template-rows: 100px 100px;
+    max-height: 200px;
+    width: 100px;
+}
 
+.top{
+    max-height: 100%;
+    
+    object-fit:cover;
+}
+.top img{
+    background-color: rgb(238, 239, 241);
+    width: 100px;
+    
+}
+
+.bottom{
+    background-color: antiquewhite;
+    height: 100%;
+}
