@@ -11,7 +11,10 @@ body,
 
 }
 
-
+#cards{
+    position: fixed;
+    right: 10vw;
+}
 
 /* Timer */
 #timer {
@@ -20,28 +23,27 @@ body,
 }
 
 
-
-
 #page1{
+    grid-template-rows: 5fr 3fr 2fr;
     background-image: url(./assets/page1.png);
-    background-size: 20vw;
+    background-size: 10vw;
     background-position: bottom 2rem left 2rem;
     background-repeat: no-repeat;
 }
 
 #page2{
+    grid-template-rows: 5fr 3fr 2fr;
     background-image: url(./assets/page2.png);
-    background-size: 20vw;
+    background-size: 10vw;
     background-position: bottom 2rem left 2rem;
     background-repeat: no-repeat;
 }
 
 #buttonContainer{
+    display: flex;
     height: 15vh; 
     width: 15vw; 
     position: relative;
-    display: flex;
-    
 }
 #buttonIdle{
     background-image: url(./assets/button_idle.png);
@@ -49,19 +51,19 @@ body,
     background-position: bottom;
     position: absolute;
     width: 10vw;
-    height: 10vw;
+    height: 5vw;
 }
 #buttonIdle:hover{
     filter: grayscale(20%);
+    cursor: pointer;
 }
 #buttonPressed{
     background-image: url(./assets/button_pressed.png);
     background-repeat: no-repeat;
     background-position: bottom;
-
     position: absolute;
     width: 10vw;
-    height: 10vw;
+    height: 5vw;
 }
 #buttonPressed:hover{
     filter: grayscale(20%);

@@ -45,7 +45,7 @@ function shiftPage(newPage){
 // indsæt <div id="timer">0 sek</div> i html
 function startTimer(seconds=0, interval=1000) {
     seconds = 0
-    timerinterval = setInterval(() => {
+    timerInterval = setInterval(() => {
         seconds++
         select('#timer').html(seconds + ' sek') //gør så timer-elementet tæller sekunder op, ved at indsætte et variabel som hele tiden skifter værdier, ind i tekstindholdet
     }, interval)

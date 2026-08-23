@@ -7,7 +7,7 @@ function setup(){
     // Brug funktionerne fra dit personlige API her.
     showToast('SELMA ER SMEGMA', 5000, 'warning')
     
-    select('#page1 #buttonContainer ').mousePressed(() => {
+    select('#page1 #buttonIdle').mousePressed(() => {
         select('#page1 #buttonIdle').removeClass("visible")
         select('#page1 #buttonIdle').addClass("hidden")
         select('#page1 #buttonPressed').addClass("visible")
@@ -22,6 +22,25 @@ function setup(){
             setTimeout(() => {
                 shiftPage('#page2')
                 startTimer()
+            }, (500))
+        }, (500));
+    })
+
+    select('#page2 #buttonContainer ').mousePressed(() => {
+        select('#page2 #buttonIdle').removeClass("visible")
+        select('#page2 #buttonIdle').addClass("hidden")
+        select('#page2 #buttonPressed').addClass("visible")
+        select('#page2 #buttonPressed').removeClass("hidden")
+
+        setTimeout(() => {
+            select('#page2 #buttonPressed').removeClass("visible")
+            select('#page2 #buttonPressed').addClass("hidden")
+            select('#page2 #buttonIdle').removeClass("hidden")
+            select('#page2 #buttonIdle').addClass("visible")
+            
+            setTimeout(() => {
+                shiftPage('#page1')
+                stopTimer()
             }, (500))
         }, (500));
     })
