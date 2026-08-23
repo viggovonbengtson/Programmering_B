@@ -80,6 +80,7 @@
     left: -100vw;
     transition: all .6s ease-in-out;
 }
+
 .show {
     left: 0;
 }
