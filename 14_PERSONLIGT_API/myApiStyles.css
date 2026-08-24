@@ -44,12 +44,18 @@
     top: 2rem;
 }
 #toast.toastShow.notify{
+    grid-template-columns: 5fr 1fr;
+    background-image: url(./assets/warning.png);
+    background-size: 2rem; 
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
+
     top: 2rem;
-    background-color: rgb(182, 255, 189);
+    background-color: rgb(168, 240, 160);
 }
 #toast.toastShow.warning{
     grid-template-columns: 5fr 1fr;
-    background-image: url(./assets/warning_icon.png);
+    background-image: url(./assets/warning.png);
     background-size: 2rem; 
     background-repeat: no-repeat;
     background-position: 90% 50%;

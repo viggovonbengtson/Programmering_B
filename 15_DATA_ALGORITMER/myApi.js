@@ -1,3 +1,4 @@
+// Kopiér og videreudvikl funktionerne fra dit personlige API her.
 // Dine genbrugelige API-funktioner kommer her.
 
 

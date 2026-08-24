@@ -24,6 +24,9 @@ function setup(){
                 startTimer()
             }, (500))
         }, (500));
+
+        //jeg behøver ikke skrive 'notify' for at få en notify toast, da den er sat til default
+        showToast('skiftet til page2', 5000)
     })
 
     select('#page2 #buttonContainer ').mousePressed(() => {
