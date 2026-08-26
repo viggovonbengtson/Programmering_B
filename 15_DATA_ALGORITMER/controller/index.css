@@ -10,6 +10,7 @@ body {
     display: grid;
     position: fixed;
     top: 100vh;
+    overflow-y: scroll;
 }
 
 .page.show {

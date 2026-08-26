@@ -1,5 +1,8 @@
 // Dine genbrugelige API-funktioner kommer her.
 
+function setup(){
+    console.log('connection til myApi.js')
+}
 
 
 // ============================================
@@ -85,7 +88,7 @@ function stopTimer() {
 // ============================================
 // createCard — opretter cards
 // ============================================
-function createCard(text, img, destId){
+/*function createCard(text, img, destId){
     console.log(img)
     var containerDiv = createDiv().addClass('cardContainer')
     var topDiv = createDiv().addClass('top')
@@ -95,6 +98,41 @@ function createCard(text, img, destId){
     containerDiv.child(topDiv)
     containerDiv.child(bottomDiv)
     select(destId).child(containerDiv)
+}*/
+
+function createCard(destDiv, title="", text="", image=""){
+    var card = createDiv().addClass('card')
+    var i = createImg(image)
+    var t = createElement('h2', title)
+    var txt = createElement('p', text)
+    return `<div class="card">
+            <img> src='${img}</img>
+            <h2>${title}</h2>
+            <p>${text}</p>
+        </div>`
 }
 // createCard('besked', 'billede-url', '#card-id')
 // Eksempel: createCard('Her er billedet', 'https://media.tenor.com/5x7yNPBj5HcAAAAm/happy.webp', '#cards')
+
+
+
+async function getJSON( endpoint ){
+    // Vi starter med at kontakte severen
+    var res
+    try{
+        var res = await fetch( endpoint )
+    }catch(err){
+        console.log(err)
+    }
+    //Hvis response er ok, henter vi json data
+    var json = await res.json()
+    console.log(`Hentede poster fra fetchJSON`, json)
+    return json
+
+
+    chars.map(char => {
+        var img = char.image
+        img = createImg(img)
+        select('#characters').child(img)
+    })
+}
