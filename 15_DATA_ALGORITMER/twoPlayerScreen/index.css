@@ -1,6 +1,6 @@
-body {
+body, * {
     margin: 0;
-    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .page {
@@ -14,4 +14,20 @@ body {
 
 .page.show {
     top: 0;
+}
+
+#players{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#playerA img, #playerB img{
+    width: 100px;
+}
+
+#characters{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 300px;
+    gap: 1rem;
 }

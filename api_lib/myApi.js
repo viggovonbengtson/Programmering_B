@@ -101,10 +101,10 @@ function stopTimer() {
 }*/
 
 function createCard(destDiv, title="", text="", image=""){
-    var card = createDiv().addClass('card')
+    /*var card = createDiv().addClass('card')
     var i = createImg(image)
     var t = createElement('h2', title)
-    var txt = createElement('p', text)
+    var txt = createElement('p', text)*/
     return `<div class="card">
             <img> src='${img}</img>
             <h2>${title}</h2>

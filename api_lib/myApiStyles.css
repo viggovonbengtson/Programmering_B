@@ -11,7 +11,6 @@
     /*border: 0.3rem solid black;*/
     overflow: hidden;
     display: grid; /* grid layout */
-    place-items: center;
     position:fixed; /* position fixed - klassen "show" viser pages */
     left: -100vw;
     opacity: 0;
@@ -92,7 +91,6 @@
     max-height: 200px;
     width: 100px;
 }
-
 .top{
     max-height: 100%;
     
@@ -103,8 +101,26 @@
     width: 100px;
     
 }
-
 .bottom{
     background-color: antiquewhite;
     height: 100%;
+}
+
+.card{
+    height: 100%;
+    width: 100%;
+}
+.card img{
+    height: 100%;
+}
+
+.card h2{
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card p{
+    font-size: 1rem;
+    margin: 0;
 }
