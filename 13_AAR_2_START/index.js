@@ -56,6 +56,7 @@ function shiftPage(newPage){
         setTimeout(() => readyToShift = true, 50);
     }
 }
+/*
 
 function createCard(text, img, destID){
     console.log(img)
@@ -74,3 +75,4 @@ function createCard(text, img, destId){
     containerDiv.child(bottomDiv)
     select(destId).child(containerDiv)
 }
+*/
