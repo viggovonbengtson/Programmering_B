@@ -4,7 +4,7 @@ var client
 
 function setup(){
 
-shiftPage('#page5')
+shiftPage('#page1')
 
     //mqtt er et objekt vi får fra mqtt-biblioteket i HTML-siden
     client = mqtt.connect('wss://mqtt.nextservices.dk')

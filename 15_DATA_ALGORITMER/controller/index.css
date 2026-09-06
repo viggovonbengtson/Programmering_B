@@ -17,3 +17,10 @@ body {
     top: 0;
 }
 
+
+#choose{
+    background-color: rgb(131, 168, 224);
+}
+.selected{
+    border: 1px solid yellow;
+}

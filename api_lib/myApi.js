@@ -100,16 +100,18 @@ function stopTimer() {
     select(destId).child(containerDiv)
 }*/
 
-function createCard(destDiv, title="", text="", image=""){
-    /*var card = createDiv().addClass('card')
-    var i = createImg(image)
-    var t = createElement('h2', title)
-    var txt = createElement('p', text)*/
-    return `<div class="card">
-            <img> src='${img}</img>
-            <h2>${title}</h2>
-            <p>${text}</p>
-        </div>`
+function createCard(title="", text="", image=""){
+    var card = createDiv().addClass('card')
+    card.child( createImg(image))
+    card.child(createElement('h2', title))
+    card.child(createElement('p', text))
+    return card
+
+    // return `<div class="card">
+    //         <img> src='${image}</img>
+    //         <h2>${title}</h2>
+    //         <p>${text}</p>
+    //     </div>`
 }
 // createCard('besked', 'billede-url', '#card-id')
 // Eksempel: createCard('Her er billedet', 'https://media.tenor.com/5x7yNPBj5HcAAAAm/happy.webp', '#cards')
