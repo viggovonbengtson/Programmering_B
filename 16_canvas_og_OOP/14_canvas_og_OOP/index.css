@@ -19,7 +19,14 @@ canvas {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    display: grid;
+    place-items: center;
     position: fixed;
+    left: -100vw;
+    transition: all .6s ease-in-out;
+}
+
+.show {
     left: 0;
 }
 
