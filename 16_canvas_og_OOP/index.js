@@ -9,18 +9,23 @@ var j
 var k
 var points
 var bSound
+var jSound
 var hasPlayed = false; //styrer at lyden kun spillet EN GANG
 
 
 async function setup() {
 
     bSound = await loadSound("/api_lib/sfx/cat-choke.mp3")
+    jSound = await loadSound('/16_canvas_og_OOP/sfx/bass.mp3')
     var c = createCanvas(windowWidth, windowHeight)
-    select("#page2").child(c)
-    select("#startButton").mousePressed(()=>shiftPage("#page2"))
     gravity = createVector(0, 1)
     friction = 0.97
     
+    select("#page2").child(c)
+    select("#startButton").mousePressed(()=>shiftPage("#page2"))
+    select('#restartButton').mousePressed(() => {
+        window.location.reload()
+    })
     
     b = new Ball(windowWidth/2, 600, 10, "orange", 12)
     f = new FloatingBall(100, 200, 25, "red", 0, 10)
@@ -38,7 +43,9 @@ function draw() {
     b.constrain()
     b.show()
     if(b.position.y < -b.diam/2){
+        noLoop()
         shiftPage('#page3')
+        select('#gameOverText').html('You Win!!!')
     }
     
     points = b.diam
@@ -51,10 +58,14 @@ function draw() {
             b.jumpForce = 5
             friction = 0.90
         }
+        setTimeout(()=>{
+            noLoop()
+            shiftPage('#page3')
+        }, 500)
     }
     
-    
     select('#info').html(points)
+    select('#stats').html('Dine points: ' + points)
     
     //EVIL BALLS grrrrr!!!
     f.update()
@@ -83,6 +94,7 @@ function keyPressed() {
     if(key == "w"){
         b.jump()
         b.diam += 10
+        jSound.play()
     }
     if(key == " " && b.diam >=21){
         b.diam -= 20

@@ -28,6 +28,18 @@ function setup() {
     select('#playerA').mousePressed(() => choosePlayer('A'))
     select('#playerB').mousePressed(() => choosePlayer('B'))
     select('#forward').mousePressed(() => choice('forward'))
+    select("#back").mousePressed(() => choice("back"))
+    select("#select").mousePressed(() => {
+        if (!isSelected) {
+            choice("select")
+            select("#select").html("Unselect")
+            isSelected = true
+        } else {
+            choice("unselect")
+            select("#select").html("Select")
+            isSelected = false
+        }
+    })
 }
 
 function choosePlayer(n){
