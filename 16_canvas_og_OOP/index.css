@@ -43,3 +43,7 @@ canvas {
     z-index: 2;
     font-size: 2rem;
 }
+
+#page1{
+    grid-template-rows: 5fr 1fr 1fr 1fr 5fr;
+}

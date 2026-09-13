@@ -15,7 +15,7 @@ class Ball{
   }
   constrain(){
     if(this.position.y > height - this.diam/2){
-      this.position.y = height -this.diam/2
+      this.position.y = height - this.diam/2
       this.velocity.y *= -1
     }
   }
