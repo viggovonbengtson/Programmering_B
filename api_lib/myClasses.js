@@ -1,16 +1,18 @@
 
 
 class Ball{
-  constructor(x, y, r, col, jump){
+  constructor(x, y, r, col, jump, move){
     this.diam = r
     this.col = col
     this.velocity = createVector(0,0)
     this.position = createVector(x,y)
     this.jumpForce = jump
+    this.moveForce = move
   }
   update(){
     this.velocity.add(gravity)
-    this.velocity.y *= friction 
+    this.velocity.y *= friction
+    this.velocity.x *= moveFriction
     this.position.add(this.velocity)
   }
   constrain(){
@@ -21,6 +23,12 @@ class Ball{
   }
   jump(){
     this.velocity.y -= this.jumpForce
+  }
+  left(){
+    this.velocity.x -= this.moveForce
+  }
+  right(){
+    this.velocity.x += this.moveForce
   }
   
   show(){

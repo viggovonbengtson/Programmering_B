@@ -1,5 +1,6 @@
 var gravity
 var friction
+var moveFriction
 var b
 var f
 var g
@@ -21,6 +22,7 @@ async function setup() {
     var c = createCanvas(windowWidth, windowHeight)
     gravity = createVector(0, 1)
     friction = 0.97
+    moveFriction = 0.9
     
     select("#page2").child(c)
     select("#startButton").mousePressed(()=>shiftPage("#page2"))
@@ -28,7 +30,8 @@ async function setup() {
         window.location.reload()
     })
     
-    b = new Ball(windowWidth/2, 600, 10, "orange", 12)
+    b = new Ball(windowWidth/2, 600, 10, "orange", 12, 10)
+
     f = new FloatingBall(100, 200, 25, "red", 0, 10)
     g = new FloatingBall(400, 200, 25, "red", 0, -10)
     h = new FloatingBall(500, 500, 25, "red", 0, 10)
@@ -59,10 +62,10 @@ function draw() {
     if(b.hit(f) || b.hit(g) || b.hit(h) || b.hit(i) || b.hit(j) || b.hit(k)){
         if (!bSound.isPlaying() && !hasPlayed) {
             bSound.play()
-            hasPlayed = true;
+            hasPlayed = true
             friction = 0.90
             dead = true
-            frameRate(30)
+            frameRate(45)
         }
         setTimeout(()=>{
             noLoop()
@@ -102,10 +105,16 @@ function keyPressed() {
         b.diam += 10
         jSound.play()
     }
-    if(key == " " && b.diam >=21){
+    if(keyCode == UP_ARROW && b.diam >=21){
         b.diam -= 20
     }
     if(key == "r"){
         b.diam = 10
+    }
+    if(keyCode == LEFT_ARROW){
+        b.left()
+    }
+    if(keyCode == RIGHT_ARROW){
+        b.right()
     }
 }
