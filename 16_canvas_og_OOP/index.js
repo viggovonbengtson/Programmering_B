@@ -10,6 +10,7 @@ var k
 var points
 var bSound
 var jSound
+var dead = false
 var hasPlayed = false; //styrer at lyden kun spillet EN GANG
 
 
@@ -38,7 +39,13 @@ async function setup() {
 }
 
 function draw() {
-    background('#7dbeff');
+    if(dead == false){
+        background('#7dbeff')
+    }else{
+        background(125, 190, 255, 10);
+    }
+    points = b.diam
+
     b.update()
     b.constrain()
     b.show()
@@ -48,20 +55,20 @@ function draw() {
         select('#gameOverText').html('You Win!!!')
     }
     
-    points = b.diam
     
     if(b.hit(f) || b.hit(g) || b.hit(h) || b.hit(i) || b.hit(j) || b.hit(k)){
         if (!bSound.isPlaying() && !hasPlayed) {
             bSound.play()
             hasPlayed = true;
-            gravity = createVector(0, 0.5)
-            b.jumpForce = 5
+
             friction = 0.90
+            dead = true
+            frameRate(30)
         }
         setTimeout(()=>{
             noLoop()
             shiftPage('#page3')
-        }, 500)
+        }, 2000)
     }
     
     select('#info').html(points)
@@ -91,7 +98,7 @@ function draw() {
 }
 
 function keyPressed() {
-    if(key == "w"){
+    if(key == "w" && dead == false){
         b.jump()
         b.diam += 10
         jSound.play()
