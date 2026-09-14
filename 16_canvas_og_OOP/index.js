@@ -60,7 +60,6 @@ function draw() {
         if (!bSound.isPlaying() && !hasPlayed) {
             bSound.play()
             hasPlayed = true;
-
             friction = 0.90
             dead = true
             frameRate(30)
