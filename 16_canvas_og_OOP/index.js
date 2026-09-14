@@ -15,7 +15,7 @@ var hasPlayed = false; //styrer at lyden kun spillet EN GANG
 
 async function setup() {
 
-    bSound = await loadSound("/api_lib/sfx/cat-choke.mp3")
+    bSound = await loadSound("../api_lib/sfx/cat-choke.mp3")
     jSound = await loadSound('/16_canvas_og_OOP/sfx/bass.mp3')
     var c = createCanvas(windowWidth, windowHeight)
     gravity = createVector(0, 1)
