@@ -30,7 +30,6 @@ class Ball{
   right(){
     this.velocity.x += this.moveForce
   }
-  
   show(){
     fill(this.col)
     circle(this.position.x, this.position.y, this.diam)
@@ -47,6 +46,10 @@ class Ball{
     }
   }
 }
+
+
+
+
 
 class FloatingBall extends Ball{
     constructor(x, y, r, col, jump, speed){
@@ -66,4 +69,29 @@ class FloatingBall extends Ball{
             this.velocity.x *= -1
         }
     }
+}
+
+
+
+
+class Firebase {
+  constructor(collection) {
+    this.ref = db.collection(collection)
+  }
+
+  save(name, points) {
+    this.ref.add({
+      name: name,
+      points: points,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }
+
+  listen(onUpdate, limit, sort, dir='desc') {
+    this.ref.orderBy(sort, dir).limit(limit).onSnapshot(snap => {
+      var list = []
+      snap.forEach(doc => list.push(doc.data()))
+      onUpdate(list)
+    })
+  }
 }

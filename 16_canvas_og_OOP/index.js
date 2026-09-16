@@ -31,7 +31,6 @@ async function setup() {
     })
     
     b = new Ball(windowWidth/2, 600, 10, "orange", 12, 10)
-
     f = new FloatingBall(100, 200, 25, "red", 0, 10)
     g = new FloatingBall(400, 200, 25, "red", 0, -10)
     h = new FloatingBall(500, 500, 25, "red", 0, 10)
@@ -39,6 +38,14 @@ async function setup() {
     j = new FloatingBall(500, 300, 40, "#e32e8f", 0, -5)
     k = new FloatingBall(200, 300, 40, "#e32e8f", 0, 5)
     
+
+    var fb = new Firebase('jumping_ball_data')
+    fb.listen(updateHighscore, 5, 'points', 'asc')
+}
+
+//callback fra listen som har returneret et array
+function updateHighscore(scores){
+    console.log('Got result', scores)
 }
 
 function draw() {
@@ -100,21 +107,21 @@ function draw() {
 }
 
 function keyPressed() {
-    if(key == "w" && dead == false){
+    if((key == "w" || key == " ") && dead == false){
         b.jump()
         b.diam += 10
         jSound.play()
     }
-    if(keyCode == UP_ARROW && b.diam >=21){
+    if((keyCode == UP_ARROW || key == "s") && b.diam >=21){
         b.diam -= 20
     }
     if(key == "r"){
         b.diam = 10
     }
-    if(keyCode == LEFT_ARROW){
+    if((keyCode == LEFT_ARROW || key == "a") && dead == false){
         b.left()
     }
-    if(keyCode == RIGHT_ARROW){
+    if((keyCode == RIGHT_ARROW || key == "d") && dead == false){
         b.right()
     }
 }
