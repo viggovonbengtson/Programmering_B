@@ -10,7 +10,10 @@ class Ball{
     this.moveForce = move
   }
   update(){
+    var mass = this.diam/10
+    var g = 0.007
     this.velocity.add(gravity)
+    this.velocity.y += g * mass
     this.velocity.y *= friction
     this.velocity.x *= moveFriction
     this.position.add(this.velocity)
@@ -46,9 +49,6 @@ class Ball{
     }
   }
 }
-
-
-
 
 
 class FloatingBall extends Ball{

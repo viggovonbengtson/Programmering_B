@@ -1,0 +1,92 @@
+.shell {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 46rem);
+  justify-content: center;
+  column-gap: 2.25rem;
+  padding: 0 1.5rem;
+}
+.bar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  z-index: 5;
+  padding: 3.5rem 0 2rem;
+  max-height: 100vh;
+  overflow: auto;
+  background: var(--bg, #fff);
+}
+.bar-title {
+  display: block;
+  font-weight: 300;
+  font-size: 1.05rem;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--ink, #111);
+  text-decoration: none;
+  margin: 0 0 1.1rem;
+}
+.bar-item {
+  display: block;
+  font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--faint, #9a9a9a);
+  text-decoration: none;
+}
+.bar-item:hover {
+  color: var(--ink, #111);
+}
+.bar-fold {
+  display: block;
+  margin: 0 0 0.35rem;
+}
+.bar-fold summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--faint, #9a9a9a);
+  cursor: pointer;
+  list-style: none;
+  text-align: left;
+}
+.bar-fold summary a {
+  color: inherit;
+  text-decoration: none;
+}
+.bar-fold summary a:hover {
+  color: var(--ink, #111);
+}
+.bar-fold summary::-webkit-details-marker { display: none; }
+.bar-fold summary::after {
+  content: "+";
+  opacity: 0.45;
+}
+.bar-fold[open] summary {
+  color: var(--ink, #111);
+}
+.bar-fold[open] summary::after {
+  content: "−";
+}
+.bar-fold ul {
+  list-style: none;
+  margin: 0.3rem 0 0.8rem;
+  padding: 0;
+}
+.bar-fold li { margin: 0; }
+.bar-fold ul a {
+  display: block;
+  padding: 0.2rem 0;
+  font-size: 0.82rem;
+  color: var(--ink, #111);
+  text-decoration: none;
+}
+@media print {
+  .bar { display: none; }
+  .shell {
+    display: block;
+    padding: 0;
+  }
+}

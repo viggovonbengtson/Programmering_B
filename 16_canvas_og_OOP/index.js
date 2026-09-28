@@ -13,13 +13,17 @@ var bSound
 var jSound
 var dead = false
 var hasPlayed = false; //styrer at lyden kun spillet EN GANG
+var scoresRef = db.collection('jumping_ball_data')
 
+// 'radius'/'r' hedder nu 'b.diam'
 
 async function setup() {
 
+    loadHighScores()
     bSound = await loadSound("../api_lib/sfx/cat-choke.mp3")
     jSound = await loadSound('sfx/bass.mp3')
     var c = createCanvas(windowWidth, windowHeight)
+    
     gravity = createVector(0, 1)
     friction = 0.97
     moveFriction = 0.9
@@ -38,17 +42,27 @@ async function setup() {
     j = new FloatingBall(500, 300, 40, "#e32e8f", 0, -5)
     k = new FloatingBall(200, 300, 40, "#e32e8f", 0, 5)
     
-
-    var fb = new Firebase('jumping_ball_data')
-    fb.listen(updateHighscore, 5, 'points', 'asc')
+    function loadHighScores() {
+    scoresRef.orderBy('score', 'asc').limit(10).onSnapshot(snap => {
+        select('#score-list').html('')
+        snap.forEach(doc => {
+            var d = doc.data()
+            var li = createElement('li')
+            li.child(createElement('span', d.name))
+            li.child(createElement('span', d.seconds + ' sek'))
+            select('#score-list').child(li)
+        })
+    })
+}
 }
 
 //callback fra listen som har returneret et array
-function updateHighscore(scores){
+function updateHighscore(highscores){
     console.log('Got result', scores)
 }
 
 function draw() {
+    
     if(dead == false){
         background('#7dbeff')
     }else{
@@ -124,4 +138,21 @@ function keyPressed() {
     if((keyCode == RIGHT_ARROW || key == "d") && dead == false){
         b.right()
     }
+}
+
+
+
+function saveHighScore() {
+    var name = select('#name').value().trim()
+    if (name === '') {
+        select('#name').attribute('placeholder', 'Skriv dit navn først!')
+        return
+    }
+    console.log('TODO: Åbn firebase.js og indsæt jeres Firebase-config. Derefter virker scoresRef.add() og gemmer data i Firestore.')
+
+    // Udkommenter linjen herunder når firebase.js er sat op:
+    scoresRef.add({ name: name, score: score }).then(() => {
+        select('#btn-save').attribute('disabled', true)
+        select('#btn-save').html('Gemt!')
+    })
 }

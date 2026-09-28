@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Klasser og instanser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="api_lib/flowchart.css" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  :root {
+    --ink: #111;
+    --soft: #5a5a5a;
+    --faint: #9a9a9a;
+    --rule: #e4e4e4;
+    --bg: #fff;
+    --code: #f4f4f4;
+  }
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.75rem;
+    overflow-y: scroll;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 300 16px/1.55 Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 46rem;
+    padding: 3.5rem 0 7rem;
+  }
+  .kicker {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 0.75rem;
+    font-weight: 400;
+  }
+  .kicker a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 2.35rem;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    margin: 0 0 2rem;
+  }
+  h1 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h2 {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 4.25rem 0 1.6rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 1.75rem;
+  }
+  .names + h2 {
+    margin-top: 2.4rem;
+    padding-top: 1.6rem;
+  }
+  h3 {
+    font-size: 1.02rem;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.7rem;
+    scroll-margin-top: 1.75rem;
+  }
+  p { margin: 0 0 1rem; }
+  code, pre,
+  code[class*="language-"],
+  pre[class*="language-"] {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    text-shadow: none;
+  }
+  code { font-size: 0.88em; }
+  pre,
+  pre[class*="language-"] {
+    background: var(--code);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    padding: 0.95rem 1.05rem;
+    margin: 0 0 1.35rem;
+    overflow: visible;
+    white-space: pre-wrap;
+    word-break: normal;
+    overflow-wrap: break-word;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  pre code,
+  pre code[class*="language-"] {
+    font-size: inherit;
+    background: none;
+    white-space: pre-wrap;
+    word-break: normal;
+    overflow-wrap: break-word;
+    display: block;
+  }
+  .names {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    margin: 0 0 0.5rem;
+  }
+  label {
+    display: block;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 0.35rem;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.35rem 0 0.45rem;
+    outline: none;
+  }
+  input[type="text"]:focus, textarea:focus {
+    border-bottom-color: var(--ink);
+  }
+  textarea {
+    min-height: 6.5rem;
+    resize: vertical;
+    line-height: 1.45;
+    border: 1px solid var(--rule);
+    padding: 0.7rem 0.8rem;
+    margin-top: 0.15rem;
+  }
+  .q { margin: 0 0 2.15rem; }
+  .q.long textarea { min-height: 10rem; }
+  .file {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0.85rem 0 0.35rem;
+  }
+  .flow {
+    margin: 2.75rem 0 3.25rem;
+  }
+  .note {
+    margin: 2.35rem 0 2.5rem;
+  }
+  .note p { margin: 0 0 1.15rem; }
+  .note p:last-child { margin-bottom: 0; }
+  .flow .flowchart-canvas { margin-top: 2rem; }
+  .flowchart-blank { min-height: 32rem; }
+  .status {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--faint);
+  }
+  @media print {
+    @page { size: A4; margin: 14mm 16mm; }
+    html { scroll-behavior: auto; }
+    .page { max-width: none; padding: 0; }
+    .status, .no-print { display: none; }
+    h2 { break-after: avoid; }
+    .q, pre, .flow, .flowchart { break-inside: avoid; }
+    pre, pre[class*="language-"], pre code {
+      white-space: pre-wrap;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+    textarea { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body id="top">
+<div class="shell">
+<nav class="bar no-print" aria-label="Indhold">
+  <a class="bar-title" href="index.html#top">miniGames med OOP</a>
+  <details class="bar-fold" open>
+    <summary><a href="opgaver.html">Opgave</a></summary>
+    <ul>
+      <li><a href="#ball">Ball</a></li>
+      <li><a href="#jumpingball">JumpingBall</a></li>
+      <li><a href="#springball">SpringBall</a></li>
+      <li><a href="#movingball">MovingBall</a></li>
+      <li><a href="#shootingball">ShootingBall</a></li>
+      <li><a href="#bullet">Bullet</a></li>
+      <li><a href="#firebase">Firebase</a></li>
+    </ul>
+  </details>
+  <details class="bar-fold">
+    <summary><a href="projekt.html">Projekt</a></summary>
+    <ul>
+      <li><a href="samarbejde.html">Samarbejde</a></li>
+    </ul>
+  </details>
+</nav>
+<div class="page">
+<main>
+<p class="kicker"><a href="index.html">miniGames med OOP</a> · opgaver</p>
+<h1><a href="#top">Klasser og instanser</a></h1>
+
+<div class="names">
+  <div>
+    <label for="n1">Navn</label>
+    <input id="n1" data-save type="text" autocomplete="name" />
+  </div>
+  <div>
+    <label for="n2">Navn</label>
+    <input id="n2" data-save type="text" autocomplete="name" />
+  </div>
+</div>
+
+<h2 id="ball">Ball</h2>
+
+<div class="q">
+  <h3>Hvilke argumenter tager klassen i sin constructor, og hvad bruges de til?</h3>
+  <pre><code class="language-javascript">constructor(x, y, r, img, col, xSpeed, ySpeed, bounds)</code></pre>
+  <textarea id="b1" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad betyder keywordet <code>this</code> i en constructor?</h3>
+  <textarea id="b2" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad betyder linjen</h3>
+  <pre><code class="language-javascript">this.velocity = createVector(xSpeed || 0, ySpeed || 0)</code></pre>
+  <textarea id="b3" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvilke metoder har klassen?</h3>
+  <textarea id="b4" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>I metoden <code>constrain</code> finder I denne linje — hvad gør den?</h3>
+  <pre><code class="language-javascript">if(b[0] && this.position.x &lt; r){
+  this.position.x = r
+  this.velocity.x *= -1
+}</code></pre>
+  <textarea id="b5" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>hit</code></h3>
+  <pre><code class="language-javascript">hit(anotherBall){
+  var b = anotherBall
+  var totalR = (this.diam + b.diam) / 2
+  var d = dist(this.position.x, this.position.y, b.position.x, b.position.y)
+  return d &lt;= totalR
+}</code></pre>
+  <textarea id="b6" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad betyder linjerne</h3>
+  <pre><code class="language-javascript">this.mass = this.diam
+this.fixed = false</code></pre>
+  <textarea id="b7" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad er forskellen på <code>hit(anotherBall)</code> og <code>bounce(other)</code>?</h3>
+  <textarea id="b8" data-save></textarea>
+</div>
+
+<h2 id="jumpingball">JumpingBall</h2>
+
+<div class="q">
+  <h3>Hvad betyder linjen</h3>
+  <pre><code class="language-javascript">class JumpingBall extends Ball</code></pre>
+  <textarea id="j1" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad betyder linjen</h3>
+  <pre><code class="language-javascript">super(x, y, r, img, col, 0, 0, bounds || [false, false, false, true])</code></pre>
+  <textarea id="j2" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>update</code></h3>
+  <pre><code class="language-javascript">update(){
+  this.velocity.add(gravity)
+  this.velocity.y *= friction
+  super.update()
+}</code></pre>
+  <textarea id="j3" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Forklar metoden <code>jump</code></h3>
+  <pre><code class="language-javascript">jump(){
+  this.velocity.y -= this.jumpForce
+}</code></pre>
+  <textarea id="j4" data-save></textarea>
+</div>
+
+<h2 id="springball">SpringBall</h2>
+
+<div class="q">
+  <h3>Klassen har en lidt speciel constructor. Hvad betyder linjen</h3>
+  <pre><code class="language-javascript">super(x, y, r, img, col, 0, 0, bounds)</code></pre>
+  <textarea id="s1" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad er forholdet mellem <code>this.start</code> og <code>this.maxDragDist</code>?</h3>
+  <pre><code class="language-javascript">this.start = createVector(x, y)
+this.maxDragDist = maxDragDist</code></pre>
+  <textarea id="s2" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>drag()</code> linje for linje</h3>
+  <pre><code class="language-javascript">drag(){
+  var mouse = createVector(mouseX, mouseY)
+  mouse.sub(this.start)
+  if(mouse.mag() &gt; this.maxDragDist) mouse.setMag(this.maxDragDist)
+  this.position = this.start.copy()
+  this.position.add(mouse)
+  this.isDragging = true
+}</code></pre>
+  <textarea id="s3" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>launch()</code> linje for linje</h3>
+  <pre><code class="language-javascript">launch(){
+  this.velocity = this.start.copy()
+  this.velocity.sub(this.position)
+  this.velocity.mult(0.15) // 0.15 dæmper farten, så bolden ikke flyver for hurtigt
+  this.isFlying = true
+  this.isDragging = false
+}</code></pre>
+  <textarea id="s4" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Forklar metoden <code>update</code></h3>
+  <pre><code class="language-javascript">update(){
+  if(!this.isFlying) return
+  this.velocity.add(gravity)
+  super.update()
+}</code></pre>
+  <textarea id="s5" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3><code>countHit</code></h3>
+  <p>Når to bolde rammer hinanden, har vi brug for en måde at tælle ET point. Klassen Ball har metoden <code>hit(anotherBall)</code>, som alle andre bolde nedarver. Den returnerer <code>true</code>, hvis den anden bold er inden for dens radius. Koden ser sådan her ud:</p>
+  <p class="file">myClasses.js</p>
+  <pre><code class="language-javascript">hit(anotherBall){
+  var b = anotherBall
+  var totalR = (this.diam + b.diam) / 2
+  var d = dist(this.position.x, this.position.y, b.position.x, b.position.y)
+  return d &lt;= totalR
+}</code></pre>
+  <p>Men <code>hit()</code> er sand i hvert eneste frame, så længe de to stadig overlapper. Hvis vi tæller dér, får vi mange point for ét sammenstød. Derfor har skitsen <code>countHit</code>, som tager begge instanser og holder øje med, om de allerede rørte hinanden i forrige frame:</p>
+  <p class="file">index.js</p>
+  <pre><code class="language-javascript">countHit(spring, other)
+
+function countHit(a, b){
+    var h = a.hit(b)
+    if(h && !a.wasHit){
+        hits++
+        select('#g-points').html(hits)
+    }
+    a.wasHit = h
+}</code></pre>
+  <p>Forklar linjerne i <code>countHit</code>.</p>
+  <textarea id="s6" data-save></textarea>
+</div>
+
+<div class="flow">
+  <h3 id="livscyklus">Livscyklus</h3>
+  <p>Hvis vi følger en SpringBall fra den oprettes, til den skydes af og til sidst forsvinder, kan vi se på de her steder i koden:</p>
+  <p class="file">index.js</p>
+  <pre><code class="language-javascript">// I setup()
+spring = new SpringBall(400, 420, 80, null, 120, '#87ceeb')
+
+// I draw()
+if(mouseIsPressed && (
+    spring.isDragging ||
+    dist(mouseX, mouseY, spring.position.x, spring.position.y) &lt; spring.diam / 2
+)){
+    spring.drag()
+}
+spring.update()
+spring.constrain()
+countHit(spring, other)
+spring.bounce(other)
+spring.show()
+if(spring.isFlying && (
+    spring.position.x &lt; 0 ||
+    spring.position.x &gt; width ||
+    spring.position.y &gt; height
+)){
+    spring.reset()
+}
+
+// I mouseReleased()
+if(currentPage == '#page3' && spring.isDragging) spring.launch()</code></pre>
+  <div class="note">
+    <p>Et godt flowchart viser de processer og valg der indgår i en hvilken som helst algoritme. Et flow starter og slutter altid med runde hjørner — processer er firkantede, og valg er diamantformede. Der går ALTID to muligheder ud fra et valg: ja eller nej i daglig tale.</p>
+    <p>Se om I kan afslutte flowchartet nedenfor — hvad er det sidste valg der indgår i en SpringBall-livscyklus, og hvad medfører det?</p>
+  </div>
+<div class="flowchart-canvas">
+  <p class="flowchart-title">SpringBall livscyklus</p>
+  <svg viewBox="0 0 800 640" role="img" aria-label="Flowchart over SpringBalls livscyklus, sidste valg og proces er tomme">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 1.2 L9.2 5 L0 8.8 z" fill="#7b8c99"/>
+      </marker>
+    </defs>
+    <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#4a5a66">
+      <rect x="20" y="72" width="140" height="60" rx="30" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="90" y="107" text-anchor="middle">new SpringBall</text>
+      <line x1="160" y1="102" x2="174" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+
+      <rect x="176" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="226" y="107" text-anchor="middle">update()</text>
+      <line x1="276" y1="102" x2="290" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+
+      <rect x="292" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="342" y="107" text-anchor="middle">constrain()</text>
+      <line x1="392" y1="102" x2="406" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+
+      <rect x="408" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="458" y="107" text-anchor="middle">countHit()</text>
+      <line x1="508" y1="102" x2="522" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+
+      <rect x="524" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="574" y="107" text-anchor="middle">bounce()</text>
+      <line x1="624" y1="102" x2="638" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+
+      <rect x="640" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="690" y="107" text-anchor="middle">show()</text>
+
+      <path d="M690 132 V168 H254 V194" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+
+      <polygon points="254,196 344,252 254,308 164,252" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <text x="254" y="247" text-anchor="middle">mus nede</text>
+      <text x="254" y="265" text-anchor="middle">på bold?</text>
+
+      <line x1="344" y1="252" x2="494" y2="252" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+      <text x="419" y="244" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="496" y="216" width="132" height="72" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="562" y="247" text-anchor="middle">drag()</text>
+      <text x="562" y="265" text-anchor="middle" font-size="12">isDragging = true</text>
+      <path d="M562 288 V326 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+
+      <line x1="254" y1="308" x2="254" y2="338" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+      <text x="244" y="328" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+
+      <polygon points="254,340 344,396 254,452 164,396" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <text x="254" y="391" text-anchor="middle">mouseReleased</text>
+      <text x="254" y="409" text-anchor="middle">og isDragging?</text>
+
+      <line x1="344" y1="396" x2="494" y2="396" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+      <text x="419" y="388" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="496" y="360" width="132" height="72" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="562" y="391" text-anchor="middle">launch()</text>
+      <text x="562" y="409" text-anchor="middle" font-size="12">isFlying = true</text>
+      <path d="M562 432 V470 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+
+      <line x1="254" y1="452" x2="254" y2="482" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+      <text x="244" y="472" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+
+      <polygon points="254,484 344,540 254,596 164,540" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+
+      <line x1="344" y1="540" x2="496" y2="540" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+      <text x="420" y="532" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="498" y="510" width="128" height="60" rx="30" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+
+      <path d="M254 596 V618 H768 V40 H254 V72" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr)"/>
+      <text x="760" y="34" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+    </g>
+  </svg>
+</div>
+</div>
+
+<h2 id="movingball">MovingBall</h2>
+
+<div class="q">
+  <h3>Hvad er <code>this.heading</code>, og hvad gør <code>left()</code>, <code>right()</code>, <code>up()</code> og <code>down()</code> ved den?</h3>
+  <textarea id="m3" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad betyder linjen</h3>
+  <pre><code class="language-javascript">this.velocity.set(this.heading.x * this.speed, this.heading.y * this.speed)</code></pre>
+  <textarea id="m4" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>update</code> linje for linje</h3>
+  <pre><code class="language-javascript">update(){
+  this.heading.normalize()
+  super.update()
+}</code></pre>
+  <textarea id="m5" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad tegner <code>show()</code> ud over selve bolden?</h3>
+  <pre><code class="language-javascript">var tip = this.heading.copy().setMag(this.diam)
+line(this.position.x, this.position.y, this.position.x + tip.x, this.position.y + tip.y)</code></pre>
+  <textarea id="m6" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Hvis nogle instanser af MovingBall skal kunne køre fremad hele tiden: hvordan vil I implementere det? Kig på <code>clearDrive</code> og <code>forward</code>.</h3>
+  <textarea id="m7" data-save></textarea>
+</div>
+
+
+<div class="flow">
+  <h3 id="moving-livscyklus">Livscyklus</h3>
+  <p>Hvis vi følger en MovingBall fra den oprettes, kan vi se på de her steder i koden:</p>
+  <p class="file">index.js</p>
+  <pre><code class="language-javascript">// I setup()
+move = new MovingBall(160, 320, 80, null, 6, '#3cb371', [true, true, true, true])
+
+// I draw()
+clearDrive(move)
+steer(move)
+move.update()
+move.constrain()
+countHit(move, other)
+move.bounce(other)
+move.show()
+
+// I draw() — steer()
+function steer(b){
+    if(keyIsDown(65)) b.left()
+    if(keyIsDown(68)) b.right()
+    if(keyIsDown(87)) b.up()
+    if(keyIsDown(83)) b.down()
+    if(keyIsDown(UP_ARROW)) b.forward()
+    if(keyIsDown(DOWN_ARROW)) b.back()
+}
+
+function clearDrive(b){
+    if(keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW)){
+        b.didBounce = false
+        return
+    }
+    if(b.didBounce) return
+    b.velocity.set(0, 0)
+}</code></pre>
+  <div class="note">
+    <p>Udfyld kasserne i flowchartet ud fra koden.</p>
+  </div>
+<div class="flowchart-canvas">
+  <p class="flowchart-title">MovingBall livscyklus</p>
+  <svg viewBox="0 0 800 1088" role="img" aria-label="Tomt flowchart over MovingBalls livscyklus">
+    <defs>
+      <marker id="arr-move" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 1.2 L9.2 5 L0 8.8 z" fill="#7b8c99"/>
+      </marker>
+    </defs>
+    <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#4a5a66">
+      <rect x="20" y="72" width="140" height="60" rx="30" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="160" y1="102" x2="174" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <rect x="176" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="276" y1="102" x2="290" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <rect x="292" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="392" y1="102" x2="406" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <rect x="408" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="508" y1="102" x2="522" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <rect x="524" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="624" y1="102" x2="638" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <rect x="640" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M690 132 V168 H254 V194" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <polygon points="254,196 344,252 254,308 164,252" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <line x1="344" y1="252" x2="506" y2="252" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="426" y="244" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="222" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 282 V326 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="308" x2="254" y2="338" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="244" y="328" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+      <polygon points="254,340 344,396 254,452 164,396" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <line x1="344" y1="396" x2="506" y2="396" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="426" y="388" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="366" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 426 V470 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="452" x2="254" y2="482" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="244" y="472" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+      <polygon points="254,484 344,540 254,596 164,540" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <line x1="344" y1="540" x2="506" y2="540" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="426" y="532" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="510" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 570 V614 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="596" x2="254" y2="626" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="244" y="616" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+      <polygon points="254,628 344,684 254,740 164,684" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <line x1="344" y1="684" x2="506" y2="684" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="426" y="676" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="654" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 714 V758 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="740" x2="254" y2="770" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="244" y="760" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+      <polygon points="254,772 344,828 254,884 164,828" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <line x1="344" y1="828" x2="506" y2="828" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="426" y="820" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="798" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 858 V902 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="884" x2="254" y2="914" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="244" y="904" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+      <polygon points="254,916 344,972 254,1028 164,972" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <line x1="344" y1="972" x2="506" y2="972" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="426" y="964" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="942" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 1002 V1050 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M254 1028 V1050 H768 V40 H254 V72" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-move)"/>
+      <text x="760" y="34" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+    </g>
+  </svg>
+</div>
+</div>
+
+<h2 id="shootingball">ShootingBall</h2>
+
+<div class="q">
+  <h3>Hvorfor <code>extends MovingBall</code> og ikke <code>extends Ball</code>?</h3>
+  <textarea id="sh1" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad er <code>this.bullets</code>?</h3>
+  <pre><code class="language-javascript">this.bullets = []</code></pre>
+  <textarea id="sh3" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>shoot()</code> — især de to første argumenter til <code>new Bullet</code></h3>
+  <pre><code class="language-javascript">this.bullets.push(new Bullet(
+  this.position.x + this.heading.x * this.diam,
+  this.position.y + this.heading.y * this.diam,
+  this.heading,
+  this.bulletSpeed,
+  this.col
+))</code></pre>
+  <textarea id="sh4" data-save></textarea>
+</div>
+
+<div class="q long">
+  <h3>Forklar metoden <code>update</code></h3>
+  <pre><code class="language-javascript">update(){
+  super.update()
+  this.bullets.map(b =&gt; b.update())
+  this.bullets = this.bullets.filter(b =&gt; !b.isGone())
+}</code></pre>
+  <textarea id="sh5" data-save></textarea>
+</div>
+
+
+<div class="flow">
+  <h3 id="shooting-livscyklus">Livscyklus</h3>
+  <div class="note">
+    <p>De seks taster i <code>steer()</code> kan slås sammen til ét valg og én proces:</p>
+  </div>
+<div class="flowchart-canvas">
+  <p class="flowchart-title" id="moving-sammenslaaet">MovingBall — sammenslået</p>
+  <svg viewBox="0 0 800 368" role="img" aria-label="MovingBall livscyklus med sammenslåede taster">
+    <defs>
+      <marker id="arr-merge" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 1.2 L9.2 5 L0 8.8 z" fill="#7b8c99"/>
+      </marker>
+    </defs>
+    <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#4a5a66">
+      <rect x="20" y="72" width="140" height="60" rx="30" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="90" y="107" text-anchor="middle">new MovingBall</text>
+      <line x1="160" y1="102" x2="174" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <rect x="176" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="226" y="107" text-anchor="middle">update()</text>
+      <line x1="276" y1="102" x2="290" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <rect x="292" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="342" y="107" text-anchor="middle">constrain()</text>
+      <line x1="392" y1="102" x2="406" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <rect x="408" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="458" y="107" text-anchor="middle">countHit()</text>
+      <line x1="508" y1="102" x2="522" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <rect x="524" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="574" y="107" text-anchor="middle">bounce()</text>
+      <line x1="624" y1="102" x2="638" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <rect x="640" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="690" y="107" text-anchor="middle">show()</text>
+      <path d="M690 132 V168 H254 V194" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <polygon points="254,196 344,252 254,308 164,252" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <text x="254" y="257" text-anchor="middle">keyDown?</text>
+      <line x1="344" y1="252" x2="498" y2="252" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <text x="422" y="244" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="500" y="222" width="140" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="570" y="258" text-anchor="middle">change direction</text>
+      <path d="M570 282 V330 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M254 308 V330 H768 V40 H254 V72" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-merge)"/>
+      <text x="760" y="34" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+    </g>
+  </svg>
+</div>
+  <div class="note">
+    <p>I skal lave et flowchart til en ShootingBall. Den er mage til MovingBall, men har det ekstra lag at den hele tiden vedligeholder sit array med bullets. De bullets skal passes som en del af dens livscyklus.</p>
+    <p>I hvert frame gør ShootingBall det samme som MovingBall. Derudover løber den bullets igennem: opdaterer hver enkelt, lader dem bounce, og fjerner dem der er væk. Hvis der skydes, kommer der en ny bullet på arrayet.</p>
+    <p>Udfyld kasserne ved <code>keyDown?</code> og <code>space?</code>. Fra <code>flere bullets?</code> tegner I selv de kasser og valg I synes der skal til.</p>
+  </div>
+<div class="flowchart-canvas">
+  <p class="flowchart-title">ShootingBall livscyklus</p>
+  <svg viewBox="0 0 800 720" role="img" aria-label="ShootingBall-livscyklus, uafsluttet fra flere bullets">
+    <defs>
+      <marker id="arr-shoot" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 1.2 L9.2 5 L0 8.8 z" fill="#7b8c99"/>
+      </marker>
+    </defs>
+    <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="400" fill="#4a5a66">
+      <rect x="20" y="72" width="140" height="60" rx="30" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="90" y="107" text-anchor="middle">new ShootingBall</text>
+      <line x1="160" y1="102" x2="174" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <rect x="176" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="226" y="107" text-anchor="middle">update()</text>
+      <line x1="276" y1="102" x2="290" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <rect x="292" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="342" y="107" text-anchor="middle">constrain()</text>
+      <line x1="392" y1="102" x2="406" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <rect x="408" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="458" y="107" text-anchor="middle">countHit()</text>
+      <line x1="508" y1="102" x2="522" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <rect x="524" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="574" y="107" text-anchor="middle">bounce()</text>
+      <line x1="624" y1="102" x2="638" y2="102" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <rect x="640" y="72" width="100" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <text x="690" y="107" text-anchor="middle">show()</text>
+      <path d="M690 132 V168 H254 V194" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+
+      <polygon points="254,196 344,252 254,308 164,252" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <text x="254" y="257" text-anchor="middle">keyDown?</text>
+      <line x1="344" y1="252" x2="506" y2="252" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <text x="426" y="244" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="222" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 282 V326 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="308" x2="254" y2="338" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <text x="244" y="328" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+
+      <polygon points="254,340 344,396 254,452 164,396" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <text x="254" y="401" text-anchor="middle">space?</text>
+      <line x1="344" y1="396" x2="506" y2="396" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <text x="426" y="388" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <rect x="508" y="366" width="108" height="60" fill="#fff" stroke="#7b8c99" stroke-width="1.55"/>
+      <path d="M562 426 V470 H254" fill="none" stroke="#7b8c99" stroke-width="1.55"/>
+      <line x1="254" y1="452" x2="254" y2="482" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <text x="244" y="472" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+
+      <polygon points="254,484 344,540 254,596 164,540" fill="#fff" stroke="#7b8c99" stroke-width="1.55" stroke-linejoin="miter"/>
+      <text x="254" y="545" text-anchor="middle">flere bullets?</text>
+      <line x1="344" y1="540" x2="520" y2="540" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <text x="432" y="532" text-anchor="middle" font-size="12" fill="#8a9aa8">yes</text>
+      <path d="M254 596 V680 H768 V40 H254 V72" fill="none" stroke="#7b8c99" stroke-width="1.55" marker-end="url(#arr-shoot)"/>
+      <text x="244" y="616" text-anchor="end" font-size="12" fill="#8a9aa8">no</text>
+    </g>
+  </svg>
+</div>
+</div>
+
+<h2 id="bullet">Bullet</h2>
+
+<div class="q">
+  <h3>Hvorfor <code>extends Ball</code> og ikke <code>MovingBall</code>?</h3>
+  <textarea id="bu1" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad betyder de sidste to argumenter til <code>super</code>?</h3>
+  <pre><code class="language-javascript">super(x, y, 16, null, col || '#111', heading.x * speed, heading.y * speed)</code></pre>
+  <textarea id="bu2" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Forklar metoden <code>isGone</code></h3>
+  <pre><code class="language-javascript">isGone(){
+  return this.position.x &lt; 0 || this.position.x &gt; width || this.position.y &lt; 0 || this.position.y &gt; height
+}</code></pre>
+  <textarea id="bu3" data-save></textarea>
+</div>
+
+<div class="flow">
+  <h3 id="bullet-livscyklus">Livscyklus</h3>
+  <p>Hvis vi følger en Bullet fra den oprettes, til den forsvinder, kan vi se på de her steder i koden:</p>
+  <p class="file">index.js og myClasses.js</p>
+  <pre><code class="language-javascript">// I ShootingBall.shoot()
+this.bullets.push(new Bullet(
+  this.position.x + this.heading.x * this.diam,
+  this.position.y + this.heading.y * this.diam,
+  this.heading,
+  this.bulletSpeed,
+  this.col
+))
+
+// I ShootingBall.update()
+this.bullets.map(b =&gt; b.update())
+this.bullets = this.bullets.filter(b =&gt; !b.isGone())
+
+// I draw()
+shoot.bullets.map(b =&gt; {
+    countHit(b, other)
+    b.bounce(other)
+})
+
+// I ShootingBall.show()
+this.bullets.map(b =&gt; b.show())</code></pre>
+  <div class="note">
+    <p>Tegn flowchartet.</p>
+  </div>
+<div class="flowchart-canvas flowchart-blank">
+  <p class="flowchart-title">Bullet livscyklus</p>
+</div>
+</div>
+
+<h2 id="firebase">Firebase</h2>
+
+<div class="q">
+  <h3>Hvilke argumenter tager klassen i sin constructor, og hvad bruges <code>this.ref</code> til?</h3>
+  <pre><code class="language-javascript">constructor(collection) {
+  this.ref = db.collection(collection)
+}</code></pre>
+  <textarea id="f1" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad gemmer metoden <code>save</code>?</h3>
+  <pre><code class="language-javascript">save(name, points) {
+  this.ref.add({
+    name: name,
+    points: points,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  })
+}</code></pre>
+  <textarea id="f2" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvordan kunne I skrive <code>save</code> om, så den kan gemme flere eller andre værdier end bare <code>name</code> og <code>points</code>?</h3>
+  <textarea id="f5" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad gør metoden <code>listen</code>?</h3>
+  <textarea id="f3" data-save></textarea>
+</div>
+
+<div class="q">
+  <h3>Hvad er forskellen på <code>remove(id)</code> og <code>clear()</code>?</h3>
+  <textarea id="f4" data-save></textarea>
+</div>
+
+</main>
+</div>
+</div>
+<p class="status no-print" id="status"></p>
+<script src="api_lib/flowchart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script>
+  var KEY = 'myClasses-oop-ark-klasser'
+  var fields = document.querySelectorAll('[data-save]')
+  var status = document.getElementById('status')
+  var saved = {}
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') } catch(e) {}
+  fields.forEach(function(el){
+    if(saved[el.id] != null) el.value = saved[el.id]
+    el.addEventListener('input', store)
+  })
+  function store(){
+    var data = {}
+    fields.forEach(function(el){ data[el.id] = el.value })
+    localStorage.setItem(KEY, JSON.stringify(data))
+    status.textContent = 'Gemt på denne computer'
+  }
+  if(Object.keys(saved).length) status.textContent = 'Hentet fra denne computer'
+</script>
+</body>
+</html>

@@ -35,13 +35,17 @@
         <div id="page3" class="page">
             <h1 id="gameOverText">Game Over</h1>
             <div id="stats"></div>
+            <div id="highscores">
+                <h2>High Scores</h2>
+                <ol id="score-list"></ol>
+            </div>
             <button id="restartButton">Try Again</button>
         </div>
 
     </main>
     <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
-    <script src="../firebase.js"></script>
+    <script src="../api_lib/firebase.js"></script>
     <script src="../api_lib/myApi.js"></script>
     <script src="../api_lib/myClasses.js"></script>
     <script src="./index.js"></script>

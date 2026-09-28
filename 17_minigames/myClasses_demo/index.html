@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myClasses demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+        integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../api_lib/myApiStyles.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+</head>
+
+<body>
+    <div id="toast"></div>
+    <div class="menu-wrapper">
+        <div class="burger-icon">≡</div>
+        <div class="sidebar">
+        </div>
+    </div>
+    <main>
+
+        <div class="page" id="page1" title="Ball">
+            <h1>Ball</h1>
+            <div class="dock">
+                <div class="uml">
+                    <article class="class-card current">
+                        <h2>Ball</h2>
+                        <p>constructor(x, y, r, img, col, xSpeed, ySpeed, bounds)</p>
+                        <ul>
+                            <li>update()</li>
+                            <li>show()</li>
+                            <li>hit(anotherBall)</li>
+                            <li>bounce(anotherBall)</li>
+                            <li>constrain()</li>
+                        </ul>
+                    </article>
+                </div>
+                <aside class="panel">
+                    <dl class="params" data-name="ball">
+                        <div><dt>position.x</dt><dd><input class="param" data-key="position.x" type="number" value="120"></dd></div>
+                        <div><dt>position.y</dt><dd><input class="param" data-key="position.y" type="number" value="280"></dd></div>
+                        <div><dt>diam</dt><dd><input class="param" data-key="diam" type="number" value="80"></dd></div>
+                        <div><dt>img</dt><dd><label class="swatch"><input class="file-param" data-key="img" type="file" accept="image/*"></label></dd></div>
+                        <div><dt>col</dt><dd><label class="swatch"><input class="param" data-key="col" type="color" value="#ff6347"></label></dd></div>
+                        <div><dt>velocity.x</dt><dd><input class="param" data-key="velocity.x" type="number" value="4"></dd></div>
+                        <div><dt>velocity.y</dt><dd><input class="param" data-key="velocity.y" type="number" value="0"></dd></div>
+                        <div><dt>mass</dt><dd><input class="param" data-key="mass" type="number" value="80"></dd></div>
+                        <div><dt>fixed</dt><dd class="walls"><label><input class="param" data-key="fixed" type="checkbox"></label></dd></div>
+                        <div class="stacked">
+                            <dt>bounds</dt>
+                            <dd class="walls">
+                                <label><input class="param" data-key="bounds.0" type="checkbox"> L</label>
+                                <label><input class="param" data-key="bounds.1" type="checkbox"> R</label>
+                                <label><input class="param" data-key="bounds.2" type="checkbox"> T</label>
+                                <label><input class="param" data-key="bounds.3" type="checkbox"> B</label>
+                            </dd>
+                        </div>
+                    </dl>
+                </aside>
+                <aside id="globals" class="panel">
+                    <dl class="params">
+                        <div class="stacked">
+                            <dt>globale</dt>
+                        </div>
+                        <div><dt>gravity</dt><dd><input id="g-gravity" type="number" value="0.5" step="0.1"></dd></div>
+                        <div><dt>friction</dt><dd><input id="g-friction" type="number" value="0.99" step="0.01"></dd></div>
+                        <div><dt>points</dt><dd id="g-points">0</dd></div>
+                    </dl>
+                    <dl class="params" data-name="other">
+                        <div class="stacked">
+                            <dt>Another Ball</dt>
+                        </div>
+                        <div><dt>mass</dt><dd><input class="param" data-key="mass" type="number" value="80"></dd></div>
+                        <div><dt>fixed</dt><dd class="walls"><label><input class="param" data-key="fixed" type="checkbox" checked></label></dd></div>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+
+        <div class="page" id="page2" title="JumpingBall">
+            <h1>JumpingBall</h1>
+            <div class="dock">
+                <div class="uml">
+                    <article class="class-card">
+                        <h2>Ball</h2>
+                        <p>constructor(x, y, r, img, col, xSpeed, ySpeed, bounds)</p>
+                    </article>
+                    <div class="extends"></div>
+                    <article class="class-card current">
+                        <h2>JumpingBall</h2>
+                        <p>constructor(x, y, r, img, jump, col, bounds)</p>
+                        <ul>
+                            <li>update()</li>
+                            <li>jump()</li>
+                        </ul>
+                    </article>
+                </div>
+                <aside class="panel">
+                    <dl class="params" data-name="jump">
+                        <div><dt>position.x</dt><dd><input class="param" data-key="position.x" type="number" value="400"></dd></div>
+                        <div><dt>position.y</dt><dd><input class="param" data-key="position.y" type="number" value="80"></dd></div>
+                        <div><dt>diam</dt><dd><input class="param" data-key="diam" type="number" value="80"></dd></div>
+                        <div><dt>img</dt><dd><label class="swatch"><input class="file-param" data-key="img" type="file" accept="image/*"></label></dd></div>
+                        <div><dt>col</dt><dd><label class="swatch"><input class="param" data-key="col" type="color" value="#ffd700"></label></dd></div>
+                        <div><dt>jumpForce</dt><dd><input class="param" data-key="jumpForce" type="number" value="14"></dd></div>
+                        <div><dt>mass</dt><dd><input class="param" data-key="mass" type="number" value="80"></dd></div>
+                        <div><dt>fixed</dt><dd class="walls"><label><input class="param" data-key="fixed" type="checkbox"></label></dd></div>
+                        <div class="stacked">
+                            <dt>bounds</dt>
+                            <dd class="walls">
+                                <label><input class="param" data-key="bounds.0" type="checkbox"> L</label>
+                                <label><input class="param" data-key="bounds.1" type="checkbox"> R</label>
+                                <label><input class="param" data-key="bounds.2" type="checkbox"> T</label>
+                                <label><input class="param" data-key="bounds.3" type="checkbox" checked> B</label>
+                            </dd>
+                        </div>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+
+        <div class="page" id="page3" title="SpringBall">
+            <h1>SpringBall</h1>
+            <div class="dock">
+                <div class="uml">
+                    <article class="class-card">
+                        <h2>Ball</h2>
+                        <p>constructor(x, y, r, img, col, xSpeed, ySpeed, bounds)</p>
+                    </article>
+                    <div class="extends"></div>
+                    <article class="class-card current">
+                        <h2>SpringBall</h2>
+                        <p>constructor(x, y, r, img, maxDragDist, col, bounds)</p>
+                        <ul>
+                            <li>drag()</li>
+                            <li>launch()</li>
+                            <li>reset()</li>
+                            <li>update()</li>
+                        </ul>
+                    </article>
+                </div>
+                <aside class="panel">
+                    <dl class="params" data-name="spring">
+                        <div><dt>start.x</dt><dd><input class="param" data-key="start.x" type="number" value="400"></dd></div>
+                        <div><dt>start.y</dt><dd><input class="param" data-key="start.y" type="number" value="420"></dd></div>
+                        <div><dt>diam</dt><dd><input class="param" data-key="diam" type="number" value="80"></dd></div>
+                        <div><dt>img</dt><dd><label class="swatch"><input class="file-param" data-key="img" type="file" accept="image/*"></label></dd></div>
+                        <div><dt>col</dt><dd><label class="swatch"><input class="param" data-key="col" type="color" value="#87ceeb"></label></dd></div>
+                        <div><dt>maxDragDist</dt><dd><input class="param" data-key="maxDragDist" type="number" value="120"></dd></div>
+                        <div><dt>mass</dt><dd><input class="param" data-key="mass" type="number" value="80"></dd></div>
+                        <div><dt>fixed</dt><dd class="walls"><label><input class="param" data-key="fixed" type="checkbox"></label></dd></div>
+                        <div class="stacked">
+                            <dt>bounds</dt>
+                            <dd class="walls">
+                                <label><input class="param" data-key="bounds.0" type="checkbox"> L</label>
+                                <label><input class="param" data-key="bounds.1" type="checkbox"> R</label>
+                                <label><input class="param" data-key="bounds.2" type="checkbox"> T</label>
+                                <label><input class="param" data-key="bounds.3" type="checkbox"> B</label>
+                            </dd>
+                        </div>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+
+        <div class="page" id="page4" title="MovingBall">
+            <h1>MovingBall</h1>
+            <div class="dock">
+                <div class="uml">
+                    <article class="class-card">
+                        <h2>Ball</h2>
+                        <p>constructor(x, y, r, img, col, xSpeed, ySpeed, bounds)</p>
+                    </article>
+                    <div class="extends"></div>
+                    <article class="class-card current">
+                        <h2>MovingBall</h2>
+                        <p>constructor(x, y, r, img, speed, col, bounds)</p>
+                        <ul>
+                            <li>left() right() up() down()</li>
+                            <li>forward() back()</li>
+                            <li>update()</li>
+                            <li>show()</li>
+                        </ul>
+                    </article>
+                </div>
+                <aside class="panel">
+                    <dl class="params" data-name="move">
+                        <div><dt>position.x</dt><dd><input class="param" data-key="position.x" type="number" value="160"></dd></div>
+                        <div><dt>position.y</dt><dd><input class="param" data-key="position.y" type="number" value="320"></dd></div>
+                        <div><dt>diam</dt><dd><input class="param" data-key="diam" type="number" value="80"></dd></div>
+                        <div><dt>img</dt><dd><label class="swatch"><input class="file-param" data-key="img" type="file" accept="image/*"></label></dd></div>
+                        <div><dt>col</dt><dd><label class="swatch"><input class="param" data-key="col" type="color" value="#3cb371"></label></dd></div>
+                        <div><dt>speed</dt><dd><input class="param" data-key="speed" type="number" value="6"></dd></div>
+                        <div><dt>mass</dt><dd><input class="param" data-key="mass" type="number" value="80"></dd></div>
+                        <div><dt>fixed</dt><dd class="walls"><label><input class="param" data-key="fixed" type="checkbox"></label></dd></div>
+                        <div class="stacked">
+                            <dt>bounds</dt>
+                            <dd class="walls">
+                                <label><input class="param" data-key="bounds.0" type="checkbox" checked> L</label>
+                                <label><input class="param" data-key="bounds.1" type="checkbox" checked> R</label>
+                                <label><input class="param" data-key="bounds.2" type="checkbox" checked> T</label>
+                                <label><input class="param" data-key="bounds.3" type="checkbox" checked> B</label>
+                            </dd>
+                        </div>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+
+        <div class="page" id="page5" title="ShootingBall">
+            <h1>ShootingBall</h1>
+            <div class="dock">
+                <div class="uml">
+                    <article class="class-card">
+                        <h2>Ball</h2>
+                        <p>constructor(x, y, r, img, col, xSpeed, ySpeed, bounds)</p>
+                    </article>
+                    <div class="extends"></div>
+                    <article class="class-card">
+                        <h2>MovingBall</h2>
+                        <p>constructor(x, y, r, img, speed, col, bounds)</p>
+                    </article>
+                    <div class="extends"></div>
+                    <article class="class-card current">
+                        <h2>ShootingBall</h2>
+                        <p>constructor(x, y, r, img, speed, bulletSpeed, col, bounds)</p>
+                        <ul>
+                            <li>shoot()</li>
+                            <li>update()</li>
+                            <li>show()</li>
+                        </ul>
+                    </article>
+                    <article class="class-card current">
+                        <h2>Bullet</h2>
+                        <p>constructor(x, y, heading, speed, col)</p>
+                        <ul>
+                            <li>isGone()</li>
+                        </ul>
+                    </article>
+                </div>
+                <aside class="panel">
+                    <dl class="params" data-name="shoot">
+                        <div><dt>position.x</dt><dd><input class="param" data-key="position.x" type="number" value="160"></dd></div>
+                        <div><dt>position.y</dt><dd><input class="param" data-key="position.y" type="number" value="320"></dd></div>
+                        <div><dt>diam</dt><dd><input class="param" data-key="diam" type="number" value="80"></dd></div>
+                        <div><dt>img</dt><dd><label class="swatch"><input class="file-param" data-key="img" type="file" accept="image/*"></label></dd></div>
+                        <div><dt>col</dt><dd><label class="swatch"><input class="param" data-key="col" type="color" value="#c0392b"></label></dd></div>
+                        <div><dt>speed</dt><dd><input class="param" data-key="speed" type="number" value="6"></dd></div>
+                        <div><dt>bulletSpeed</dt><dd><input class="param" data-key="bulletSpeed" type="number" value="12"></dd></div>
+                        <div><dt>mass</dt><dd><input class="param" data-key="mass" type="number" value="80"></dd></div>
+                        <div><dt>fixed</dt><dd class="walls"><label><input class="param" data-key="fixed" type="checkbox"></label></dd></div>
+                        <div class="stacked">
+                            <dt>bounds</dt>
+                            <dd class="walls">
+                                <label><input class="param" data-key="bounds.0" type="checkbox" checked> L</label>
+                                <label><input class="param" data-key="bounds.1" type="checkbox" checked> R</label>
+                                <label><input class="param" data-key="bounds.2" type="checkbox" checked> T</label>
+                                <label><input class="param" data-key="bounds.3" type="checkbox" checked> B</label>
+                            </dd>
+                        </div>
+                    </dl>
+                </aside>
+            </div>
+        </div>
+
+        <div class="page" id="page6" title="Firebase">
+            <h1>Firebase</h1>
+            <div id="fb-grid" class="card-grid"></div>
+            <div class="dock">
+                <div class="uml">
+                    <article class="class-card current">
+                        <h2>Firebase</h2>
+                        <p>constructor(collection)</p>
+                        <ul>
+                            <li>save(name, points)</li>
+                            <li>listen(onUpdate, limit, sort, dir)</li>
+                            <li>remove(id)</li>
+                            <li>clear()</li>
+                        </ul>
+                    </article>
+                </div>
+                <aside class="panel">
+                    <dl class="params">
+                        <div class="stacked">
+                            <dt>collection</dt>
+                            <dd>demo_collection</dd>
+                        </div>
+                        <div><dt>name</dt><dd><input id="fb-name" type="text" value="Simon"></dd></div>
+                        <div><dt>points</dt><dd><input id="fb-points" type="number" value="10"></dd></div>
+                    </dl>
+                    <button id="saveDemo">Gem</button>
+                </aside>
+            </div>
+        </div>
+
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+    <script src="../api_lib/firebase.js"></script>
+    <script src="../api_lib/myApi.js"></script>
+    <script src="../api_lib/myClasses.js"></script>
+    <script src="./interface.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

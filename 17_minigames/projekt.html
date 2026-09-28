@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projekt — miniGames med OOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  :root {
+    --ink: #111;
+    --soft: #5a5a5a;
+    --faint: #9a9a9a;
+    --rule: #e4e4e4;
+    --bg: #fff;
+  }
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.75rem;
+    overflow-y: scroll;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 300 16px/1.55 Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 46rem;
+    padding: 3.5rem 0 7rem;
+  }
+  .kicker {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 0.75rem;
+    font-weight: 400;
+  }
+  .kicker a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 2.35rem;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    margin: 0 0 2rem;
+  }
+  h1 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h2 {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 2.75rem 0 1rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule);
+  }
+  p { margin: 0 0 1rem; }
+  ul {
+    margin: 0 0 1.15rem;
+    padding: 0 0 0 1.15rem;
+  }
+  li { margin: 0 0 0.4rem; }
+  code {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+  }
+</style>
+</head>
+<body id="top">
+<div class="shell">
+<nav class="bar" aria-label="Indhold">
+  <a class="bar-title" href="index.html#top">miniGames med OOP</a>
+  <details class="bar-fold">
+    <summary><a href="opgaver.html">Opgave</a></summary>
+    <ul>
+      <li><a href="opgaver.html#ball">Ball</a></li>
+      <li><a href="opgaver.html#jumpingball">JumpingBall</a></li>
+      <li><a href="opgaver.html#springball">SpringBall</a></li>
+      <li><a href="opgaver.html#movingball">MovingBall</a></li>
+      <li><a href="opgaver.html#shootingball">ShootingBall</a></li>
+      <li><a href="opgaver.html#bullet">Bullet</a></li>
+      <li><a href="opgaver.html#firebase">Firebase</a></li>
+    </ul>
+  </details>
+  <details class="bar-fold" open>
+    <summary><a href="projekt.html">Projekt</a></summary>
+    <ul>
+      <li><a href="samarbejde.html">Samarbejde</a></li>
+    </ul>
+  </details>
+</nav>
+<div class="page">
+<main>
+<p class="kicker"><a href="index.html">miniGames med OOP</a> · projekt</p>
+<h1><a href="#top">Projekt</a></h1>
+<p>I skal oprette en lille spilcentral med mindst tre forskellige minigames. I vælger selv spillene.</p>
+<p>Der skal være:</p>
+<ul>
+  <li>Forside og splash</li>
+  <li>Indstillinger (lyde, sværhedsgrad osv.)</li>
+  <li>High score-tabeller for alle spil</li>
+  <li>Start spil</li>
+</ul>
+<p>Shop er valgfri — se om I kan få den til at hænge sammen med resten, hvis I laver den.</p>
+
+<h2>Objektorientering</h2>
+<p>I objektorienteret programmering er styrken meget forbundet med forskellen på klasser og instanser. Selvom alle objekter i et 2D-spil ofte kan nedstamme fra den samme stamklasse — fx <code>Ball</code> — så opfører instanserne sig helt forskelligt pga. to ting:</p>
+<ul>
+  <li>Nedarvning — når man tilføjer særlige egenskaber til en stamklasse</li>
+  <li>Parameterisering — når man initialiserer klassen med billeder og variabler i constructoren, som ændrer instanserne i brugergrænsefladen</li>
+</ul>
+<p>Det er vigtigt, at I selv udvikler videre på klasserne i <code>api_lib/myClasses.js</code>. Hvis I kun kalder det færdige ude fra <code>index.js</code>, mærker I ikke de to ting. Når I lægger en ny underklasse ind under <code>Ball</code> — med sine egne metoder — og bagefter laver instanser med forskellige billeder og tal i constructoren, sidder både nedarvning og parameterisering i hænderne på jer.</p>
+<p>Se om I kan bygge spillene, så I ikke kopierer tre næsten ens programmer, men lader dem nedstamme fra det I allerede har, og så skille sig ud med arv og argumenter. Skriv mindst én ny klasse og én ny metode i <code>myClasses.js</code>, og lad indstillinger ramme instanserne gennem constructoren. Se om mindst to spil kan dele stamklasse.</p>
+
+<h2>Firebase og api</h2>
+<p>High score er fælles data for centralen. Den gemmes og vises med Firebase, så tabellen ikke kun lever i jeres browser.</p>
+<p>Se om I kan få ét <code>save</code> til at bære objekter fra alle tre spil — I har allerede tænkt over, hvordan metoden kan gøres mere generisk end <code>name</code> og <code>points</code>.</p>
+<p>Centralen skifter skærm med funktioner fra <code>api_lib/myApi.js</code>. Brug mindst <code>shiftPage</code> og én funktion mere (<code>startTimer</code>, <code>showToast</code> eller en I selv lægger i API’et). Hele <code>api_lib</code> skal med i jeres repo.</p>
+</main>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Samarbejde — miniGames med OOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  :root {
+    --ink: #111;
+    --soft: #5a5a5a;
+    --faint: #9a9a9a;
+    --rule: #e4e4e4;
+    --bg: #fff;
+  }
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.75rem;
+    overflow-y: scroll;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 300 16px/1.55 Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 46rem;
+    padding: 3.5rem 0 7rem;
+  }
+  .kicker {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 0.75rem;
+    font-weight: 400;
+  }
+  .kicker a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 2.35rem;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    margin: 0 0 2rem;
+  }
+  h1 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h2 {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 2.75rem 0 1rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule);
+  }
+  p { margin: 0 0 1rem; }
+  ol {
+    margin: 0 0 1.15rem;
+    padding: 0 0 0 1.2rem;
+  }
+  li { margin: 0 0 0.45rem; }
+  code {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+  }
+</style>
+</head>
+<body id="top">
+<div class="shell">
+<nav class="bar" aria-label="Indhold">
+  <a class="bar-title" href="index.html#top">miniGames med OOP</a>
+  <details class="bar-fold">
+    <summary><a href="opgaver.html">Opgave</a></summary>
+    <ul>
+      <li><a href="opgaver.html#ball">Ball</a></li>
+      <li><a href="opgaver.html#jumpingball">JumpingBall</a></li>
+      <li><a href="opgaver.html#springball">SpringBall</a></li>
+      <li><a href="opgaver.html#movingball">MovingBall</a></li>
+      <li><a href="opgaver.html#shootingball">ShootingBall</a></li>
+      <li><a href="opgaver.html#bullet">Bullet</a></li>
+      <li><a href="opgaver.html#firebase">Firebase</a></li>
+    </ul>
+  </details>
+  <details class="bar-fold" open>
+    <summary><a href="projekt.html">Projekt</a></summary>
+    <ul>
+      <li><a href="samarbejde.html">Samarbejde</a></li>
+    </ul>
+  </details>
+</nav>
+<div class="page">
+<main>
+<p class="kicker"><a href="index.html">miniGames med OOP</a> · <a href="projekt.html">projekt</a> · samarbejde</p>
+<h1><a href="#top">Samarbejde</a></h1>
+<p>I dette projekt arbejder I to og to om at udvikle en lille hjemmeside med tre minigames. Det lyder måske overskueligt på papiret – men undervejs vil I opdage, at det hurtigt stikker af med idéer, koder, der driller, og detaljer, man let glemmer.</p>
+<p>For at I ikke skal bruge al jeres krudt på at holde styr på det hele i hovedet, låner vi et simpelt princip fra softwareverdenen: Vi gør arbejdet synligt på en fælles tavle. Det handler ikke om stiv projektstyring, men om at give jer ro på, så I hele tiden ved, hvem der gør hvad, og hvornår noget rent faktisk virker.</p>
+
+<h2>Tavlen: Jeres fælles overblik</h2>
+<p>Vi bruger GitHub Projects, så det ligger direkte sammen med jeres kode.</p>
+<p>Gå ind på jeres fælles GitHub-repo. Vælg fanen Projects → New project → vælg skabelonen Board.</p>
+<p>I skal blot have tre enkle kolonner:</p>
+<ul>
+  <li><strong>To do:</strong> Alt det, I ved, I gerne vil lave på et tidspunkt.</li>
+  <li><strong>In progress:</strong> Det, I rent faktisk sidder med lige nu.</li>
+  <li><strong>Done:</strong> Det, der er helt færdigt, testet og skubbet op (push).</li>
+</ul>
+
+<h2>Kunsten at lave gode kort</h2>
+<p>Tricket til at bevare modet og fremdriften er at gøre opgaverne konkrete. Hvis et kort hedder «Lav spil 2», bliver det let uoverskueligt og kan ligge og stresse i dagevis.</p>
+<p>Del det i stedet op i små bidder, I hurtigt kan gøre færdige og teste:</p>
+<ul>
+  <li>I stedet for «High score» → skriv «Point tæller op, når bolden rammes».</li>
+  <li>I stedet for «Grafik» → skriv «Startskærm med spillets regler vises».</li>
+</ul>
+<p>Start med at sætte jer sammen og brainstorme en 10–15 kort ned i To do. I behøver ikke opfinde hele projektet fra start – nye kort kommer helt naturligt til undervejs, når I får gode idéer eller opdager mangler.</p>
+
+<h2>Jeres arbejdsrytme</h2>
+<p>Når I arbejder sammen, holder I bare fast i et par enkle vaner:</p>
+<p><strong>Få ting i gang ad gangen.</strong> Træk kun 2–3 kort over i In progress. Gør dem helt færdige, før I kaster jer over nye. Det giver langt mere energi at lukke ting end at have ti halvfærdige tråde hængende.</p>
+<p><strong>Den ultrakorte status.</strong> Når I mødes eller starter modulet, tager I lige 30 sekunder sammen: Hvad fik vi på plads sidst? Hvad kaster vi os over nu? Er der noget, der driller eller blokerer? Det er ikke en afrapportering til mig, men jeres egen lille afstemning.</p>
+<p><strong>Hvornår er noget Done?</strong> En opgave er først i mål, når den anden i makkerparret kan hente koden ned, køre den og se, at det virker. Hvis det kun virker på den enes skærm, arbejder I lige det sidste stykke sammen først.</p>
+</main>
+</div>
+</div>
+</body>
+</html>

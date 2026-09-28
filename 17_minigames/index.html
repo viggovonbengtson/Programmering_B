@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>miniGames med OOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<style>
+  :root {
+    --ink: #111;
+    --soft: #5a5a5a;
+    --faint: #9a9a9a;
+    --rule: #e4e4e4;
+    --bg: #fff;
+  }
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.75rem;
+    overflow-y: scroll;
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 300 16px/1.55 Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 46rem;
+    padding: 3.5rem 0 7rem;
+  }
+  .kicker {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 0.75rem;
+    font-weight: 400;
+  }
+  h1 {
+    font-weight: 300;
+    font-size: 2.35rem;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    margin: 0 0 2rem;
+  }
+  h1 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h2 {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 4.25rem 0 1.6rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 1.75rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+  }
+  h2 .n {
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 4.75rem;
+    font-weight: 300;
+    letter-spacing: -0.07em;
+    line-height: 0.82;
+    color: var(--ink);
+  }
+  p { margin: 0 0 1rem; }
+  ul {
+    margin: 0 0 1.15rem;
+    padding: 0 0 0 1.15rem;
+  }
+  li { margin: 0 0 0.4rem; }
+  code {
+    font-family: "IBM Plex Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+  }
+  .page a {
+    color: inherit;
+    text-underline-offset: 0.18em;
+  }
+</style>
+</head>
+<body id="top">
+<div class="shell">
+<nav class="bar" aria-label="Indhold">
+  <a class="bar-title" href="#top">miniGames med OOP</a>
+  <details class="bar-fold">
+    <summary><a href="opgaver.html">Opgave</a></summary>
+    <ul>
+      <li><a href="opgaver.html#ball">Ball</a></li>
+      <li><a href="opgaver.html#jumpingball">JumpingBall</a></li>
+      <li><a href="opgaver.html#springball">SpringBall</a></li>
+      <li><a href="opgaver.html#movingball">MovingBall</a></li>
+      <li><a href="opgaver.html#shootingball">ShootingBall</a></li>
+      <li><a href="opgaver.html#bullet">Bullet</a></li>
+      <li><a href="opgaver.html#firebase">Firebase</a></li>
+    </ul>
+  </details>
+  <details class="bar-fold">
+    <summary><a href="projekt.html">Projekt</a></summary>
+    <ul>
+      <li><a href="samarbejde.html">Samarbejde</a></li>
+    </ul>
+  </details>
+</nav>
+<div class="page">
+<main>
+<p class="kicker">Programmering B</p>
+<h1><a href="#top">miniGames med OOP</a></h1>
+
+<h2 id="repo"><span class="n">1</span> Repo</h2>
+<p>Sørg for at <code>15_minigames</code> ligger i dit programmerings-repo. Hele mappen skal med — den indeholder <code>api_lib</code> og virker uden resten af fællesrepoet.</p>
+
+<h2 id="demo"><span class="n">2</span> Demo side</h2>
+<p>Åbn <a href="myClasses_demo/" target="_blank" rel="noreferrer">demosiden med klassediagrammer</a> og orienter jer i de forskellige klasser og funktioner.</p>
+
+<h2 id="opgaver"><span class="n">3</span> Opgaver</h2>
+<p>Find en makker og arbejd med <a href="opgaver.html">opgaverne</a>.</p>
+
+<h2 id="projekt"><span class="n">4</span> Projekt</h2>
+<p>I skal lave en spilcentral. Kravene står på <a href="projekt.html">projektsiden</a>.</p>
+</main>
+</div>
+</div>
+</body>
+</html>
