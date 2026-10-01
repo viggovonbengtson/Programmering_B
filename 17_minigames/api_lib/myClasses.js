@@ -1,7 +1,7 @@
 class Ball {
   constructor(x, y, r, img, col, xSpeed, ySpeed, bounds){ 
     this.diam = r
-    this.velocity = createVector(xSpeed || 0, ySpeed || 0)
+    this.velocity = createVector(xSpeed || 0, ySpeed || 0) // hvis der ikke er angivet en værdi for xSpeed & ySpeed, vil dens hastighed bare være 0 som default
     this.position = createVector(x, y)
     this.img = null
     this.col = null
@@ -93,7 +93,7 @@ class Ball {
     other.velocity.sub(p5.Vector.mult(stødVektor, invM2))
     this.didBounce = true
     other.didBounce = true
-  }
+  }s
 }
 
 class JumpingBall extends Ball{
