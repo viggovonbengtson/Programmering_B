@@ -93,7 +93,7 @@ class Ball {
     other.velocity.sub(p5.Vector.mult(stødVektor, invM2))
     this.didBounce = true
     other.didBounce = true
-  }s
+  }
 }
 
 class JumpingBall extends Ball{
