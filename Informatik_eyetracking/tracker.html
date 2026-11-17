@@ -10,6 +10,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="tracker.css">
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+    <script src=”https://api.gazerecorder.com/GazeCloudAPI.js” ></script>
 </head>
 
 <body>
@@ -18,12 +19,25 @@
         <div class="sidebar">
         </div>
     </div>
-    <main style="background-color: rgb(47, 107, 159);">
-
+    <main>
+        
         <div class="page show" id="page1" title="page1">
             <h1>hellow</h1>
+            <button id="btnUp"></button>
+            <span>
+                <button id="btnLeft"></button>
+                <button id="btnDown"></button>
+                <button id="btnRight"></button>
+            </span>
         </div>
 
+        <div class="page" id="page2" title="page2">
+
+                <h1>GazeCloudAPI integration example</h1>
+                <button  type="button" onclick="GazeCloudAPI.StartEyeTracking();">Start</button>
+                <button  type="button" onclick="GazeCloudAPI.StopEyeTracking();">Stop</button>
+        </div>
+        
     </main>
     <script src="./tracker.js"></script>
 </body>

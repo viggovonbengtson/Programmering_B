@@ -95,4 +95,6 @@ body,
 
 #page1{
     background-color: aquamarine;
+    display: grid;
+    grid-template-rows: 10fr 1fr 1fr 5fr;
 }
