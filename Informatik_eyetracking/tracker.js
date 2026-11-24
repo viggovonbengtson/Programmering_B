@@ -2,10 +2,39 @@ var currentPage = '#page1'
 
 
 function setup(){
-
     
+    
+    friction = 0.99
+    canvas = createCanvas(canvasWidth(), windowHeight)
+    ball = new Ball(120, 280, 80, null, '#ff6347', 4, 0)
+    
+    select('#btnLeft').mousePressed(()=>{
+        console.log('guhh')
+    })
+    btnLeft = select("#btnLeft")
+    btnLeft.mousePressed (()=>{
+        console.log('left')
+    })
 }
 
+
+
+
+function draw(){
+
+    // MovingBall
+    if(currentPage == '#page1'){
+        background('palegreen')
+        clearDrive(move)
+        steer(move)
+        move.update()
+        move.constrain()
+        countHit(move, other)
+        move.bounce(other)
+        move.show()
+        showOther()
+    }
+}
 
 function PlotGaze(GazeData) {
     /*
@@ -17,7 +46,6 @@ function PlotGaze(GazeData) {
    document.getElementById("GazeData").innerHTML = "GazeX: " + GazeData.GazeX + " GazeY: " + GazeData.GazeY;
    document.getElementById("HeadPhoseData").innerHTML = " HeadX: " + GazeData.HeadX + " HeadY: " + GazeData.HeadY + " HeadZ: " + GazeData.HeadZ;
    document.getElementById("HeadRotData").innerHTML = " Yaw: " + GazeData.HeadYaw + " Pitch: " + GazeData.HeadPitch + " Roll: " + GazeData.HeadRoll;
-   
    
    var x = GazeData.docX;
    var y = GazeData.docY;
@@ -35,7 +63,7 @@ function PlotGaze(GazeData) {
         if( gaze.style.display  == 'block')
             gaze  .style.display = 'none';
     }
-    else
+    else{
         {
             if( gaze.style.display  == 'none')
                 gaze  .style.display = 'block';
@@ -45,16 +73,17 @@ function PlotGaze(GazeData) {
     //////set callbacks/////////
     window.addEventListener("load", function() {
         
-        GazeCloudAPI.OnCalibrationComplete =function(){ console.log('gaze Calibration Complete')  }
+        GazeCloudAPI.OnCalibrationComplete = function(){ console.log('gaze Calibration Complete')  }
         GazeCloudAPI.OnCamDenied =  function(){ console.log('camera  access denied')  }
         GazeCloudAPI.OnError =  function(msg){ console.log('err: ' + msg)  }
         GazeCloudAPI.UseClickRecalibration = true;
         GazeCloudAPI.OnResult = PlotGaze; 
     });
 
-
     function shiftPage(newPage){
         select(currentPage).removeClass('show')
         select(newPage).addClass('show')
         currentPage = newPage
     }
+
+}
