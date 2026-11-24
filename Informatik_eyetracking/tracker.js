@@ -1,20 +1,27 @@
 var currentPage = '#page1'
-
+var shoot
 
 function setup(){
     
-    
-    friction = 0.99
-    canvas = createCanvas(canvasWidth(), windowHeight)
-    ball = new Ball(120, 280, 80, null, '#ff6347', 4, 0)
-    
     select('#btnLeft').mousePressed(()=>{
-        console.log('guhh')
-    })
-    btnLeft = select("#btnLeft")
-    btnLeft.mousePressed (()=>{
         console.log('left')
     })
+    select('#btnRight').mousePressed(()=>{
+        console.log('right')
+    })
+    select('#btnUp').mousePressed(()=>{
+        console.log('up')
+    })
+    select('#btnDown').mousePressed(()=>{
+        console.log('Down')
+    })
+
+    
+    friction = 0.99
+    canvas = createCanvas(windowWidth, windowHeight)
+    shoot = new ShootingBall(160, 320, 80, null, 6, 12, '#c0392b', [true, true, true, true])
+
+    
 }
 
 
@@ -22,27 +29,58 @@ function setup(){
 
 function draw(){
 
-    // MovingBall
-    if(currentPage == '#page1'){
-        background('palegreen')
-        clearDrive(move)
-        steer(move)
-        move.update()
-        move.constrain()
-        countHit(move, other)
-        move.bounce(other)
-        move.show()
+    // ShootingBall
+    if(currentPage == '#page5'){
+        background('peachpuff')
+        clearDrive(shoot)
+        steer(shoot)
+        shoot.update()
+        shoot.constrain()
+        countHit(shoot, other)
+        shoot.bounce(other)
+        shoot.bullets.map(b => {
+            countHit(b, other)
+            b.bounce(other)
+        })
+        shoot.show()
         showOther()
     }
 }
 
+function clearDrive(b){
+    if(keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW)){
+        b.didBounce = false
+        return
+    }
+    if(b.didBounce) return
+    b.velocity.set(0, 0)
+}
+
+function steer(b){
+    if(keyIsDown(65)) b.left()
+    if(keyIsDown(68)) b.right()
+    if(keyIsDown(87)) b.up()
+    if(keyIsDown(83)) b.down()
+    if(keyIsDown(UP_ARROW)) b.forward()
+    if(keyIsDown(DOWN_ARROW)) b.back()
+}
+
+function countHit(a, b){
+    var h = a.hit(b)
+    if(h && !a.wasHit){
+        hits++
+        select('#g-points').html(hits)
+    }
+    a.wasHit = h
+}
+
 function PlotGaze(GazeData) {
-    /*
+    
 	GazeData.state // 0: valid gaze data; -1 : face tracking lost, 1 : gaze uncalibrated
 	GazeData.docX // gaze x in document coordinates
 	GazeData.docY // gaze y in document cordinates
 	GazeData.time // timestamp
-    */
+    
    document.getElementById("GazeData").innerHTML = "GazeX: " + GazeData.GazeX + " GazeY: " + GazeData.GazeY;
    document.getElementById("HeadPhoseData").innerHTML = " HeadX: " + GazeData.HeadX + " HeadY: " + GazeData.HeadY + " HeadZ: " + GazeData.HeadZ;
    document.getElementById("HeadRotData").innerHTML = " Yaw: " + GazeData.HeadYaw + " Pitch: " + GazeData.HeadPitch + " Roll: " + GazeData.HeadRoll;

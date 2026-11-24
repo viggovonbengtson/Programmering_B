@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
         integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="tracker.css">
-    <link rel="stylesheet" href="../api_lib/myApiStyles.css">
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
-    <script src=”https://api.gazerecorder.com/GazeCloudAPI.js” ></script>
+        <link rel="stylesheet" href="tracker.css">
+        <script src="./api_lib/myClasses.js"></script>
+        <script src="./api_lib/myApi.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"></script>
+        <script src="https://api.gazerecorder.com/GazeCloudAPI.js" ></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         <div class="sidebar">
         </div>
     </div>
-    <main>
+    <main> 
         
         <div class="page show" id="page1" title="page1">
             <h1>hellow</h1>
@@ -32,13 +33,17 @@
             </span>
         </div>
 
-        <div class="page" id="page2" title="page2">
+<div class="page" id="page2" title="page2">
+    <h1>GazeCloudAPI integration example</h1>
+    <button type="button" onclick="GazeCloudAPI.StartEyeTracking();">Start</button>
+    <button type="button" onclick="GazeCloudAPI.StopEyeTracking();">Stop</button>
+    <p id="GazeData"></p>
+    <p id="HeadPhoseData"></p>
+    <p id="HeadRotData"></p>
+</div>
 
-                <h1>GazeCloudAPI integration example</h1>
-                <button  type="button" onclick="GazeCloudAPI.StartEyeTracking();">Start</button>
-                <button  type="button" onclick="GazeCloudAPI.StopEyeTracking();">Stop</button>
-        </div>
-        
+<div id="gaze" style="position:absolute; display:none; width:100px; height:100px; border-radius:50%; border:solid 2px rgba(255,255,255,.2); box-shadow:0 0 100px 3px rgba(125,125,125,.5); pointer-events:none; z-index:999999"></div>
+
     </main>
     <script src="./tracker.js"></script>
 </body>

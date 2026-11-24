@@ -96,73 +96,6 @@ class Ball {
   }
 }
 
-class JumpingBall extends Ball{
-  constructor(x, y, r, img, jump, col, bounds){
-    super(x, y, r, img, col, 0, 0, bounds || [false, false, false, true])
-    this.jumpForce = jump
-  }
-  update(){
-    this.velocity.add(gravity)
-    this.velocity.y *= friction
-    super.update()
-  }
-  jump(){
-    this.velocity.y -= this.jumpForce
-  }
-}
-
-class SpringBall extends Ball{
-  constructor(x, y, r, img, maxDragDist, col, bounds){
-    super(x, y, r, img, col, 0, 0, bounds)
-    this.start = createVector(x, y)
-    this.maxDragDist = maxDragDist
-    this.isFlying = false
-    this.isDragging = false
-    this.hasHit = false
-  }
-
-  drag(){
-    var mouse = createVector(mouseX, mouseY)
-    mouse.sub(this.start)
-    if(mouse.mag() > this.maxDragDist) mouse.setMag(this.maxDragDist)
-    this.position = this.start.copy()
-    this.position.add(mouse)
-    this.isDragging = true
-  }
-
-  launch(){
-    this.velocity = this.start.copy()
-    this.velocity.sub(this.position)
-    this.velocity.mult(0.15) // 0.15 dæmper farten, så bolden ikke flyver for hurtigt
-    this.isFlying = true
-    this.isDragging = false
-  }
-
-  reset(){
-    this.position = this.start.copy()
-    this.velocity = createVector(0, 0)
-    this.isFlying = false
-    this.isDragging = false
-    this.hasHit = false
-  }
-
-  update(){
-    if(!this.isFlying) return
-    this.velocity.add(gravity)
-    super.update()
-  }
-
-  show(){
-    noFill()
-    stroke(255, 70)
-    strokeWeight(1)
-    circle(this.start.x, this.start.y, this.maxDragDist * 2)
-    if(this.isDragging){
-      line(this.start.x, this.start.y, this.position.x, this.position.y)
-    }
-    super.show()
-  }
-}
 
 class MovingBall extends Ball{
   constructor(x, y, r, img, speed, col, bounds){
@@ -240,43 +173,5 @@ class Bullet extends Ball{
 
   isGone(){
     return this.position.x < 0 || this.position.x > width || this.position.y < 0 || this.position.y > height
-  }
-}
-
-class Firebase {
-  constructor(collection) {
-    this.ref = db.collection(collection)
-  }
-
-  save(name, points) {
-    this.ref.add({
-      name: name,
-      points: points,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-  }
-
-  listen(onUpdate, limit, sort, dir='desc') {
-    var q = this.ref.orderBy(sort, dir)
-    if(limit) q = q.limit(limit)
-    return q.onSnapshot(snap => {
-      var list = []
-      snap.forEach(doc => {
-        var d = doc.data()
-        d.id = doc.id
-        list.push(d)
-      })
-      onUpdate(list)
-    })
-  }
-
-  remove(id) {
-    this.ref.doc(id).delete()
-  }
-
-  clear() {
-    this.ref.get().then(snap => {
-      snap.forEach(doc => doc.ref.delete())
-    })
   }
 }
