@@ -1,52 +1,30 @@
-var btnOn = false
-var currentPage = "#page1"
-
-function setup(){
-  console.log("setup has been called")
-  shiftPage('currentPage')
-
-
-
-  //mqtt er et objekt vi får fra mqtt biblioteket i html siden
-  client = mqtt.connect("wss://mqtt.nextservices.dk")
-  client.on('connect', msg => {
-      //console.log("msg")
-      console.log("Forbundet til NEXT MQTT server")
-  
-  })
-  client.subscribe('brillevisker')
-  client.subscribe('brillevisker/on')
-  client.subscribe('brillevisker/off')
-
-  //vi DOM-binder vores knap med ID'et "mqttButton"
-  select('#mqttButton').mousePressed(()=>{
-    select('#mqttButton').html('Stop viskere')
-    if (btnOn == false){
-      btnOn = true
-      client.publish('brillevisker', 'on')
-      console.log("motor turned on")
-
-      select('#mqttButton').addClass('btnActive')
-
-      select('#wetImg').addClass('hidden')
-      select('#wetImg').removeClass('visible')
-      select('#dryImg').addClass('visible')
-      select('#dryImg').removeClass('hidden')
-      
-    } else if (btnOn == true){
-      select('#mqttButton').html('Start viskere')
-
-      btnOn = false
-      client.publish('brillevisker', 'off')
-      console.log("motor turned off")
-
-      select('#mqttButton').removeClass('btnActive')
-
-      select('#dryImg').addClass('hidden')
-      select('#dryImg').removeClass('visible')
-      select('#wetImg').addClass('visible')
-      select('#wetImg').removeClass('hidden')
-    }
-  })
-  
-}
+// playerBillard.update()
+    // playerBillard.constrain()
+    // // countHit(allBalls, allHoles)
+    // playerBillard.bounce(otherBillard1)
+    // playerBillard.bounce(otherBillard2)
+    // playerBillard.bounce(otherBillard3)
+    
+    // otherBillard1.update()
+    // otherBillard2.update()
+    // otherBillard3.update()
+    // otherBillard1.constrain()
+    // otherBillard2.constrain()
+    // otherBillard3.constrain()
+    
+    // otherBillard1.bounce(otherBillard2)
+    // otherBillard1.bounce(otherBillard3)
+    // otherBillard2.bounce(otherBillard3)
+    // // show er sat i denne specifikke rækkefølge, da otherbillard'ene og playerbillard indlæses EFTER hullerne, så de vises ovenpå(og ikke bagved)
+    // holeBillard1.show()
+    // holeBillard2.show()
+    // holeBillard3.show()
+    // holeBillard4.show()
+    // holeBillard5.show()
+    // holeBillard6.show()
+    
+    // otherBillard1.show()
+    // otherBillard2.show()
+    // otherBillard3.show()
+    
+    // playerBillard.show()
